@@ -372,9 +372,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1392073797}
   - component: {fileID: 1392073796}
-  - component: {fileID: 1392073800}
   - component: {fileID: 1392073799}
   - component: {fileID: 1392073798}
+  - component: {fileID: 1392073800}
+  - component: {fileID: 1392073801}
+  - component: {fileID: 1392073802}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -495,7 +497,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1392073800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,8 +510,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eaf685e63f52f7479b804c48e600fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6
+--- !u!114 &1392073801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392073795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ceca10baea6584a8019d4d1e31bfdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  machine: {fileID: 0}
+  moveSpeed: 8
   jumpStrength: 8
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &1392073802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392073795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c2b045e681a994f8e4772ca6005364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 
