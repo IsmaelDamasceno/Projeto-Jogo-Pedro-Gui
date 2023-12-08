@@ -1,10 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+using UnityEngine.UIElements;
 
 public class MovementState : BaseState
 {
+
+	[Header("Distortion")]
+
+	[SerializeField] private Vector2 airDistortionClamp;
+
+	[SerializeField] private float xDistortionScale;
+	[SerializeField] private float xDistortionTime;
+	[SerializeField] private AnimationCurve xDistortionCurve;
+
+	private float curxDistortionTime;
+
+	[Header("Movement")]
+
 	[SerializeField] private float moveSpeed;
 
 	[SerializeField] private float jumpStrength;
@@ -17,6 +30,8 @@ public class MovementState : BaseState
 	[HideInInspector] public Rigidbody2D rb;
 	[HideInInspector] public BoxCollider2D collider;
 
+	private Transform spriteTrs;
+
 	public override void Enter()
 	{
 		// Procura um Rigidbody2D no Game Object, e atribui seu valor a vari�vel
@@ -24,6 +39,8 @@ public class MovementState : BaseState
 
 		// Procura um BoxCollider2D no Game Object, e atribui seu valor a vari�vel
 		collider = GetComponent<BoxCollider2D>();
+
+		spriteTrs = transform.GetChild(0);
 
 		Debug.Log("Enter Movement state");
 	}
@@ -35,6 +52,44 @@ public class MovementState : BaseState
 	public override void Step()
 	{
 		input = InputController.moveAxis.GetValRaw();
+
+		if (Grounded())
+		{
+			if (Mathf.Abs(rb.velocity.sqrMagnitude) >= 0.1f)
+			{
+				if (curxDistortionTime < 1f)
+				{
+					curxDistortionTime += Time.deltaTime * xDistortionTime;
+				}
+				float val = xDistortionCurve.Evaluate(curxDistortionTime) * xDistortionScale;
+
+				Vector2 scale = new (1f + val, 1f - val);
+				spriteTrs.localScale = scale;
+			}
+			else
+			{
+				if (curxDistortionTime > 0f)
+				{
+					curxDistortionTime -= Time.deltaTime * xDistortionTime;
+
+					float val = xDistortionCurve.Evaluate(curxDistortionTime) * xDistortionScale;
+
+					Vector2 scale = new(1f + val, 1f - val);
+					spriteTrs.localScale = scale;
+				}
+				else
+				{
+					spriteTrs.localScale = new(1f, 1f);
+				}
+			}
+		}
+		else
+		{
+
+			Vector2 scale = new
+			(1f - Mathf.Abs(rb.velocity.y) / airDistortionClamp.y, 1f + Mathf.Abs(rb.velocity.y) / airDistortionClamp.y);
+			spriteTrs.localScale = scale;
+		}
 	}
 
 	public override void FixedStep()

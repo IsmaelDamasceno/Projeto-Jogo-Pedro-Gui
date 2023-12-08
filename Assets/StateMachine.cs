@@ -7,7 +7,7 @@ public class StateMachine: MonoBehaviour
 	[HideInInspector] public Dictionary<string, BaseState> stateList;
 	[HideInInspector] public string currentState;
 
-	private void Start()
+	private void Awake()
 	{
 		stateList = new();
 		currentState = "";

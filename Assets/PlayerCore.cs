@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 public class PlayerCore : MonoBehaviour
 {
 	private StateMachine stateMachine;
-
 	void Start()
 	{
 		stateMachine = GetComponent<StateMachine>();
