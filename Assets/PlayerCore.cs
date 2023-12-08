@@ -6,13 +6,15 @@ using Random = UnityEngine.Random;
 
 public class PlayerCore : MonoBehaviour
 {
-	private StateMachine stateMachine;
+	public StateMachine stateMachine;
 	void Start()
 	{
 		stateMachine = GetComponent<StateMachine>();
 
 		BaseState moveState = GetComponent<MovementState>();
-		stateMachine.RegisterState("Move State", moveState);
-		stateMachine.ChangeState("Move State");
+		FreeState freeState = GetComponent<FreeState>();
+		stateMachine.RegisterState("Move", moveState);
+		stateMachine.RegisterState("Free", freeState);
+		stateMachine.ChangeState("Move");
 	}
 }
