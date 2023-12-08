@@ -52,7 +52,9 @@ public class MovementState : BaseState
 	public override void Step()
 	{
 		input = InputController.moveAxis.GetValRaw();
-
+		#region
+		/*
+		
 		if (Grounded())
 		{
 			if (Mathf.Abs(rb.velocity.sqrMagnitude) >= 0.1f)
@@ -89,7 +91,9 @@ public class MovementState : BaseState
 			Vector2 scale = new
 			(1f - Mathf.Abs(rb.velocity.y) / airDistortionClamp.y, 1f + Mathf.Abs(rb.velocity.y) / airDistortionClamp.y);
 			spriteTrs.localScale = scale;
-		}
+		} 
+		*/
+		#endregion
 	}
 
 	public override void FixedStep()
