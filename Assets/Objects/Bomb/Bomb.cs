@@ -13,18 +13,18 @@ public class Bomb : MonoBehaviour
 
     [SerializeField] private LayerMask explosionMask;
 
-    private SpriteRenderer sprite;
+    private SpriteRenderer maskSprite;
 
     void Start()
     {
-        sprite = GetComponent<SpriteRenderer>();
+        maskSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         StartCoroutine(WaitExplosion());
     }
 
     void Update()
     {
         curTime += Time.deltaTime / explodeTime;
-        sprite.color = new(curTime, curTime, curTime);
+		maskSprite.color = new Color(1f, 1f, 1f, curTime);
 	}
 
     IEnumerator WaitExplosion()
@@ -45,8 +45,6 @@ public class Bomb : MonoBehaviour
 					Vector2 direction = (collider.transform.position - transform.position).normalized;
 					float percentage = 1f - (Vector2.Distance(collider.transform.position, transform.position) / explosionRadius);
 					float force = percentage * explosionForce + rb.velocity.magnitude;
-
-                    Debug.Log($"obj: {rb.gameObject.name}, direction:{direction}, percentage: {percentage}, old vel: {rb.velocity.magnitude}, force: {force}");
 
                     if (collider.TryGetComponent(out PlayerCore playerCore))
                     {

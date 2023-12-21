@@ -41,12 +41,9 @@ public class MovementState : BaseState
 		collider = GetComponent<BoxCollider2D>();
 
 		spriteTrs = transform.GetChild(0);
-
-		Debug.Log("Enter Movement state");
 	}
 	public override void Exit()
 	{
-		Debug.Log("Exit Movement state");
 	}
 
 	public override void Step()
