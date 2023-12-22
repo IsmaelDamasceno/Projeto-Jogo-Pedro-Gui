@@ -6,25 +6,25 @@ using UnityEngine.UIElements;
 public class MovementState : BaseState
 {
 
-	[Header("Distortion")]
-
-	[SerializeField] private Vector2 airDistortionClamp;
-
-	[SerializeField] private float xDistortionScale;
-	[SerializeField] private float xDistortionTime;
-	[SerializeField] private AnimationCurve xDistortionCurve;
-
-	private float curxDistortionTime;
-
 	[Header("Movement")]
-
 	[SerializeField] private float moveSpeed;
-
 	[SerializeField] private float jumpStrength;
+	private float direction = 0f;
+
+	[Header("Acceleration")]
+	[SerializeField] private AnimationCurve accelerationCurve;
+	[SerializeField] private float accelerationScale;
+
+	[SerializeField] private float accelerationTimeScale;
+	[SerializeField] private float decelerationTimeScale;
+
+	private float curAccelarationTime;
+	[SerializeField] private float curAcceleration;
 
 	// Camadas que representam ch�o onde o jogador pode pular
 	[SerializeField] private LayerMask groundMask;
 
+	private int inputLastFrame = 0;
 	private int input;
 
 	[HideInInspector] public Rigidbody2D rb;
@@ -49,53 +49,40 @@ public class MovementState : BaseState
 	public override void Step()
 	{
 		input = InputController.moveAxis.GetValRaw();
-		#region
-		/*
-		
-		if (Grounded())
+		if (input != 0f)
 		{
-			if (Mathf.Abs(rb.velocity.sqrMagnitude) >= 0.1f)
+			if (input == inputLastFrame)
 			{
-				if (curxDistortionTime < 1f)
-				{
-					curxDistortionTime += Time.deltaTime * xDistortionTime;
-				}
-				float val = xDistortionCurve.Evaluate(curxDistortionTime) * xDistortionScale;
+				direction = input;
 
-				Vector2 scale = new (1f + val, 1f - val);
-				spriteTrs.localScale = scale;
+				if (curAccelarationTime < 1f)
+				{
+					curAccelarationTime += Time.deltaTime * accelerationTimeScale;
+				}
+				curAcceleration = accelerationCurve.Evaluate(curAccelarationTime) * accelerationScale;
 			}
 			else
 			{
-				if (curxDistortionTime > 0f)
-				{
-					curxDistortionTime -= Time.deltaTime * xDistortionTime;
-
-					float val = xDistortionCurve.Evaluate(curxDistortionTime) * xDistortionScale;
-
-					Vector2 scale = new(1f + val, 1f - val);
-					spriteTrs.localScale = scale;
-				}
-				else
-				{
-					spriteTrs.localScale = new(1f, 1f);
-				}
+				curAccelarationTime = 0f;
+				curAcceleration = 0f;
 			}
 		}
 		else
 		{
+			if (curAccelarationTime > 0f)
+			{
+				curAccelarationTime -= Time.deltaTime * decelerationTimeScale;
+			}
+			curAcceleration = accelerationCurve.Evaluate(curAccelarationTime) * accelerationScale;
+		}
 
-			Vector2 scale = new
-			(1f - Mathf.Abs(rb.velocity.y) / airDistortionClamp.y, 1f + Mathf.Abs(rb.velocity.y) / airDistortionClamp.y);
-			spriteTrs.localScale = scale;
-		} 
-		*/
-		#endregion
+		inputLastFrame = input;
 	}
 
 	public override void FixedStep()
 	{
-		rb.velocity = new Vector2(input * moveSpeed, rb.velocity.y);
+		rb.velocity = new Vector2(
+			direction * ((Mathf.Abs(input) * moveSpeed) + curAcceleration), rb.velocity.y);
 
 		if (InputController.GetKey("Jump") && Grounded())
 		{
