@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class MovementState : BaseState
@@ -21,6 +22,12 @@ public class MovementState : BaseState
 	private float curAccelarationTime;
 	[SerializeField] private float curAcceleration;
 
+
+	// Boost
+	[SerializeField] private float maxBoost;
+	[SerializeField] private float boostDecay;
+	private float currentBoost;
+
 	// Camadas que representam ch�o onde o jogador pode pular
 	[SerializeField] private LayerMask groundMask;
 
@@ -32,6 +39,10 @@ public class MovementState : BaseState
 
 	private Transform spriteTrs;
 
+	public void ApplyBoost(float val)
+	{
+		currentBoost += val;
+	}
 	public override void Enter()
 	{
 		// Procura um Rigidbody2D no Game Object, e atribui seu valor a vari�vel
@@ -77,12 +88,21 @@ public class MovementState : BaseState
 		}
 
 		inputLastFrame = input;
+
+		if (Mathf.Abs(currentBoost) >= boostDecay)
+		{
+			currentBoost -= Mathf.Sign(currentBoost) * boostDecay * Time.deltaTime;
+		}
+		else
+		{
+			currentBoost = 0f;
+		}
 	}
 
 	public override void FixedStep()
 	{
 		rb.velocity = new Vector2(
-			direction * ((Mathf.Abs(input) * moveSpeed) + curAcceleration), rb.velocity.y);
+			direction * ((Mathf.Abs(input) * moveSpeed) + curAcceleration) + currentBoost, rb.velocity.y);
 
 		if (InputController.GetKey("Jump") && Grounded())
 		{
