@@ -223,9 +223,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  accelerationScale: 5
-  accelerationTimeScale: 1.5
-  decelerationTimeScale: 2
+  accelerationScale: 10
+  accelerationTimeScale: 1
+  decelerationTimeScale: 2.5
   curAcceleration: 0
   groundMask:
     serializedVersion: 2
