@@ -22,7 +22,6 @@ public class MovementState : BaseState
 	private float curAccelarationTime;
 	[SerializeField] private float curAcceleration;
 
-
 	// Boost
 	[SerializeField] private float maxBoost;
 	[SerializeField] private float boostDecay;
@@ -91,7 +90,7 @@ public class MovementState : BaseState
 
 		if (Mathf.Abs(currentBoost) >= boostDecay)
 		{
-			currentBoost -= Mathf.Sign(currentBoost) * boostDecay * Time.deltaTime;
+			currentBoost = Mathf.Sign(currentBoost) * boostDecay * Time.deltaTime;
 		}
 		else
 		{
