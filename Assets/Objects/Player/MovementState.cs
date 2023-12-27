@@ -22,10 +22,16 @@ public class MovementState : BaseState
 	private float curAccelarationTime;
 	[SerializeField] private float curAcceleration;
 
-	// Boost
-	[SerializeField] private float maxBoost;
-	[SerializeField] private float boostDecay;
-	private float currentBoost;
+	[Header("Boost")]
+	[SerializeField] private AnimationCurve boostCurve;
+	[SerializeField] private float boostTimeScale;
+	[SerializeField] private float boostImpulseMultiplier;
+	[SerializeField] private float boostBreakMultiplier;
+
+	private float currentBoostScale;
+	private float currentBoostTime;
+	[SerializeField] private float currentBoost;
+	private bool boosting = false;
 
 	// Camadas que representam ch�o onde o jogador pode pular
 	[SerializeField] private LayerMask groundMask;
@@ -38,10 +44,13 @@ public class MovementState : BaseState
 
 	private Transform spriteTrs;
 
-	public void ApplyBoost(float val)
+	public void ApplyBoost(float boostValue)
 	{
-		currentBoost += val;
+		currentBoostScale += boostValue;
+		currentBoostTime = 0f;
+		boosting = true;
 	}
+
 	public override void Enter()
 	{
 		// Procura um Rigidbody2D no Game Object, e atribui seu valor a vari�vel
@@ -54,17 +63,22 @@ public class MovementState : BaseState
 	}
 	public override void Exit()
 	{
+
 	}
 
 	public override void Step()
 	{
+		#region Base Movement
 		input = InputController.moveAxis.GetValRaw();
 		if (input != 0f)
 		{
-			if (input == inputLastFrame)
+			if (!boosting)
 			{
 				direction = input;
+			}
 
+			if (input == inputLastFrame)
+			{
 				if (curAccelarationTime < 1f)
 				{
 					curAccelarationTime += Time.deltaTime * accelerationTimeScale;
@@ -85,23 +99,41 @@ public class MovementState : BaseState
 			}
 			curAcceleration = accelerationCurve.Evaluate(curAccelarationTime) * accelerationScale;
 		}
-
 		inputLastFrame = input;
+		#endregion
 
-		if (Mathf.Abs(currentBoost) >= boostDecay)
+		#region Boost Movement
+		if ((currentBoost >= moveSpeed + accelerationScale || currentBoostTime <= 0.05f) && currentBoostTime <= 1f && boosting)
 		{
-			currentBoost = Mathf.Sign(currentBoost) * boostDecay * Time.deltaTime;
+			float multiplier = 1f;
+			if (input != 0)
+			{
+				multiplier = input == direction ? boostImpulseMultiplier : boostBreakMultiplier;
+			}
+
+			currentBoostTime += Time.deltaTime * boostTimeScale * multiplier;
+			currentBoost = boostCurve.Evaluate(currentBoostTime) * currentBoostScale;
 		}
 		else
 		{
-			currentBoost = 0f;
+			currentBoostScale = 0f;
+			boosting = false;
 		}
+		#endregion
 	}
 
 	public override void FixedStep()
 	{
-		rb.velocity = new Vector2(
-			direction * ((Mathf.Abs(input) * moveSpeed) + curAcceleration) + currentBoost, rb.velocity.y);
+		if (boosting)
+		{
+			rb.velocity = new Vector2(direction * currentBoost, rb.velocity.y);
+		}
+		else
+		{
+			float vel = direction * ((Mathf.Abs(input) * moveSpeed) + curAcceleration);
+			rb.velocity = new Vector2(vel, rb.velocity.y);
+		}
+		
 
 		if (InputController.GetKey("Jump") && Grounded())
 		{
