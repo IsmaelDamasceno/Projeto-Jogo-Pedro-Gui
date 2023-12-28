@@ -10,7 +10,8 @@ public class MovementState : BaseState
 	[Header("Movement")]
 	[SerializeField] private float moveSpeed;
 	[SerializeField] private float jumpStrength;
-	private float direction = 0f;
+	public float direction = 0f;
+	public bool moving = false;
 
 	[Header("Acceleration")]
 	[SerializeField] private AnimationCurve accelerationCurve;
@@ -51,6 +52,11 @@ public class MovementState : BaseState
 		boosting = true;
 	}
 
+	public float GetMaxRegularSpeed()
+	{
+		return moveSpeed + accelerationScale;
+	}
+
 	public override void Enter()
 	{
 		// Procura um Rigidbody2D no Game Object, e atribui seu valor a vari�vel
@@ -70,6 +76,7 @@ public class MovementState : BaseState
 	{
 		#region Base Movement
 		input = InputController.moveAxis.GetValRaw();
+		moving = input != 0;
 		if (input != 0f)
 		{
 			if (!boosting)

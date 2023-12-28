@@ -20,6 +20,11 @@ public class Plank : MonoBehaviour
         
     }
 
+	public void Explode(Vector2 speed, Vector2 point )
+	{
+
+	}
+
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.tag == "Player")
@@ -48,7 +53,7 @@ public class Plank : MonoBehaviour
 						Instantiate(dustParticles, trs.position, dustParticles.transform.rotation).transform;
 					dustTrs.right = rightDirection;
 
-					float magnetude = Mathf.Abs(collision.relativeVelocity.x) /2f;
+					float magnetude = Mathf.Clamp(Mathf.Abs(collision.relativeVelocity.x) / 4f, 0f, 12f);
 					Vector2 direction = (trs.position - collision.transform.position).normalized;
 					Debug.Log(direction);
 
