@@ -7,8 +7,8 @@ using Random = UnityEngine.Random;
 public class Plank : MonoBehaviour
 {
 
-    [SerializeField] private GameObject plankPieces;
-
+    [SerializeField] private GameObject plankPiece;
+	[SerializeField] private Vector2 torque; 
     void Start()
     {
         
@@ -28,13 +28,13 @@ public class Plank : MonoBehaviour
 				foreach(Transform trs in transform)
 				{
 					Rigidbody2D rb =
-						Instantiate(plankPieces, trs.position, Quaternion.identity).GetComponent<Rigidbody2D>();
+						Instantiate(plankPiece, trs.position, Quaternion.identity).GetComponent<Rigidbody2D>();
 
 					float magnetude = collision.relativeVelocity.x/2f;
 					Vector2 direction = (trs.position - collision.transform.position).normalized;
 
 					rb.AddForce(direction * magnetude, ForceMode2D.Impulse);
-					rb.AddTorque(Math.Sign(magnetude) * Random.Range(5, 10), ForceMode2D.Impulse);
+					rb.AddTorque(Math.Sign(magnetude) * Random.Range(torque.x, torque.y), ForceMode2D.Impulse);
 				}
 				Destroy(gameObject);
 			} 
