@@ -103,7 +103,7 @@ public class MovementState : BaseState
 		#endregion
 
 		#region Boost Movement
-		if ((currentBoost >= moveSpeed + accelerationScale || currentBoostTime <= 0.05f) && currentBoostTime <= 1f && boosting)
+		if ((input == 0f || currentBoost >= moveSpeed + accelerationScale || currentBoostTime <= 0.05f) && currentBoostTime <= 1f && boosting)
 		{
 			float multiplier = 1f;
 			if (input != 0)
