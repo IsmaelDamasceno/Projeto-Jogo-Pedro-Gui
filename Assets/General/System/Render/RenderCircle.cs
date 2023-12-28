@@ -30,7 +30,6 @@ public class RenderCircle : MonoBehaviour
             float y = radius * Mathf.Sin(angle);
 
             Vector3 pos = new(x, y, 0f);
-            Debug.Log($"i: {i}, prog: {progress}, ang: {angle}, pos: {pos}");
             lineRenderer.SetPosition(i, pos);
         }
     }

@@ -11,7 +11,6 @@ public abstract class Pickable: MonoBehaviour
 	{
 		lineRenderer = GetComponent<LineRenderer>();
 		RenderCircle.DrawCircle(lineRenderer, 16, Pickup.PickupRadius);
-		Debug.Log($"Turning into circle: {Pickup.PickupRadius}");
 	}
 	private void Update()
 	{

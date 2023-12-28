@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plankPiece: {fileID: 2946391410599806294, guid: 2ef51969325a9984080d4d904ccd4868, type: 3}
+  dustParticles: {fileID: 7542640006467154293, guid: 99b00f1fd77454b48895798a37018eba, type: 3}
   torque: {x: 2, y: 5}
 --- !u!1 &3520592477386106567
 GameObject:
