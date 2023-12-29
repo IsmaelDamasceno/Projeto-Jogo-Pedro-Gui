@@ -6,6 +6,18 @@ using UnityEngine;
 public static class Utils
 {
 
+	public static GameObject SearchObjectIntransform(Transform transformSearch, string objectName)
+	{
+		foreach (Transform trs in transformSearch)
+		{
+			if (trs.gameObject.name == objectName)
+			{
+				return trs.gameObject;
+			}
+		}
+		return default(GameObject);
+	}
+
 	/// <summary>
 	/// Pesquisa por um objeto dentro de um transform, e retorna o componente de tipo T dentro desse objeto
 	/// </summary>
@@ -31,7 +43,7 @@ public static class Utils
 	/// <param name="transformSearch">Transform para ser usado na pesquisa</param>
 	/// <param name="objectName">Nome do objeto para ser encontrado</param>
 	/// <returns></returns>
-	public static T[] SearchObjectWithComponents<T>(Transform transformSearch, string objectName)
+	public static T[] SearchObjectsWithComponent<T>(Transform transformSearch, string objectName)
 	{
 		T[] returnArray;
 		foreach (Transform trs in transformSearch)
@@ -41,7 +53,7 @@ public static class Utils
 				returnArray = new T[trs.childCount];
 				for(int i = 0; i < returnArray.Length; i++)
 				{
-					returnArray[i] = trs.GetComponent<T>();
+					returnArray[i] = trs.GetChild(i).GetComponent<T>();
 				}
 				return returnArray;
 			}

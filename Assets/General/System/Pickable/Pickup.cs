@@ -1,4 +1,5 @@
 using Pick;
+using Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,11 +32,13 @@ public class Pickup : MonoBehaviour
     private static Collider2D hovering;
 	private static Transform holding;
     private Rigidbody2D rb;
-    private Player.MovementState moveState;
     private Transform handsTrs;
 
+	private GameObject armBase;
 	private Transform[] armPoints;
 	private Transform[] holdPoints;
+
+	private MovementState moveState;
 
 	void Start()
     {
@@ -44,6 +47,9 @@ public class Pickup : MonoBehaviour
             instance = this;
             rb = GetComponent<Rigidbody2D>();
             moveState = GetComponent<Player.MovementState>();
+
+			armBase = Utils.SearchObjectIntransform(transform, "Arm Points");
+			armPoints = Utils.SearchObjectsWithComponent<Transform>(transform, "Arm Points");
 
 			handsTrs = Utils.SearchObjectWithComponent<Transform>(transform, "Hands");
         }
@@ -100,6 +106,17 @@ public class Pickup : MonoBehaviour
 
 		holding.SetParent(handsTrs);
 		holding.GetComponent<PickableCore>().stateMachine.ChangeState("Held");
+
+		holdPoints = new Transform[2];
+		int i = 0;
+		foreach(Transform trs in holding)
+		{
+			holdPoints[i] = trs;
+			i++;
+		}
+
+		armBase.transform.localScale = new(moveState.direction, 1f, 1f);
+		handsTrs.localScale = new(moveState.direction, 1f, 1f);
 	}
 	private void HandAnimation()
     {
@@ -139,7 +156,23 @@ public class Pickup : MonoBehaviour
 	}
 	private void ArmsAnimation()
 	{
+		if (moveState.moving)
+		{
+			armBase.transform.localScale = new(moveState.direction, 1f, 1f);
+			handsTrs.localScale = new(moveState.direction, 1f, 1f);
+		}
 
+		int i = 0;
+		foreach(Transform arm in armPoints)
+		{
+			Transform holdPoint = holdPoints[i];
+			Vector2 pos = holdPoint.position - arm.position;
+			float distance = pos.magnitude;
+			float angle = Mathf.Atan2(pos.y, pos.x) * Mathf.Rad2Deg - 90f;
+
+			arm.rotation = Quaternion.Euler(0f, 0f, angle);
+			i++;
+		}
 	}
 
     void Update()
@@ -151,9 +184,23 @@ public class Pickup : MonoBehaviour
 		}
 		if (holding != null)
 		{
+			if (!armBase.activeInHierarchy)
+			{
+				handsTrs.gameObject.SetActive(true);
+				armBase.SetActive(true);
+			}
+
 			HandAnimation();
+			ArmsAnimation();
 		}
-		ArmsAnimation();
+		else
+		{
+			if (armBase.activeInHierarchy)
+			{
+				handsTrs.gameObject.SetActive(false);
+				armBase.SetActive(false);
+			}
+		}
 	}
 
 	/*

@@ -15,9 +15,6 @@ namespace Pick
 			Pickable pickable = GetComponent<Pickable>();
 			PickableHeldState held = GetComponent<PickableHeldState>();
 
-			Debug.Log($"pickable: {pickable}");
-			Debug.Log($"held: {held}");
-
 			stateMachine.RegisterState("Pickable", pickable);
 			stateMachine.RegisterState("Held", held);
 			stateMachine.ChangeState("Pickable"); 
