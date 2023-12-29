@@ -45,7 +45,7 @@ public class Bomb : MonoBehaviour
 					float percentage = 1f - (Vector2.Distance(collider.transform.position, transform.position) / explosionRadius);
 					float force = percentage * explosionForce + rb.velocity.magnitude;
 
-                    if (collider.TryGetComponent(out PlayerCore playerCore))
+                    if (collider.TryGetComponent(out Player.PlayerCore playerCore))
                     {
                         playerCore.stateMachine.ChangeState("Free");
                     }

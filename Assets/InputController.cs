@@ -5,7 +5,6 @@ using UnityEngine;
 
 public struct InputAxis
 {
-
     public InputAxis(string negative, string positive)
     {
         this.negative = negative;
@@ -29,7 +28,6 @@ public struct InputAxis
 
 public class InputController : MonoBehaviour
 {
-
     public static Dictionary<string, KeyCode> keys;
     public static InputAxis moveAxis;
 
@@ -43,7 +41,8 @@ public class InputController : MonoBehaviour
 		    {
 			    { "Left", KeyCode.A },
 			    { "Right", KeyCode.D },
-                { "Jump", KeyCode.Space }
+                { "Jump", KeyCode.Space },
+                { "Pickup", KeyCode.E }
 		    };
 			moveAxis = new("Left", "Right");
 
@@ -59,6 +58,10 @@ public class InputController : MonoBehaviour
     public static bool GetKey(string key)
     {
         return Input.GetKey(keys[key]);
+    }
+    public static bool GetKeyDown(string key)
+    {
+        return Input.GetKeyDown(keys[key]);
     }
 
 }

@@ -12,7 +12,10 @@ GameObject:
   - component: {fileID: 2946391410599806293}
   - component: {fileID: 2946391410599806292}
   - component: {fileID: 2946391410599806295}
+  - component: {fileID: 8956650257286938296}
+  - component: {fileID: 990910074587761086}
   - component: {fileID: 2158293058144250110}
+  - component: {fileID: 504565072577537769}
   - component: {fileID: -6223359768325053547}
   m_Layer: 7
   m_Name: Plank Piece
@@ -163,6 +166,32 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.64, y: 2.173395}
   m_EdgeRadius: 0
+--- !u!114 &8956650257286938296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2946391410599806294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c2b045e681a994f8e4772ca6005364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 
+--- !u!114 &990910074587761086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2946391410599806294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e13937a8b45354f48b8824fbc6404567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMachine: {fileID: 0}
 --- !u!114 &2158293058144250110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,8 +204,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3aa2f6b05c0c54cbfcf57e45fd6fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machine: {fileID: 0}
   hover: 0
   lineRenderer: {fileID: -6223359768325053547}
+--- !u!114 &504565072577537769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2946391410599806294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 152a9fe756867bd4b941084cdfab0505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  machine: {fileID: 0}
 --- !u!120 &-6223359768325053547
 LineRenderer:
   serializedVersion: 2

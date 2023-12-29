@@ -23,7 +23,7 @@ public class Boost : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<MovementState>().ApplyBoost(
+            collision.GetComponent<Player.MovementState>().ApplyBoost(
                 renderer.flipX? -1: 1, Mathf.Sign(transform.localScale.x) * boostSpeed);
 
             Destroy(gameObject);

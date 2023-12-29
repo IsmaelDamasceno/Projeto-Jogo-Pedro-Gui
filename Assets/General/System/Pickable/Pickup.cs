@@ -1,3 +1,4 @@
+using Pick;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ using Debug = UnityEngine.Debug;
 
 public class Pickup : MonoBehaviour
 {
+    public static Pickup instance;
+
     [Header("Hold")]
     [SerializeField] private float holdDistance;
     [SerializeField] private float maxWaveAngle;
@@ -24,13 +27,15 @@ public class Pickup : MonoBehaviour
     [SerializeField] private LayerMask pickupMask;
 
     public static float PickupRadius { get => instance.pickupRadius; set => instance.pickupRadius = value; }
-    public static Pickup instance;
 
     private static Collider2D hovering;
+	private static Transform holding;
     private Rigidbody2D rb;
-    private MovementState moveState;
+    private Player.MovementState moveState;
     private Transform handsTrs;
-    private float maxSpeed;
+
+	private Transform[] armPoints;
+	private Transform[] holdPoints;
 
 	void Start()
     {
@@ -38,10 +43,9 @@ public class Pickup : MonoBehaviour
         {
             instance = this;
             rb = GetComponent<Rigidbody2D>();
-            moveState = GetComponent<MovementState>();
+            moveState = GetComponent<Player.MovementState>();
 
 			handsTrs = Utils.SearchObjectWithComponent<Transform>(transform, "Hands");
-            maxSpeed = moveState.GetMaxRegularSpeed();
         }
         else
         {
@@ -65,7 +69,7 @@ public class Pickup : MonoBehaviour
         }
         return nearestCollider;
     }
-    private void CollisionLogic()
+	private void CollisionLogic()
     {
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, pickupRadius, pickupMask);
 		if (colliders.Length > 0)
@@ -88,7 +92,16 @@ public class Pickup : MonoBehaviour
 			}
 		}
 	}
-    private void HandAnimation()
+	private void Interact()
+	{
+		hovering.GetComponent<Pickable>().hover = false;
+		holding = hovering.transform;
+		hovering = null;
+
+		holding.SetParent(handsTrs);
+		holding.GetComponent<PickableCore>().stateMachine.ChangeState("Held");
+	}
+	private void HandAnimation()
     {
 		if (Mathf.Abs(rb.velocity.x) >= 2f)
 		{
@@ -124,11 +137,23 @@ public class Pickup : MonoBehaviour
 		handsTrs.localPosition = currentHoldPosition;
 		handsTrs.rotation = Quaternion.Euler(0f, 0f, currentAngle);
 	}
+	private void ArmsAnimation()
+	{
+
+	}
 
     void Update()
     {
         CollisionLogic();
-		HandAnimation();
+		if (hovering != null && InputController.GetKeyDown("Pickup"))
+		{
+			Interact();
+		}
+		if (holding != null)
+		{
+			HandAnimation();
+		}
+		ArmsAnimation();
 	}
 
 	/*

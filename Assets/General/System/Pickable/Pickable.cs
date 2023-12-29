@@ -2,20 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Pickable: MonoBehaviour
+public abstract class Pickable: BaseState
 {
 	public bool hover;
 	[SerializeField] protected LineRenderer lineRenderer;
 
-	void Start()
+	public abstract void PickUp();
+
+	public override void Enter()
 	{
 		lineRenderer = GetComponent<LineRenderer>();
 		RenderCircle.DrawCircle(lineRenderer, 16, Pickup.PickupRadius);
 	}
-	private void Update()
+	public override void Step()
 	{
 		lineRenderer.enabled = hover;
 	}
+	public override void FixedStep()
+	{
 
-	public abstract void PickUp();
+	}
+	public override void Exit()
+	{
+
+	}
 }

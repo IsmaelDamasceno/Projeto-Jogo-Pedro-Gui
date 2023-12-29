@@ -4,17 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class PlayerCore : MonoBehaviour
+namespace Player
 {
-	public StateMachine stateMachine;
-	void Start()
+	public class PlayerCore : MonoBehaviour
 	{
-		stateMachine = GetComponent<StateMachine>();
+		public StateMachine stateMachine;
+		void Start()
+		{
+			stateMachine = GetComponent<StateMachine>();
 
-		BaseState moveState = GetComponent<MovementState>();
-		FreeState freeState = GetComponent<FreeState>();
-		stateMachine.RegisterState("Move", moveState);
-		stateMachine.RegisterState("Free", freeState);
-		stateMachine.ChangeState("Move");
+			BaseState moveState = GetComponent<MovementState>();
+			FreeState freeState = GetComponent<FreeState>();
+			stateMachine.RegisterState("Move", moveState);
+			stateMachine.RegisterState("Free", freeState);
+			stateMachine.ChangeState("Move");
+		}
 	}
 }
