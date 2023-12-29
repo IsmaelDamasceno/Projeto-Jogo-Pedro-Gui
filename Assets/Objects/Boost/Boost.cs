@@ -7,9 +7,11 @@ public class Boost : MonoBehaviour
 
     [SerializeField] private float boostSpeed;
 
+    private SpriteRenderer renderer;
+
     void Start()
     {
-        
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -21,7 +23,8 @@ public class Boost : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<MovementState>().ApplyBoost(Mathf.Sign(transform.localScale.x) * boostSpeed);
+            collision.GetComponent<MovementState>().ApplyBoost(
+                renderer.flipX? -1: 1, Mathf.Sign(transform.localScale.x) * boostSpeed);
 
             Destroy(gameObject);
         }

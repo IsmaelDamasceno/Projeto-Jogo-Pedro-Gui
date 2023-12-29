@@ -55,7 +55,6 @@ public class Plank : MonoBehaviour
 
 					float magnetude = Mathf.Clamp(Mathf.Abs(collision.relativeVelocity.x) / 4f, 0f, 12f);
 					Vector2 direction = (trs.position - collision.transform.position).normalized;
-					Debug.Log(direction);
 
 					rb.AddForce(direction * magnetude, ForceMode2D.Impulse);
 					rb.AddTorque(Math.Sign(magnetude) * Random.Range(torque.x, torque.y), ForceMode2D.Impulse);

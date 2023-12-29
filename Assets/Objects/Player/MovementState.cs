@@ -28,6 +28,7 @@ public class MovementState : BaseState
 	[SerializeField] private float boostTimeScale;
 	[SerializeField] private float boostImpulseMultiplier;
 	[SerializeField] private float boostBreakMultiplier;
+	[SerializeField] private float boostInvertMultiplier;
 
 	private float currentBoostScale;
 	private float currentBoostTime;
@@ -43,13 +44,14 @@ public class MovementState : BaseState
 	[HideInInspector] public Rigidbody2D rb;
 	[HideInInspector] public BoxCollider2D collider;
 
-	private Transform spriteTrs;
+	private SpriteRenderer renderer;
 
-	public void ApplyBoost(float boostValue)
+	public void ApplyBoost(int direction, float boostValue)
 	{
 		currentBoostScale += boostValue;
 		currentBoostTime = 0f;
 		boosting = true;
+		this.direction = direction;
 	}
 
 	public float GetMaxRegularSpeed()
@@ -65,7 +67,7 @@ public class MovementState : BaseState
 		// Procura um BoxCollider2D no Game Object, e atribui seu valor a vari�vel
 		collider = GetComponent<BoxCollider2D>();
 
-		spriteTrs = transform.GetChild(0);
+		renderer = GetComponent<SpriteRenderer>();
 	}
 	public override void Exit()
 	{
@@ -82,6 +84,7 @@ public class MovementState : BaseState
 			if (!boosting)
 			{
 				direction = input;
+				renderer.flipX = direction == -1;
 			}
 
 			if (input == inputLastFrame)
@@ -110,12 +113,22 @@ public class MovementState : BaseState
 		#endregion
 
 		#region Boost Movement
-		if ((input == 0f || currentBoost >= moveSpeed + accelerationScale || currentBoostTime <= 0.05f) && currentBoostTime <= 1f && boosting)
+		if ((input == 0f || input != direction || currentBoost >= moveSpeed + accelerationScale || currentBoostTime <= 0.05f) && currentBoostTime <= 1f && boosting)
 		{
 			float multiplier = 1f;
-			if (input != 0)
+			if (currentBoost > moveSpeed + accelerationScale)
 			{
-				multiplier = input == direction ? boostImpulseMultiplier : boostBreakMultiplier;
+				if (input != 0)
+				{
+					multiplier = input == direction ? boostImpulseMultiplier : boostBreakMultiplier;
+				}
+			}
+			else
+			{
+				if (input != direction)
+				{
+					multiplier = boostInvertMultiplier;
+				}
 			}
 
 			currentBoostTime += Time.deltaTime * boostTimeScale * multiplier;
