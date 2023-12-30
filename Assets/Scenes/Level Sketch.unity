@@ -15151,6 +15151,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &391450009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1949271423112860905, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
+  m_PrefabInstance: {fileID: 7025920235467255601}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c2b045e681a994f8e4772ca6005364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &391450012 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 7025920236783694711, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
+  m_PrefabInstance: {fileID: 7025920235467255601}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &391450013 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 7025920236783694710, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
+  m_PrefabInstance: {fileID: 7025920235467255601}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &494152581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2710386884962421696, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
@@ -16826,8 +16847,36 @@ PrefabInstance:
       value: 1.02
       objectReference: {fileID: 0}
     - target: {fileID: 1949271423112860906, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 391450013}
+    - target: {fileID: 1949271423112860906, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
+      propertyPath: machine
+      value: 
+      objectReference: {fileID: 391450009}
+    - target: {fileID: 1949271423112860906, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 391450012}
+    - target: {fileID: 1949271423112860906, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
+      propertyPath: direction
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949271423112860906, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
+      propertyPath: accelerationScale
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949271423112860906, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
+      propertyPath: accelerationTimeScale
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949271423112860906, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
       propertyPath: boostInvertMultiplier
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949271423112860906, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
+      propertyPath: decelerationTimeScale
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2693256474960709217, guid: 281cc24c49a1b5142aabf047773485cc, type: 3}
       propertyPath: oppositePullMiltiplier
