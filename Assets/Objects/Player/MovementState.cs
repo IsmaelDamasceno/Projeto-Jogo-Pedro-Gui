@@ -48,6 +48,8 @@ namespace Player
 
 		private SpriteRenderer renderer;
 
+		private bool grounded = false;
+
 		public void ApplyBoost(int direction, float boostValue)
 		{
 			currentBoostScale += boostValue;
@@ -78,6 +80,8 @@ namespace Player
 
 		public override void Step()
 		{
+			grounded = Grounded();
+
 			#region Base Movement
 			input = InputController.moveAxis.GetValRaw();
 			moving = input != 0;
@@ -142,6 +146,13 @@ namespace Player
 				boosting = false;
 			}
 			#endregion
+
+			#region State Change
+			if (InputController.GetKey("DownDash") && !grounded)
+			{
+				machine.ChangeState("DownDash");
+			}
+			#endregion
 		}
 
 		public override void FixedStep()
@@ -157,7 +168,7 @@ namespace Player
 			}
 
 
-			if (InputController.GetKey("Jump") && Grounded())
+			if (InputController.GetKey("Jump") && grounded)
 			{
 				rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
 			}

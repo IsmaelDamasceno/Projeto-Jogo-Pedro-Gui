@@ -15,8 +15,10 @@ namespace Player
 
 			BaseState moveState = GetComponent<MovementState>();
 			FreeState freeState = GetComponent<FreeState>();
+			DownDashState downDashState = GetComponent<DownDashState>();
 			stateMachine.RegisterState("Move", moveState);
 			stateMachine.RegisterState("Free", freeState);
+			stateMachine.RegisterState("DownDash", downDashState);
 			stateMachine.ChangeState("Move");
 		}
 	}
