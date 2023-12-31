@@ -20,7 +20,7 @@ public class PlankPieceHeld : PickableHeldState
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
 
-		transform.localPosition = new(0f, 0.3f);
+		transform.localPosition = new(0f, 0.244f);
 		transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
 	}
 
