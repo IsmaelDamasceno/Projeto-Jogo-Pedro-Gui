@@ -44,7 +44,7 @@ public class InputController : MonoBehaviour
                 { "Jump", KeyCode.Space },
                 { "Pickup", KeyCode.E },
                 { "DownDash", KeyCode.S }
-		    };
+            };
 			moveAxis = new("Left", "Right");
 
             DontDestroyOnLoad(gameObject);

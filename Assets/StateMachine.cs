@@ -19,9 +19,11 @@ public class StateMachine: MonoBehaviour
 		if (currentState != "")
 		{
 			stateList[currentState].Exit();
+			stateList[currentState].active = false;
 		}
 		currentState = newStateName;
 		stateList[newStateName].Enter();
+		stateList[currentState].active = true;
 	}
 
 	public void RegisterState(string stateName, BaseState newState)

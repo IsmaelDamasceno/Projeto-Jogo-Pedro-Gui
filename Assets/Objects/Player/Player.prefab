@@ -524,6 +524,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  shockWavePrefab: {fileID: 5680789259282378548, guid: 939a31947ba2d0241878b4b9ea580161, type: 3}
 --- !u!1 &7120045479626097224
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,11 @@ namespace Player
 	public class PlayerCore : MonoBehaviour
 	{
 		public StateMachine stateMachine;
+
+#if UNITY_EDITOR
+		private bool slow;
+#endif
+
 		void Start()
 		{
 			stateMachine = GetComponent<StateMachine>();
@@ -21,5 +26,16 @@ namespace Player
 			stateMachine.RegisterState("DownDash", downDashState);
 			stateMachine.ChangeState("Move");
 		}
+
+#if UNITY_EDITOR
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.F1))
+			{
+				slow = !slow;
+			}
+			Time.timeScale = slow ? 0.2f : 1f;
+		}
+#endif
 	}
 }

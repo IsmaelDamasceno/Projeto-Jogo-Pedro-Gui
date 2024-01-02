@@ -3,20 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Renderiza um circulo usando um line renderer
-public class RenderCircle : MonoBehaviour
+public class LineHelper
 {
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
-
     public static void DrawCircle(LineRenderer lineRenderer, int steps, float radius)
     {
 		lineRenderer.useWorldSpace = false;
@@ -33,4 +21,23 @@ public class RenderCircle : MonoBehaviour
             lineRenderer.SetPosition(i, pos);
         }
     }
+
+    public static void DrawSpring(LineRenderer lineRenderer, int steps, float radius, float compression, float length)
+    {
+		lineRenderer.useWorldSpace = false;
+		lineRenderer.positionCount = steps;
+
+		for (int i = 0; i < steps; i++)
+		{
+			float progress = (float)i / steps;
+			float angle = (progress * compression) % (2 * Mathf.PI);
+
+			float x = radius * Mathf.Sin(angle);
+			float y = progress * length;
+			float z = radius * Mathf.Cos(angle);
+
+			Vector3 pos = new(x, y, z);
+			lineRenderer.SetPosition(i, pos);
+		}
+	}
 }

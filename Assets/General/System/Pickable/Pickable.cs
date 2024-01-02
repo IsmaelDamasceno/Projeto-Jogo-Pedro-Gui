@@ -12,7 +12,7 @@ public abstract class Pickable: BaseState
 	public override void Enter()
 	{
 		lineRenderer = GetComponent<LineRenderer>();
-		RenderCircle.DrawCircle(lineRenderer, 16, Pickup.PickupRadius);
+		LineHelper.DrawCircle(lineRenderer, 16, Pickup.PickupRadius);
 	}
 	public override void Step()
 	{

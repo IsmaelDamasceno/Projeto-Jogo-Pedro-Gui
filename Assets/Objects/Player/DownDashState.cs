@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class DownDashState : BaseState
 {
@@ -8,6 +10,8 @@ public class DownDashState : BaseState
     [SerializeField] private float gravityForce;
     [SerializeField] private float initialForce;
     [SerializeField] private LayerMask groundMask;
+
+    [SerializeField] private GameObject shockWavePrefab; 
 
     private float originalGravScale;
     private new BoxCollider2D collider;
@@ -24,12 +28,12 @@ public class DownDashState : BaseState
         originalGravScale = rb.gravityScale;
         rb.gravityScale = 0f;
         rb.velocity = Vector2.down * initialForce;
-    }
+	}
 
     public override void Exit()
     {
         rb.gravityScale = originalGravScale;
-    }
+	}
 
     public override void FixedStep()
     {
@@ -40,6 +44,11 @@ public class DownDashState : BaseState
     {
         if (Grounded())
         {
+            for(int i = 0; i <= 1; i++) {
+				GameObject obj = Instantiate(shockWavePrefab, transform.position, Quaternion.identity);
+                obj.GetComponent<ShockWave>().direction = (int)(Mathf.Sign(i - 1f));
+            }
+
             machine.ChangeState("Move");
         }
     }
