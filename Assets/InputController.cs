@@ -30,6 +30,7 @@ public class InputController : MonoBehaviour
 {
     public static Dictionary<string, KeyCode> keys;
     public static InputAxis moveAxis;
+    public static InputAxis verticalAxis;
 
     private static InputController instance;
 
@@ -41,13 +42,16 @@ public class InputController : MonoBehaviour
 		    {
 			    { "Left", KeyCode.A },
 			    { "Right", KeyCode.D },
+                { "Up", KeyCode.W },
+                { "Down", KeyCode.S },
                 { "Jump", KeyCode.Space },
                 { "Pickup", KeyCode.E },
                 { "DownDash", KeyCode.S }
             };
 			moveAxis = new("Left", "Right");
+            verticalAxis = new("Up", "Down");
 
-            DontDestroyOnLoad(gameObject);
+			DontDestroyOnLoad(gameObject);
 		}
         else
         {

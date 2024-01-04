@@ -27,6 +27,10 @@ public class Pickup : MonoBehaviour
     [SerializeField] private float pickupRadius;
     [SerializeField] private LayerMask pickupMask;
 
+	[Header("Throw")]
+	[SerializeField] private float throwForce;
+	[SerializeField] private float yForceClamp;
+
     public static float PickupRadius { get => instance.pickupRadius; set => instance.pickupRadius = value; }
 
     private static Collider2D hovering;
@@ -98,7 +102,7 @@ public class Pickup : MonoBehaviour
 			}
 		}
 	}
-	private void Interact()
+	private void Pick()
 	{
 		hovering.GetComponent<Pickable>().hover = false;
 		holding = hovering.transform;
@@ -117,6 +121,25 @@ public class Pickup : MonoBehaviour
 
 		armBase.transform.localScale = new(moveState.direction, 1f, 1f);
 		handsTrs.localScale = new(moveState.direction, 1f, 1f);
+	}
+	private void Throw()
+	{
+		float x = InputController.moveAxis.GetValRaw();
+		float y = -InputController.verticalAxis.GetValRaw();
+
+		if (x == 0f && y == 0f)
+		{
+			x = GetComponent<MovementState>().direction;
+		}
+
+		Vector2 direction = new Vector2(x, y).normalized;
+		Vector2 velocity = direction * throwForce;
+		velocity.y = Mathf.Clamp(velocity.y, -yForceClamp, yForceClamp);
+
+		holding.GetComponent<StateMachine>().ChangeState("Pickable");
+		holding.GetComponent<Rigidbody2D>().AddForce(velocity, ForceMode2D.Impulse);
+		holding.SetParent(null);
+		holding = null;
 	}
 	private void HandAnimation()
     {
@@ -178,10 +201,27 @@ public class Pickup : MonoBehaviour
     void Update()
     {
         CollisionLogic();
-		if (hovering != null && InputController.GetKeyDown("Pickup"))
+
+		#region Pick And Throw
+		if (InputController.GetKeyDown("Pickup"))
 		{
-			Interact();
+			if (holding == null)
+			{
+				if (hovering != null)
+				{
+					// Pick up an Item
+					Pick();
+				}
+			}
+			else
+			{
+				// Throw an Item
+				Throw();
+			}
 		}
+		#endregion
+
+		#region Animations
 		if (holding != null)
 		{
 			if (!armBase.activeInHierarchy)
@@ -201,6 +241,7 @@ public class Pickup : MonoBehaviour
 				armBase.SetActive(false);
 			}
 		}
+		#endregion
 	}
 
 	/*
