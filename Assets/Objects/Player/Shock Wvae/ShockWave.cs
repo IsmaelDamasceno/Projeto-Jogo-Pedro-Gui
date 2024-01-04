@@ -11,6 +11,7 @@ public class ShockWave : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
 
     private new BoxCollider2D collider;
+    private ParticleSystem partSystem;
     private bool willDestroy = false;
 
     public int direction;
@@ -19,27 +20,38 @@ public class ShockWave : MonoBehaviour
         StartCoroutine(DestroyTime());
         transform.localScale = new(direction, 1f, 1f);
         collider = GetComponent<BoxCollider2D>();
+        partSystem = GetComponent<ParticleSystem>();
 	}
 
     private void Update()
     {
         if (WallDetection())
         {
-			Destroy(gameObject);
+            willDestroy = true;
+            partSystem.Stop();
 		}
+
+        if (partSystem.particleCount == 0 && willDestroy)
+        {
+            Destroy(gameObject);
+        }
 	}
 
     void FixedUpdate()
     {
+        if (willDestroy)
+        {
+            return;
+        }
         transform.Translate(direction * speed * Vector2.right, Space.Self);
     }
 
     IEnumerator DestroyTime()
     {
         yield return new WaitForSeconds(time);
-
-        Destroy(gameObject);
-    }
+        willDestroy = true;
+		partSystem.Stop();
+	}
 
     private bool WallDetection()
     {
