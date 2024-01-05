@@ -45,13 +45,14 @@ namespace Player
 
 		// Camadas que representam ch�o onde o jogador pode pular
 		[SerializeField] private LayerMask groundMask;
+		private RectangleGroundDetection groundDetection;
 
 		private int inputLastFrame = 0;
 		private int input;
 
 		[HideInInspector] public Rigidbody2D rb;
-		[HideInInspector] public BoxCollider2D collider;
-		private SpriteRenderer renderer;
+		[HideInInspector] new public BoxCollider2D collider;
+		private new SpriteRenderer renderer;
 
 		private bool grounded = false;
 		private float initialY = 0f;
@@ -79,14 +80,17 @@ namespace Player
 			collider = GetComponent<BoxCollider2D>();
 
 			renderer = GetComponent<SpriteRenderer>();
+
+			groundDetection = new(transform, 0.8f, groundMask, collider);
 		}
 		public override void Exit()
 		{
+
 		}
 
 		public override void Step()
 		{
-			grounded = Grounded();
+			grounded = groundDetection.Check();
 
 			#region Base Movement
 			input = InputController.moveAxis.GetValRaw();
@@ -194,12 +198,6 @@ namespace Player
 				float vel = direction * ((Mathf.Abs(input) * moveSpeed) + curAcceleration);
 				rb.velocity = new Vector2(vel, rb.velocity.y);
 			}
-		}
-
-		private bool Grounded()
-		{
-			return Physics2D.BoxCast(
-			transform.position, (new Vector2(collider.size.x - 0.1f, collider.size.y)) * transform.localScale, 0f, Vector2.down, 0.05f, groundMask);
 		}
 	}
 }

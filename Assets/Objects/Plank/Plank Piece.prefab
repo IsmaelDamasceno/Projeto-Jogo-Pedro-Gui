@@ -207,8 +207,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machine: {fileID: 0}
+  active: 1
   hover: 0
   lineRenderer: {fileID: -6223359768325053547}
+  airDrag: 0.1
+  groundDrag: 5
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
+  currentDrag: 0
 --- !u!114 &504565072577537769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   machine: {fileID: 0}
+  active: 1
 --- !u!120 &-6223359768325053547
 LineRenderer:
   serializedVersion: 2

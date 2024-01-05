@@ -21,7 +21,13 @@ public class ShockWave : MonoBehaviour
         transform.localScale = new(direction, 1f, 1f);
         collider = GetComponent<BoxCollider2D>();
         partSystem = GetComponent<ParticleSystem>();
-	}
+
+        RaycastHit2D hitinfo = Physics2D.Raycast(transform.position, Vector2.down, 3f, groundMask);
+	    if (hitinfo)
+        {
+            transform.position += Vector3.down * hitinfo.distance;
+        }
+    }
 
     private void Update()
     {

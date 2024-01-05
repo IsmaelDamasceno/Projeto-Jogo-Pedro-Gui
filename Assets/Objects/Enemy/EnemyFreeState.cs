@@ -12,6 +12,8 @@ public class EnemyFreeState : BaseState
 	private new CircleCollider2D collider;
 	private bool canGetUp = false;
 
+	private CircleGroundDetection groundDetect;
+
 	public override void Enter()
     {
         if (rb == null)
@@ -20,6 +22,9 @@ public class EnemyFreeState : BaseState
 			collider = GetComponent<CircleCollider2D>();
 		}
         rb.freezeRotation = false;
+
+		groundDetect = new(transform, 0.09f, groundMask, collider);
+
 		StartCoroutine(GetUpTimer());
     }
 
@@ -42,19 +47,11 @@ public class EnemyFreeState : BaseState
 			return;
 		}
 
-		if (Grounded())
+		if (groundDetect.Check())
 		{
 			machine.ChangeState("Move");
 		}
     }
-
-	private bool Grounded()
-	{
-		Vector2 origin = (Vector2)transform.position + collider.offset + Vector2.down * 0.05f;
-		float radius = transform.localScale.x * collider.radius - 0.025f;
-
-		return Physics2D.OverlapCircle(origin, radius, groundMask);
-	}
 
 	IEnumerator GetUpTimer()
 	{
@@ -69,12 +66,7 @@ public class EnemyFreeState : BaseState
 		{
 			return;
 		}
-
-		Vector2 origin = (Vector2)transform.position + collider.offset + Vector2.down * 0.05f;
-		float radius = transform.localScale.x * collider.radius - 0.025f;
-
-		Gizmos.color = Color.blue;
-		Gizmos.DrawWireSphere(origin, radius);
+		groundDetect.DebugDraw(Color.blue);
 	}
 #endif
 }

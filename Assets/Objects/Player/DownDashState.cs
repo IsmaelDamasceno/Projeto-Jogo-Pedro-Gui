@@ -16,6 +16,7 @@ public class DownDashState : BaseState
     private float originalGravScale;
     private new BoxCollider2D collider;
     private Rigidbody2D rb;
+    private RectangleGroundDetection groundDetection;
 
     public override void Enter()
     {
@@ -23,6 +24,7 @@ public class DownDashState : BaseState
         {
             rb = GetComponent<Rigidbody2D>();
             collider = GetComponent<BoxCollider2D>();
+            groundDetection = new(transform, 0.8f, groundMask, collider);
 		}
 
         originalGravScale = rb.gravityScale;
@@ -42,7 +44,7 @@ public class DownDashState : BaseState
 
     public override void Step()
     {
-        if (Grounded())
+        if (groundDetection.Check())
         {
             for(int i = 0; i <= 1; i++) {
 				GameObject obj = Instantiate(shockWavePrefab, transform.position, Quaternion.identity);
@@ -53,13 +55,6 @@ public class DownDashState : BaseState
         }
     }
 
-    private bool Grounded()
-    {
-		Vector2 origin = (Vector2)transform.position + collider.offset + Vector2.down * 0.01f;
-		Vector2 size = ((Vector2)transform.localScale - Vector2.right * 0.05f) * collider.size;
-		return Physics2D.BoxCast(origin, size, 0f, Vector2.down, 0f, groundMask);
-	}
-
 #if UNITY_EDITOR 
     private void OnDrawGizmosSelected()
     {
@@ -68,11 +63,7 @@ public class DownDashState : BaseState
             return;
         }
 
-		Vector2 origin = (Vector2)transform.position + collider.offset + Vector2.down * 0.01f;
-		Vector2 size = ((Vector2)transform.localScale - Vector2.right * 0.05f) * collider.size;
-
-		Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(origin, size);
+        groundDetection.DebugDraw(Color.blue);
     }
 #endif
 }
