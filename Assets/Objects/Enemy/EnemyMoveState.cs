@@ -65,5 +65,9 @@ public class EnemyMoveState : BaseState
             rb.AddTorque(-hitDirection * Random.Range(0.5f, 1.25f), ForceMode2D.Impulse);
             rb.AddForce(velocity, ForceMode2D.Impulse);
 		}
+        else if (collision.CompareTag("Player"))
+        {
+            HealthSystem.ChangeHealth(-1);
+        }
     }
 }

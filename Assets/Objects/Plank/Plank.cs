@@ -34,7 +34,6 @@ public class Plank : MonoBehaviour
 
 			Vector2 hitDirection = collision.contacts[0].normal;
 			Vector2 velocityTowardsPlank = collision.relativeVelocity * hitDirection;
-			Debug.Log(velocityTowardsPlank);
 
 			if (velocityTowardsPlank.magnitude >= maxSpeed - 1f)
 			{

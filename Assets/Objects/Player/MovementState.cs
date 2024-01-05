@@ -103,7 +103,7 @@ namespace Player
 				{
 					if (curAccelarationTime < 1f)
 					{
-						curAccelarationTime += Time.deltaTime * accelerationTimeScale;
+						curAccelarationTime += Time.fixedDeltaTime * accelerationTimeScale;
 					}
 					curAcceleration = accelerationCurve.Evaluate(curAccelarationTime) * accelerationScale;
 				}
@@ -117,7 +117,7 @@ namespace Player
 			{
 				if (curAccelarationTime > 0f)
 				{
-					curAccelarationTime -= Time.deltaTime * decelerationTimeScale;
+					curAccelarationTime -= Time.fixedDeltaTime * decelerationTimeScale;
 				}
 				curAcceleration = accelerationCurve.Evaluate(curAccelarationTime) * accelerationScale;
 			}
@@ -165,7 +165,7 @@ namespace Player
 					}
 				}
 
-				currentBoostTime += Time.deltaTime * boostTimeScale * multiplier;
+				currentBoostTime += Time.fixedDeltaTime * boostTimeScale * multiplier;
 				currentBoost = boostCurve.Evaluate(currentBoostTime) * currentBoostScale;
 			}
 			else
