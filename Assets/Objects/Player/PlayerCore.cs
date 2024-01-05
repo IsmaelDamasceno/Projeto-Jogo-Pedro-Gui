@@ -34,7 +34,7 @@ namespace Player
 			{
 				slow = !slow;
 			}
-			Time.timeScale = slow ? 0.2f : 1f;
+			Application.targetFrameRate = slow ? 10 : -1;
 		}
 #endif
 	}
