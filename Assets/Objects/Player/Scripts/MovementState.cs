@@ -52,7 +52,6 @@ namespace Player
 
 		[HideInInspector] public Rigidbody2D rb;
 		[HideInInspector] new public BoxCollider2D collider;
-		private new SpriteRenderer renderer;
 
 		private bool grounded = false;
 		private float initialY = 0f;
@@ -79,8 +78,6 @@ namespace Player
 			// Procura um BoxCollider2D no Game Object, e atribui seu valor a vari�vel
 			collider = GetComponent<BoxCollider2D>();
 
-			renderer = GetComponent<SpriteRenderer>();
-
 			groundDetection = new(transform, 0.8f, groundMask, collider);
 		}
 		public override void Exit()
@@ -100,7 +97,7 @@ namespace Player
 				if (!boosting)
 				{
 					direction = input;
-					renderer.flipX = direction == -1;
+					transform.localScale = new(direction, 1f, 1f);
 				}
 
 				if (input == inputLastFrame)

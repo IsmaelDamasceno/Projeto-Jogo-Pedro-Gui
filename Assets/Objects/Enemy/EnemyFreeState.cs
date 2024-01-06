@@ -8,6 +8,9 @@ public class EnemyFreeState : BaseState
 	[SerializeField] private LayerMask groundMask;
 	[SerializeField] private float getUpTime;
 
+	[SerializeField] private float airDrag;
+	[SerializeField] private float groundDrag;
+
     private Rigidbody2D rb;
 	private new CircleCollider2D collider;
 	private bool canGetUp = false;
@@ -32,6 +35,7 @@ public class EnemyFreeState : BaseState
     {
 		rb.freezeRotation = true;
 		rb.AddForce(Vector2.up * 3.5f, ForceMode2D.Impulse);
+		rb.drag = 1f;
 		canGetUp = false;
 	}
 
@@ -42,12 +46,15 @@ public class EnemyFreeState : BaseState
 
     public override void Step()
     {
+		bool grounded = groundDetect.Check();
+		rb.drag = grounded ? groundDrag : airDrag;
+
 		if (!canGetUp)
 		{
 			return;
 		}
 
-		if (groundDetect.Check())
+		if (grounded)
 		{
 			machine.ChangeState("Move");
 		}

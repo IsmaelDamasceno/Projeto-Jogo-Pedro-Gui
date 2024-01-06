@@ -67,7 +67,7 @@ public class EnemyMoveState : BaseState
 		}
         else if (collision.CompareTag("Player"))
         {
-            HealthSystem.ChangeHealth(-1);
+            collision.GetComponent<IAttackable>().SufferDamage(1);
         }
     }
 }

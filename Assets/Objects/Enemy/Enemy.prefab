@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7440076703340907680}
   - component: {fileID: 4862875469371717029}
   - component: {fileID: 7485696146918857608}
+  - component: {fileID: 9066739530209986852}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -107,7 +108,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1.5
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -213,8 +214,20 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.02685666, y: 0.017191172}
+  m_Offset: {x: 0, y: 0}
   m_Radius: 0.5356581
+--- !u!114 &9066739530209986852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6923227285287279760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488aaa2e7b0ab7b4683e408478140861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7983360860168058706
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,5 +294,5 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.02685666, y: 0.017191172}
+  m_Offset: {x: 0, y: 0}
   m_Radius: 0.5356581

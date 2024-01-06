@@ -58,20 +58,22 @@ public class CircleGroundDetection : GroundDetection
 
 	public bool Check()
 	{
-		Vector2 pos = (Vector2)transform.position + collider.offset + Vector2.down * distance;
+		Vector2 pos = (Vector2)transform.position + collider.offset;
 		float radius = transform.localScale.x * collider.radius - 0.05f;
 
-		return Physics2D.OverlapCircle(pos, radius, detectionMask);
+		return Physics2D.CircleCast(pos, radius, Vector2.down, distance, detectionMask);
 	}
 
 #if UNITY_EDITOR
 	public void DebugDraw(Color color)
 	{
-		Vector2 pos = (Vector2)transform.position + collider.offset + Vector2.down * distance;
+		Vector2 pos = (Vector2)transform.position + collider.offset;
+		Vector2 posCast = pos + Vector2.down * distance;
 		float radius = transform.localScale.x * collider.radius - 0.05f;
 
 		Gizmos.color = color;
 		Gizmos.DrawWireSphere(pos, radius);
+		Gizmos.DrawWireSphere(posCast, radius);
 	}
 #endif
 
