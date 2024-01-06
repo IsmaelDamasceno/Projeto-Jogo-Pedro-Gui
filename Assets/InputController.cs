@@ -45,7 +45,7 @@ public class InputController : MonoBehaviour
                 { "Up", KeyCode.W },
                 { "Down", KeyCode.S },
                 { "Jump", KeyCode.Space },
-                { "Pickup", KeyCode.E },
+                { "Attack", KeyCode.J },
                 { "DownDash", KeyCode.S }
             };
 			moveAxis = new("Left", "Right");

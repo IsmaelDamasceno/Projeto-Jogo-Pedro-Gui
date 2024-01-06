@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: 493d99141922b4f478c55aaa43fb8ccd
+guid: 7fdf72326bd7e34438a9271f39523617
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 6074948304534808044
+    second: Hammer Sheet_0
+  - first:
+      213: 5654820509370238926
+    second: Hammer Sheet_1
+  - first:
+      213: -1563796470474277414
+    second: Hammer Sheet_2
+  - first:
+      213: 70910722092699957
+    second: Hammer Sheet_3
+  - first:
+      213: -7462110137272565305
+    second: Hammer Sheet_4
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -25,7 +40,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -77,6 +92,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -89,37 +105,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle sheet_0
+      name: Hammer Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,16 +124,16 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: ebba7fd0a1b2ede44bc868837168c1f9
-      internalID: -1987735089
+      spriteID: ce5a8a8eb4d8e4450800000000000000
+      internalID: 6074948304534808044
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle sheet_1
+      name: Hammer Sheet_1
       rect:
         serializedVersion: 2
         x: 80
@@ -152,16 +145,16 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: a1632a745a46ee941af91a2a4bd06dff
-      internalID: 57792534
+      spriteID: ec74b91fa45f97e40800000000000000
+      internalID: 5654820509370238926
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle sheet_2
+      name: Hammer Sheet_2
       rect:
         serializedVersion: 2
         x: 160
@@ -173,16 +166,16 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: b0d7a83130ec4a74aaecd228c5ce7c60
-      internalID: 668383202
+      spriteID: addfe5c35674c4ae0800000000000000
+      internalID: -1563796470474277414
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle sheet_3
+      name: Hammer Sheet_3
       rect:
         serializedVersion: 2
         x: 240
@@ -194,10 +187,31 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 0c1ac4b90cd1d4c4d942ae4b2813ac00
-      internalID: 1292784635
+      spriteID: 5311a111decebf000800000000000000
+      internalID: 70910722092699957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hammer Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c10709bd52417890800000000000000
+      internalID: -7462110137272565305
       vertices: []
       indices: 
       edges: []
@@ -205,7 +219,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 1645c76d461578e4ea1a762f57352208
     internalID: 0
     vertices: []
     indices: 
@@ -213,11 +227,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      idle sheet_3: 1292784635
-      idle sheet_0: -1987735089
-      idle sheet_1: 57792534
-      idle sheet_2: 668383202
-  spritePackingTag: 
+      Hammer Sheet_0: 6074948304534808044
+      Hammer Sheet_1: 5654820509370238926
+      Hammer Sheet_2: -1563796470474277414
+      Hammer Sheet_3: 70910722092699957
+      Hammer Sheet_4: -7462110137272565305
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
