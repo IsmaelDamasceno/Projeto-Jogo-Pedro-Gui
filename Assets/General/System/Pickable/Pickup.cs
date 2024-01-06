@@ -52,12 +52,14 @@ public class Pickup : MonoBehaviour
             rb = GetComponent<Rigidbody2D>();
             moveState = GetComponent<Player.MovementState>();
 
+			/*
 			armBase = Utils.SearchObjectIntransform(transform, "Arm Points");
 			armPoints = Utils.SearchObjectsWithComponent<Transform>(transform, "Arm Points");
 
-			handsTrs = Utils.SearchObjectWithComponent<Transform>(transform, "Hands");
-        }
-        else
+			handsTrs = Utils.SearchObjectWithComponent<Transform>(transform, "Hands"); 
+			*/
+		}
+		else
         {
             Debug.LogError($"Duas instâncias de Pickup encontradas, deletando {gameObject.name}");
             Destroy(gameObject);
@@ -202,6 +204,7 @@ public class Pickup : MonoBehaviour
     {
         CollisionLogic();
 
+		/*
 		#region Pick And Throw
 		if (InputController.GetKeyDown("Pickup"))
 		{
@@ -219,8 +222,10 @@ public class Pickup : MonoBehaviour
 				Throw();
 			}
 		}
-		#endregion
+		#endregion 
+		*/
 
+		/*
 		#region Animations
 		if (holding != null)
 		{
@@ -242,6 +247,7 @@ public class Pickup : MonoBehaviour
 			}
 		}
 		#endregion
+		*/
 	}
 
 	/*
