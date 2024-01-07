@@ -17,7 +17,9 @@ public class AttackCollision : MonoBehaviour
     {
         if (collision.TryGetComponent(out IAttackable attackable))
         {
-            attackable.SufferDamage(damage, Math.Sign(transform.parent.localScale.x));
+			TimeFreeze.Freeze(0.1f);
+            CameraMovement.ShakeIt(2f, 0.1f);
+			attackable.SufferDamage(damage, Math.Sign(transform.parent.localScale.x));
         }
     }
 }
