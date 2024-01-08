@@ -59,7 +59,7 @@ public class CircleGroundDetection : GroundDetection
 	public bool Check()
 	{
 		Vector2 pos = (Vector2)transform.position + collider.offset;
-		float radius = transform.localScale.x * collider.radius - 0.05f;
+		float radius = Mathf.Abs(transform.localScale.x) * collider.radius - 0.05f;
 
 		return Physics2D.CircleCast(pos, radius, Vector2.down, distance, detectionMask);
 	}

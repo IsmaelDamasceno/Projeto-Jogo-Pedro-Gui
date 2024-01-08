@@ -78,7 +78,7 @@ namespace Player
 			// Procura um BoxCollider2D no Game Object, e atribui seu valor a vari�vel
 			collider = GetComponent<BoxCollider2D>();
 
-			groundDetection = new(transform, 0.8f, groundMask, collider);
+			groundDetection = new(transform, 0.08f, groundMask, collider);
 		}
 		public override void Exit()
 		{

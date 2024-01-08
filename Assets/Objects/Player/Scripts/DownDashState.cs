@@ -50,7 +50,7 @@ public class DownDashState : BaseState
 				GameObject obj = Instantiate(shockWavePrefab, transform.position, Quaternion.identity);
                 obj.GetComponent<ShockWave>().direction = (int)(Mathf.Sign(i - 1f));
             }
-
+            CameraMovement.ShakeIt(3f, 0.05f);
             machine.ChangeState("Move");
         }
     }

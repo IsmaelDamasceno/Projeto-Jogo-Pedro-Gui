@@ -21118,20 +21118,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1368047039434828950, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1368047039434828950, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
-      propertyPath: m_Offset.y
-      value: 0
+      propertyPath: m_Radius
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2654216080951392573, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.59
+      value: 14.73
       objectReference: {fileID: 0}
     - target: {fileID: 2654216080951392573, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.395
+      value: -1.46
       objectReference: {fileID: 0}
     - target: {fileID: 2654216080951392573, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -21165,9 +21161,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5040337111930646707, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
-      propertyPath: m_AngularDrag
-      value: 1.5
+    - target: {fileID: 4862875469371717029, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
+      propertyPath: moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4862875469371717029, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
+      propertyPath: wallDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4862875469371717029, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
+      propertyPath: edgeCheckRadius
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4862875469371717029, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
+      propertyPath: edgeCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4862875469371717029, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
+      propertyPath: collisionMask.m_Bits
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6923227285287279760, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
       propertyPath: m_Name
@@ -21182,12 +21194,8 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7485696146918857608, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7485696146918857608, guid: 5ad40de3aa390ec4ba623e53a05317b5, type: 3}
-      propertyPath: m_Offset.y
-      value: 0
+      propertyPath: m_Radius
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

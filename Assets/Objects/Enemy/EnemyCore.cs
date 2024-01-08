@@ -18,5 +18,9 @@ namespace Enemy
 			stateMachine.RegisterState("Free", freeState);
 			stateMachine.ChangeState("Move");
 		}
+
+		private void Update()
+		{
+		}
 	}
 }

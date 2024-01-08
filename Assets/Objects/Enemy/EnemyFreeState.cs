@@ -26,7 +26,7 @@ public class EnemyFreeState : BaseState
 		}
         rb.freezeRotation = false;
 
-		groundDetect = new(transform, 0.09f, groundMask, collider);
+		groundDetect = new(transform, 0.5f, groundMask, collider);
 
 		StartCoroutine(GetUpTimer());
     }
@@ -73,7 +73,8 @@ public class EnemyFreeState : BaseState
 		{
 			return;
 		}
-		groundDetect.DebugDraw(Color.blue);
+
+		groundDetect.DebugDraw(Color.white);
 	}
 #endif
 }
