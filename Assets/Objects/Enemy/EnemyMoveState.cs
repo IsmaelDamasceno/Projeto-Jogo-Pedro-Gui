@@ -113,22 +113,9 @@ public class EnemyMoveState : BaseState
             return;
         }
 
-        if (collision.CompareTag("ShockWave"))
+        if (collision.CompareTag("Player"))
         {
-            machine.ChangeState("Free");
-
-            int hitDirection = Math.Sign(transform.position.x - collision.transform.position.x);
-            Vector2 velocity = new(
-                hitDirection * Random.Range(2f, 3f),
-                Random.Range(12f, 15.5f)
-            );
-
-            rb.AddTorque(-hitDirection * Random.Range(0.5f, 1.25f), ForceMode2D.Impulse);
-            rb.AddForce(velocity, ForceMode2D.Impulse);
-		}
-        else if (collision.CompareTag("Player"))
-        {
-            collision.GetComponent<IAttackable>().SufferDamage(1);
+            collision.GetComponent<IAttackable>().SufferDamage(1, transform);
         }
     }
 

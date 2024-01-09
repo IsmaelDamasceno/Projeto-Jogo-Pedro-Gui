@@ -19,7 +19,7 @@ public class AttackCollision : MonoBehaviour
         {
 			TimeFreeze.Freeze(0.1f);
             CameraMovement.ShakeIt(2f, 0.1f);
-			attackable.SufferDamage(damage, Math.Sign(transform.parent.localScale.x));
+			attackable.SufferDamage(damage, transform, Math.Sign(transform.parent.localScale.x) * Vector2.right, 18f, .1f);
         }
     }
 }

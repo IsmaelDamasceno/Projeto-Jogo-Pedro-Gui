@@ -69,8 +69,14 @@ public class ShockWave : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+		if (collision.TryGetComponent(out IAttackable attackable))
+		{
+			TimeFreeze.Freeze(0.1f);
+			CameraMovement.ShakeIt(2f, 0.1f);
 
-    }
+			attackable.SufferDamage(1, default, Vector2.up, 8f);
+		}
+	}
 
 #if UNITY_EDITOR
 	private void OnDrawGizmosSelected()
