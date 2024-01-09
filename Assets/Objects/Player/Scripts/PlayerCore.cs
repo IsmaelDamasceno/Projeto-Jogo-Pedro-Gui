@@ -8,7 +8,23 @@ namespace Player
 {
 	public class PlayerCore : MonoBehaviour
 	{
+
 		public StateMachine stateMachine;
+		public static PlayerCore instance;
+
+		public static bool ivulnerable = false;
+
+		public static void SetIvulnerable(float time)
+		{
+			instance.StopAllCoroutines();
+			instance.StartCoroutine(instance.Ivulnerability(time));
+		}
+		private IEnumerator Ivulnerability(float time)
+		{
+			ivulnerable = true;
+			yield return new WaitForSeconds(time);
+			ivulnerable = false;
+		}
 
 #if UNITY_EDITOR
 		private bool slow;
@@ -16,15 +32,28 @@ namespace Player
 
 		void Start()
 		{
-			stateMachine = GetComponent<StateMachine>();
+			if (instance == null)
+			{
+				stateMachine = GetComponent<StateMachine>();
 
-			BaseState moveState = GetComponent<MovementState>();
-			FreeState freeState = GetComponent<FreeState>();
-			DownDashState downDashState = GetComponent<DownDashState>();
-			stateMachine.RegisterState("Move", moveState);
-			stateMachine.RegisterState("Free", freeState);
-			stateMachine.RegisterState("DownDash", downDashState);
-			stateMachine.ChangeState("Move");
+				BaseState moveState = GetComponent<MovementState>();
+				FreeState freeState = GetComponent<FreeState>();
+				DownDashState downDashState = GetComponent<DownDashState>();
+				stateMachine.RegisterState("Move", moveState);
+				stateMachine.RegisterState("Free", freeState);
+				stateMachine.RegisterState("DownDash", downDashState);
+				stateMachine.ChangeState("Move");
+
+				instance = this;
+			}
+			else
+			{
+				Destroy(gameObject);
+				return;
+			}
+
+			ivulnerable = false;
+			StopAllCoroutines();
 		}
 
 #if UNITY_EDITOR

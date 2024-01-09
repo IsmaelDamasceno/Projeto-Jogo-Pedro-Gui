@@ -26,7 +26,8 @@ public class EnemyDamage : MonoBehaviour, IAttackable
 		}
 		Vector2 velocity = useDirection * force;
 
-		rb.AddTorque(-Math.Sign(direction.x) * force * torqueIntensity, ForceMode2D.Impulse);
+		float torqueDirection = direction.x != 0 ? -Mathf.Sign(direction.x) : Mathf.Sign(Random.Range(-1, 1));
+		rb.AddTorque(torqueDirection * force * torqueIntensity, ForceMode2D.Impulse);
 		rb.velocity = velocity;
 
 		GetComponent<DamageFlash>().Flash();

@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -39,6 +38,9 @@ public class CameraMovement : MonoBehaviour
 
 	void Start()
 	{
+		shakeScale = 0f;
+		shaking = false;
+
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
 		playerTrs = player.transform;
 

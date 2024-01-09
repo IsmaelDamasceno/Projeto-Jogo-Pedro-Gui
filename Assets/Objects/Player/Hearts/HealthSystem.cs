@@ -33,7 +33,6 @@ public class HealthSystem : MonoBehaviour
         if (instance == null)
         {
 			instance = this;
-            layoutGroup = GetComponent<GridLayoutGroup>();
         }
         else
         {
@@ -43,6 +42,7 @@ public class HealthSystem : MonoBehaviour
 
     private void Start()
     {
+		layoutGroup = GetComponent<GridLayoutGroup>();
 		SetMaxHealth(transform.childCount);
 		SetHealth(transform.childCount);
 	}
@@ -64,6 +64,13 @@ public class HealthSystem : MonoBehaviour
 	public static void ChangeHealth(int increase)
     {
 		health += increase;
+
+        if (health <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            return;
+        }
+
 		HealthUpdate();
 	}
 

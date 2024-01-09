@@ -87,7 +87,6 @@ public class EnemyMoveState : BaseState
 		#endregion
 	}
 
-
     private bool CheckWall()
     {
         Vector2 pos =
@@ -104,7 +103,12 @@ public class EnemyMoveState : BaseState
         return Physics2D.OverlapCircle(pos, edgeCheckRadius, collisionMask);
 	}
 
-    
+
+    private void CauseDamage(Transform hitTransform)
+    {
+		Vector2 direction = new Vector2(Math.Sign(hitTransform.position.x - transform.position.x) * 2f, 1f).normalized;
+		hitTransform.GetComponent<IAttackable>().SufferDamage(1, default, direction, 8f, .1f);
+	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -113,11 +117,11 @@ public class EnemyMoveState : BaseState
             return;
         }
 
-        if (collision.CompareTag("Player"))
-        {
-            collision.GetComponent<IAttackable>().SufferDamage(1, transform);
-        }
-    }
+		if (collision.CompareTag("Player"))
+		{
+            CauseDamage(collision.transform);
+		}
+	}
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()

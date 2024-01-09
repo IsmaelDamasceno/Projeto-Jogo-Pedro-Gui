@@ -14,12 +14,16 @@ public class TimeFreeze : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-        }
+		}
         else
         {
             Destroy(gameObject);
+            return;
         }
-    }
+
+		Time.timeScale = 1f;
+		frozen = false;
+	}
 
     public static void Freeze(float time)
     {
