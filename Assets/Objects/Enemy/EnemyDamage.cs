@@ -1,14 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class EnemyDamage : MonoBehaviour, IAttackable
 {
 
+	[SerializeField] private GameObject damageParticles;
     private StateMachine machine;
     private Rigidbody2D rb;
 
@@ -31,6 +27,8 @@ public class EnemyDamage : MonoBehaviour, IAttackable
 		rb.velocity = velocity;
 
 		GetComponent<DamageFlash>().Flash();
+
+		Instantiate(damageParticles, transform.position, Quaternion.identity, transform);
 	}
 
     // Start is called before the first frame update

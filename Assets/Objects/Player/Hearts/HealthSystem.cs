@@ -65,13 +65,21 @@ public class HealthSystem : MonoBehaviour
     {
 		health += increase;
 
-        if (health <= 0)
+        if (DeathTest())
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             return;
         }
 
 		HealthUpdate();
+	}
+
+    private static bool DeathTest()
+    {
+		if (health <= 0)
+		{
+			SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+		}
+        return health <= 0;
 	}
 
     /// <summary>

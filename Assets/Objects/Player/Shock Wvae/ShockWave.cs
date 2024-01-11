@@ -74,7 +74,7 @@ public class ShockWave : MonoBehaviour
 			TimeFreeze.Freeze(0.1f);
 			CameraMovement.ShakeIt(2f, 0.1f);
 
-			attackable.SufferDamage(1, default, Vector2.up, 8f, 0.1f);
+			attackable.SufferDamage(1, default, Vector2.up, 14f, 0.1f);
 		}
 	}
 

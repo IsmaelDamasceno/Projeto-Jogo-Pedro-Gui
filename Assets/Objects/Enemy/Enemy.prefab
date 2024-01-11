@@ -17,7 +17,8 @@ GameObject:
   - component: {fileID: 4862875469371717029}
   - component: {fileID: 7485696146918857608}
   - component: {fileID: 9066739530209986852}
-  m_Layer: 0
+  - component: {fileID: 7795651899701752083}
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +63,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8bc105e8716a6dd458a2845b9b50e0cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,7 +83,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 901a14aca0e9de14fabc942af36b14b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -109,7 +110,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 1.5
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -182,7 +183,7 @@ MonoBehaviour:
   machine: {fileID: 0}
   active: 1
   rotationTime: 0.3
-  moveSpeed: 5
+  moveSpeed: 2
   wallDistance: 0.1
   edgeCheckRadius: 0.05
   edgeCheckDistance: 1
@@ -225,7 +226,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.51635325
+  m_Radius: 0.5
 --- !u!114 &9066739530209986852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,6 +239,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488aaa2e7b0ab7b4683e408478140861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageParticles: {fileID: 3586196774645991968, guid: 4771d4ea7cded27498c5d8ef12bc2715, type: 3}
+--- !u!114 &7795651899701752083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6923227285287279760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b990ed2b0c78d664f83a08b62983b0d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 4, g: 0, b: 0, a: 1}
+  flashCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -2.6640105
+      outSlope: -2.6640105
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.056145675
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.042033426
+      outSlope: -0.042033426
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10166919
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  flashTime: 0.1
 --- !u!1 &7983360860168058706
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4104200406558304160}
   - component: {fileID: 1368047039434828950}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,4 +345,4 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.51635325
+  m_Radius: 0.5
