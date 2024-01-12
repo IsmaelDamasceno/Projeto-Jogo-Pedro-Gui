@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace Player
 {
@@ -45,13 +43,9 @@ namespace Player
 
 		// Camadas que representam ch�o onde o jogador pode pular
 		[SerializeField] private LayerMask groundMask;
-		private RectangleGroundDetection groundDetection;
 
 		private int inputLastFrame = 0;
 		private int input;
-
-		[HideInInspector] public Rigidbody2D rb;
-		[HideInInspector] new public BoxCollider2D collider;
 
 		private bool grounded = false;
 		private float initialY = 0f;
@@ -72,13 +66,6 @@ namespace Player
 
 		public override void Enter()
 		{
-			// Procura um Rigidbody2D no Game Object, e atribui seu valor a vari�vel
-			rb = GetComponent<Rigidbody2D>();
-
-			// Procura um BoxCollider2D no Game Object, e atribui seu valor a vari�vel
-			collider = GetComponent<BoxCollider2D>();
-
-			groundDetection = new(transform, 0.08f, groundMask, collider);
 		}
 		public override void Exit()
 		{
@@ -87,7 +74,7 @@ namespace Player
 
 		public override void Step()
 		{
-			grounded = groundDetection.Check();
+			grounded = PlayerCore.rectGroundDetection.Check();
 
 			#region Base Movement
 			input = InputController.moveAxis.GetValRaw();
@@ -128,7 +115,7 @@ namespace Player
 			{
 				if (grounded)
 				{
-					rb.velocity = new(rb.velocity.x, jumpStrength);
+					PlayerCore.rb.velocity = new(PlayerCore.rb.velocity.x, jumpStrength);
 					initialY = transform.position.y;
 					startedJump = true;
 				}
@@ -136,9 +123,9 @@ namespace Player
 			else
 			{
 				float yDiff = transform.position.y - initialY;
-				if (!grounded && yDiff >= 1.4f && rb.velocity.y >= 0f && startedJump)
+				if (!grounded && yDiff >= 1.4f && PlayerCore.rb.velocity.y >= 0f && startedJump)
 				{
-					rb.velocity = new Vector2(rb.velocity.x, Mathf.Abs(rb.velocity.y * 0.9f));
+					PlayerCore.rb.velocity = new Vector2(PlayerCore.rb.velocity.x, Mathf.Abs(PlayerCore.rb.velocity.y * 0.9f));
 				}
 				else if (grounded)
 				{
@@ -188,12 +175,12 @@ namespace Player
 		{
 			if (boosting)
 			{
-				rb.velocity = new Vector2(direction * currentBoost, rb.velocity.y);
+				PlayerCore.rb.velocity = new Vector2(direction * currentBoost, PlayerCore.rb.velocity.y);
 			}
 			else
 			{
 				float vel = direction * ((Mathf.Abs(input) * moveSpeed) + curAcceleration);
-				rb.velocity = new Vector2(vel, rb.velocity.y);
+				PlayerCore.rb.velocity = new Vector2(vel, PlayerCore.rb.velocity.y);
 			}
 		}
 	}

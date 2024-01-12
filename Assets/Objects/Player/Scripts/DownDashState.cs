@@ -1,3 +1,4 @@
+using Player;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,32 +10,17 @@ public class DownDashState : BaseState
 
     [SerializeField] private float gravityForce;
     [SerializeField] private float initialForce;
-    [SerializeField] private LayerMask groundMask;
-
     [SerializeField] private GameObject shockWavePrefab; 
-
-    private float originalGravScale;
-    private new BoxCollider2D collider;
-    private Rigidbody2D rb;
-    private RectangleGroundDetection groundDetection;
 
     public override void Enter()
     {
-        if (rb == null)
-        {
-            rb = GetComponent<Rigidbody2D>();
-            collider = GetComponent<BoxCollider2D>();
-            groundDetection = new(transform, 0.8f, groundMask, collider);
-		}
-
-        originalGravScale = rb.gravityScale;
-        rb.gravityScale = 0f;
-        rb.velocity = Vector2.down * initialForce;
+        PlayerCore.rb.gravityScale = 0f;
+        PlayerCore.rb.velocity = Vector2.down * initialForce;
 	}
 
     public override void Exit()
     {
-        rb.gravityScale = originalGravScale;
+        PlayerCore.rb.gravityScale = PlayerCore.startGravScale;
 	}
 
     public override void FixedStep()
@@ -44,7 +30,7 @@ public class DownDashState : BaseState
 
     public override void Step()
     {
-        if (groundDetection.Check())
+        if (PlayerCore.rectGroundDetection.Check())
         {
             for(int i = 0; i <= 1; i++) {
 				GameObject obj = Instantiate(shockWavePrefab, transform.position, Quaternion.identity);
@@ -58,12 +44,12 @@ public class DownDashState : BaseState
 #if UNITY_EDITOR 
     private void OnDrawGizmosSelected()
     {
-        if (collider == null)
+        if (PlayerCore.boxCollider == null)
         {
             return;
         }
 
-        groundDetection.DebugDraw(Color.blue);
+        PlayerCore.rectGroundDetection.DebugDraw(Color.blue);
     }
 #endif
 }

@@ -8,11 +8,6 @@ public class AttackCollision : MonoBehaviour
 
     [SerializeField] private int damage;
 
-    void Start()
-    {
-
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out IAttackable attackable))

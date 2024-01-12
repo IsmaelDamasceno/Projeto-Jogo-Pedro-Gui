@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-
     [SerializeField] private float attackCooldown;
 
     [HideInInspector] public bool attacking = false;
@@ -43,7 +42,6 @@ public class Attack : MonoBehaviour
         attackCollision.SetActive(false);
 		StartCoroutine(WaitCooldown());
 	}
-
 
     private IEnumerator WaitCooldown()
     {

@@ -10,38 +10,28 @@ namespace Player
 		[SerializeField] private PhysicsMaterial2D freeMaterial;
 		[SerializeField] private float waitTime;
 
-		private Rigidbody2D rb;
-		private Animator animator;
-		private BoxCollider2D boxCollider;
-		private CircleCollider2D circleCollider;
-
 		public override void Enter()
 		{
-			rb = GetComponent<Rigidbody2D>();
-			animator = GetComponent<Animator>();
-			boxCollider = GetComponent<BoxCollider2D>();
-			circleCollider = GetComponent<CircleCollider2D>();
-
-			circleCollider.enabled = true;
-			boxCollider.enabled = false;
+			PlayerCore.circleCollider.enabled = true;
+			PlayerCore.boxCollider.enabled = false;
 			
-			rb.freezeRotation = false;
-			rb.sharedMaterial = freeMaterial;
+			PlayerCore.rb.freezeRotation = false;
+			PlayerCore.rb.sharedMaterial = freeMaterial;
 
-			animator.SetBool("Damaged", true);
+			PlayerCore.animator.SetBool("Damaged", true);
 
 			StartCoroutine(ExitCoroutine());
 		}
 
 		public override void Exit()
 		{
-			rb.freezeRotation = true;
-			rb.sharedMaterial = moveMaterial;
+			PlayerCore.rb.freezeRotation = true;
+			PlayerCore.rb.sharedMaterial = moveMaterial;
 
-			animator.SetBool("Damaged", false);
+			PlayerCore.animator.SetBool("Damaged", false);
 
-			circleCollider.enabled = false;
-			boxCollider.enabled = true;
+			PlayerCore.circleCollider.enabled = false;
+			PlayerCore.boxCollider.enabled = true;
 			transform.rotation = Quaternion.identity;
 		}
 

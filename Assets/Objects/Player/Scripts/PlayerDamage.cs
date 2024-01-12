@@ -1,16 +1,9 @@
 using Player;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour, IAttackable
 {
-
-	private Rigidbody2D rb;
-	private StateMachine machine;
-
     public void SufferDamage(int damage, Transform attackTransform = null, Vector2 direction = default, float force = 1, float torqueIntensity = 1)
     {
 		if (!PlayerCore.ivulnerable)
@@ -24,9 +17,9 @@ public class PlayerDamage : MonoBehaviour, IAttackable
 
 		HealthSystem.ChangeHealth(-damage);
 
-		if (machine.currentState == "Move")
+		if (PlayerCore.stateMachine.currentState == "Move")
 		{
-			machine.ChangeState("Free");
+			PlayerCore.stateMachine.ChangeState("Free");
 		}
 
 		Vector2 useDirection = direction;
@@ -36,16 +29,14 @@ public class PlayerDamage : MonoBehaviour, IAttackable
 		}
 		Vector2 velocity = useDirection * force;
 
-		rb.AddTorque(-Math.Sign(direction.x) * force * torqueIntensity, ForceMode2D.Impulse);
-		rb.velocity = velocity;
+		PlayerCore.rb.AddTorque(-Math.Sign(direction.x) * force * torqueIntensity, ForceMode2D.Impulse);
+		PlayerCore.rb.velocity = velocity;
 
 		GetComponent<DamageFlash>().Flash();
 	}
 
     void Start()
     {
-		machine = GetComponent<StateMachine>();
-		rb = GetComponent<Rigidbody2D>();
 	}
 
     void Update()

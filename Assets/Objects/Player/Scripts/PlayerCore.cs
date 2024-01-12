@@ -1,19 +1,29 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Player
 {
 	public class PlayerCore : MonoBehaviour
 	{
 
-		public StateMachine stateMachine;
+		[SerializeField] private LayerMask groundMask;
+
+		public static LayerMask GroundMask { get => instance.groundMask; set => instance.groundMask = value; }
+
+		public static StateMachine stateMachine;
 		public static PlayerCore instance;
 
-		public static bool ivulnerable = false;
+		public static Rigidbody2D rb;
+		public static Animator animator;
+		public static BoxCollider2D boxCollider;
+		public static CircleCollider2D circleCollider;
+		public static RectangleGroundDetection rectGroundDetection;
 
+		public static float startGravScale;
+		// public static CircleGroundDetection circGroundDetection;
+
+		#region Ivulnerability
+		public static bool ivulnerable = false;
 		public static void SetIvulnerable(float time)
 		{
 			instance.StopAllCoroutines();
@@ -25,6 +35,7 @@ namespace Player
 			yield return new WaitForSeconds(time);
 			ivulnerable = false;
 		}
+		#endregion
 
 #if UNITY_EDITOR
 		private bool slow;
@@ -34,6 +45,14 @@ namespace Player
 		{
 			if (instance == null)
 			{
+				rb = GetComponent<Rigidbody2D>();
+				animator = GetComponent<Animator>();
+				boxCollider = GetComponent<BoxCollider2D>();
+				circleCollider = GetComponent<CircleCollider2D>();
+				rectGroundDetection = new(transform, 0.08f, groundMask, boxCollider);
+				startGravScale = rb.gravityScale;
+
+				#region State Machine
 				stateMachine = GetComponent<StateMachine>();
 
 				BaseState moveState = GetComponent<MovementState>();
@@ -43,11 +62,13 @@ namespace Player
 				stateMachine.RegisterState("Free", freeState);
 				stateMachine.RegisterState("DownDash", downDashState);
 				stateMachine.ChangeState("Move");
+				#endregion
 
 				instance = this;
 			}
 			else
 			{
+				Debug.LogError($"Mais de uma instância de PlayerCore encontrada, deletando {gameObject.name}");
 				Destroy(gameObject);
 				return;
 			}
