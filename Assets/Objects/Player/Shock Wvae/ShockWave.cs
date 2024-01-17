@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 /// <summary>
 /// Compoenente associado ao objeto de shockwave quando o jogador faz um down dash
@@ -35,8 +36,7 @@ public class ShockWave : MonoBehaviour
     {
         if (WallDetection())
         {
-            willDestroy = true;
-            partSystem.Stop();
+            Deactivate();
 		}
 
         if (partSystem.particleCount == 0 && willDestroy)
@@ -57,7 +57,13 @@ public class ShockWave : MonoBehaviour
     IEnumerator DestroyTime()
     {
         yield return new WaitForSeconds(time);
-        willDestroy = true;
+        Deactivate();
+	}
+
+    private void Deactivate()
+    {
+		collider.enabled = false;
+		willDestroy = true;
 		partSystem.Stop();
 	}
 
