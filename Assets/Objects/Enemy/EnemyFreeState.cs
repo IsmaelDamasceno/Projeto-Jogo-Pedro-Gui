@@ -8,7 +8,7 @@ using UnityEngine;
 public class EnemyFreeState : BaseState
 {
 	[SerializeField] private LayerMask groundMask;
-	[SerializeField] private float getUpTime;
+	[SerializeField] private Vector2 getUpTime;
 
 	[SerializeField] private float airDrag;
 	[SerializeField] private float groundDrag;
@@ -29,8 +29,6 @@ public class EnemyFreeState : BaseState
         rb.freezeRotation = false;
 
 		groundDetect = new(transform, 0.5f, groundMask, collider);
-
-		StartCoroutine(GetUpTimer());
     }
 
     public override void Exit()
@@ -62,9 +60,15 @@ public class EnemyFreeState : BaseState
 		}
     }
 
+	public void StartTimer()
+	{
+		StopAllCoroutines();
+		StartCoroutine(GetUpTimer());
+	}
+
 	IEnumerator GetUpTimer()
 	{
-		yield return new WaitForSeconds(getUpTime);
+		yield return new WaitForSeconds(Random.Range(getUpTime.x, getUpTime.y));
 		canGetUp = true;
 	}
 

@@ -165,7 +165,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  getUpTime: 5
+  getUpTime: {x: 3, y: 4}
   airDrag: 0.1
   groundDrag: 5
 --- !u!114 &4862875469371717029

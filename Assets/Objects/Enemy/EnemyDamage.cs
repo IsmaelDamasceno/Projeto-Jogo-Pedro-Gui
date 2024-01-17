@@ -38,6 +38,7 @@ public class EnemyDamage : MonoBehaviour, IAttackable
 		rb.velocity = velocity;
 
 		GetComponent<DamageFlash>().Flash();
+		GetComponent<EnemyFreeState>().StartTimer();
 
 		Instantiate(damageParticles, transform.position, Quaternion.identity, transform);
 	}
