@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Estado base de um objeto segurado que pode ser pego
+/// </summary>
 public class PickableHeldState : BaseState
 {
 

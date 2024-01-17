@@ -5,9 +5,11 @@ using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
+/// <summary>
+/// Estado presente quando o jogador está executando o down dash
+/// </summary>
 public class DownDashState : BaseState
 {
-
     [SerializeField] private float gravityForce;
     [SerializeField] private float initialForce;
     [SerializeField] private GameObject shockWavePrefab; 

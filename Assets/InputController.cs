@@ -26,6 +26,9 @@ public struct InputAxis
     public float val;
 }
 
+/// <summary>
+/// Detecta inputs de teclado (classe provísória e bosta)
+/// </summary>
 public class InputController : MonoBehaviour
 {
     public static Dictionary<string, KeyCode> keys;

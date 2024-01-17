@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Enemy
 {
+	/// <summary>
+	/// Core da state machine do inimigo
+	/// </summary>
 	public class EnemyCore : MonoBehaviour
 	{
 		public StateMachine stateMachine;

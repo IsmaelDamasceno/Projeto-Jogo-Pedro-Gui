@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controla a animação de ataque do jogador
+/// </summary>
 public class Attack : MonoBehaviour
 {
     [SerializeField] private float attackCooldown;

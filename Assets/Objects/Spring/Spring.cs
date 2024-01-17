@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Código da mola
+/// </summary>
 public class Spring : MonoBehaviour
 {
 

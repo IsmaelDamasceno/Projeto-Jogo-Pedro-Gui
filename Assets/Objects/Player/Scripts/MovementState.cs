@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Player
 {
+	/// <summary>
+	/// Estado presenta quando o player está sob controle do movemento do usuário por meio do teclado ou controle
+	/// </summary>
 	public class MovementState : BaseState
 	{
 		#region Movement

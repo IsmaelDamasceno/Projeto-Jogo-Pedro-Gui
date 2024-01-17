@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace Player
 {
+	/// <summary>
+	/// Estado presente quando o jogador está sobre influência total da física de jogo, e em queda livre (por exemplo, quando sofre algum dano)
+	/// </summary>
 	public class FreeState : BaseState
 	{
 		[SerializeField] private PhysicsMaterial2D moveMaterial;

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Associado as animações do espinho
+/// </summary>
 public class SpikeAnimation : MonoBehaviour
 {
 	[SerializeField] private float upTime;

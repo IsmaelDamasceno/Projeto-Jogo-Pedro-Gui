@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controla a colisão do ataque com outros objetos atacáveis (que implementam a interface IAttackable)
+/// </summary>
 public class AttackCollision : MonoBehaviour
 {
 

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 
+/// <summary>
+/// Associado a serra (controla movimento e dano)
+/// </summary>
 public class Saw : MonoBehaviour
 {
 
@@ -24,6 +27,12 @@ public class Saw : MonoBehaviour
         int positionCount = lineRenderer.positionCount;
 		positions = new Vector3[positionCount];
         lineRenderer.GetPositions(positions);
+        for(int i = 0; i < positions.Length; i++)
+        {
+            positions[i] = new(
+                positions[i].x * transform.localScale.x, positions[i].y * transform.localScale.y);
+            positions[i] += transform.position;
+        }
         Destroy(lineRenderer);
     }
 
@@ -52,4 +61,13 @@ public class Saw : MonoBehaviour
             transform.position = Vector2.Lerp(startPosition, positions[goIndex], percent);
 		}
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out IAttackable attackable))
+        {
+            Vector2 direction = (collision.transform.position - transform.position).normalized;
+			attackable.SufferDamage(1, default, direction, 12f, .1f);
+		}
+	}
 }

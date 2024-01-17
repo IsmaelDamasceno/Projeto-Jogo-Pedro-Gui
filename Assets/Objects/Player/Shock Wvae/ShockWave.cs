@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Compoenente associado ao objeto de shockwave quando o jogador faz um down dash
+/// </summary>
 public class ShockWave : MonoBehaviour
 {
-
     [SerializeField] private float speed;
     [SerializeField] private float time;
     [SerializeField] private LayerMask groundMask;

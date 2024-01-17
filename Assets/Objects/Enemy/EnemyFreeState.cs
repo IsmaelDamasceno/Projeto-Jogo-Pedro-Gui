@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Estado presente quando o inimigo está caído no chão após sofrer dano
+/// </summary>
 public class EnemyFreeState : BaseState
 {
-
 	[SerializeField] private LayerMask groundMask;
 	[SerializeField] private float getUpTime;
 

@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Responsável por fazer detecção do chão
+/// </summary>
 public class GroundDetection
 {
 	public GroundDetection(
@@ -18,6 +21,9 @@ public class GroundDetection
 	protected Transform transform;
 }
 
+/// <summary>
+/// Implementação para colisão retangular
+/// </summary>
 public class RectangleGroundDetection : GroundDetection
 {
 	public RectangleGroundDetection(Transform transform, float distance, LayerMask detectionMask, BoxCollider2D collider, bool useRotation = false) : base(transform, distance, detectionMask, useRotation)
@@ -49,6 +55,9 @@ public class RectangleGroundDetection : GroundDetection
 	private BoxCollider2D collider;
 }
 
+/// <summary>
+/// Implementação para colisão circular
+/// </summary>
 public class CircleGroundDetection : GroundDetection
 {
 	public CircleGroundDetection(Transform transform, float distance, LayerMask detectionMask, CircleCollider2D collider) : base(transform, distance, detectionMask, false)

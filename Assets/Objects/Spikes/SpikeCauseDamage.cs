@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Executa o dano causado pelo espinho
+/// </summary>
 public class SpikeCauseDamage : MonoBehaviour
 {
 	private void OnTriggerEnter2D(Collider2D collision)

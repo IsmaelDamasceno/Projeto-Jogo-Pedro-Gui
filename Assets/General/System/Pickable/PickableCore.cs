@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Pick
 {
+	/// <summary>
+	/// Core dos objetos pegáveis
+	/// </summary>
 	public class PickableCore : MonoBehaviour
 	{
 		public StateMachine stateMachine;

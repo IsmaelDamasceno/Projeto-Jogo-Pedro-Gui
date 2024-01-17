@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class LineHelper
+/// <summary>
+/// Funções para desenhar certos formatos com o line renderer
+/// </summary>
+public static class LineHelper
 {
     public static void DrawCircle(LineRenderer lineRenderer, int steps, float radius)
     {

@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Componente que mostra na tela a velocidade do jogador
+/// </summary>
 public class PlayerSpeed : MonoBehaviour
 {
 

@@ -1,7 +1,8 @@
-
-
 using UnityEngine;
 
+/// <summary>
+/// Estado presente quando o pedaço de madeira está solto no chão
+/// </summary>
 public class PlankPiecePick : Pickable
 {
     [Header("Ground Detection")]

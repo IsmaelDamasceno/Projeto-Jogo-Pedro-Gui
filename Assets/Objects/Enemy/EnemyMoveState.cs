@@ -5,6 +5,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Estado presente para mover o inimigo usando sua AI mal feita
+/// </summary>
 public class EnemyMoveState : BaseState
 {
 

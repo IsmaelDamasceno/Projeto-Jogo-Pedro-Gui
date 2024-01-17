@@ -5,9 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Associada à barreira de madeira
+/// </summary>
 public class Plank : MonoBehaviour
 {
-
     [SerializeField] private GameObject plankPiece;
 	[SerializeField] private GameObject dustParticles;
 	[SerializeField] private Vector2 torque; 
@@ -26,6 +28,10 @@ public class Plank : MonoBehaviour
 
 	}
 
+	/// <summary>
+	/// Lida com colisões com o jogador, e determina se a barreira quebrará ou não
+	/// </summary>
+	/// <param name="collision"></param>
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.tag == "Player")
@@ -35,11 +41,14 @@ public class Plank : MonoBehaviour
 			Vector2 hitDirection = collision.contacts[0].normal;
 			Vector2 velocityTowardsPlank = collision.relativeVelocity * hitDirection;
 
+			// Verifica se o jogador está rápido o bastante para quebrar a barreira
 			if (velocityTowardsPlank.magnitude >= maxSpeed - 1f)
 			{
+				// Cria partículas de poeira e pedaços de madeira nos pontos filhos desse Transform
 				foreach(Transform trs in transform)
 				{
 					#region Plank Piece
+					// Cria um pedaço de madeira
 					Rigidbody2D plankPieceRb =
 						Instantiate(plankPiece, trs.position, Quaternion.identity).GetComponent<Rigidbody2D>();
 
@@ -51,6 +60,7 @@ public class Plank : MonoBehaviour
 					#endregion
 
 					#region Dust
+					// Cria a partícula de poeira
 					Transform dustTrs =
 						Instantiate(dustParticles, trs.position, dustParticles.transform.rotation).transform;
 					dustTrs.right = hitDirection;

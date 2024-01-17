@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Responsável por executar animações e efeitos associados a bomba
+/// </summary>
 public class Bomb : MonoBehaviour
 {
-
     [Header("Visuals")]
     [SerializeField] private AnimationCurve effectCurve;
     [SerializeField] private float radiusScale;
@@ -32,30 +34,44 @@ public class Bomb : MonoBehaviour
 
     void Update()
     {
-        curTime += Time.deltaTime / explodeTime;
+		#region Animação
+		curTime += Time.deltaTime / explodeTime;
 
-        float val = effectCurve.Evaluate(curTime);
+		float val = effectCurve.Evaluate(curTime);
 		bombVisual.localScale = (1f + val * radiusScale) * new Vector3(1f, 1f, 1f);
-        bombVisual.localPosition = shakeScale * val * Random.insideUnitCircle;
+		bombVisual.localPosition = shakeScale * val * Random.insideUnitCircle;
+		#endregion
 	}
 
-    IEnumerator WaitExplosion()
+	/// <summary>
+	/// Explode a bomba após o tempo de espera acabar
+	/// </summary>
+	/// <returns></returns>
+	IEnumerator WaitExplosion()
     {
+		// Espera o tempo necessário
         yield return new WaitForSeconds(explodeTime);
 
+		// Faz checagem de colisão para causar dano a objetos em volta
         CheckCollisions();
 
+		// Cria as particulas de efeito
 		foreach(GameObject particlePrefab in explosionParticleObjects)
 		{
 			Transform particleTrs = Instantiate(particlePrefab, transform.position, Quaternion.identity).transform;
 			particleTrs.localScale = new Vector3(1f, 1f, 1f) * explosionEffectScale;
 		}
+
+		// Deleta a bomba
 		Destroy(gameObject);
     }
 
-
+	/// <summary>
+	/// Checagem de colisão para causar dano a objetos próximos quando a bomba explode
+	/// </summary>
     private void CheckCollisions()
     {
+		// Procura objetos próximos e os coloca em uma lista
 		Collider2D[] hitList = Physics2D.OverlapCircleAll(transform.position, explosionRadius, explosionMask);
 
 		if (hitList.Length > 0)
@@ -66,19 +82,7 @@ public class Bomb : MonoBehaviour
 				{
 					continue;
 				}
-				/*
-				Vector2 direction = (collider.transform.position - transform.position).normalized;
-				float percentage = 1f - (Vector2.Distance(collider.transform.position, transform.position) / explosionRadius);
-				float force = percentage * explosionForce + rb.velocity.magnitude;
-
-				if (collider.TryGetComponent(out Player.PlayerCore playerCore))
-				{
-					playerCore.stateMachine.ChangeState("Free");
-				}
-
-				rb.velocity = direction * force; 
-				*/
-
+				
 				float percentage = 1f - (
 					Vector2.Distance(collider.transform.position, transform.position) / explosionRadius);
 				float force = percentage * explosionForce;

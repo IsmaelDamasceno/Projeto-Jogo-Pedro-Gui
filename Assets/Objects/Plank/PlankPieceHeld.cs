@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Estado presente quando um pedaço de madeira está segundo segurado pelo jogador
+/// </summary>
 public class PlankPieceHeld : PickableHeldState
 {
-    private BoxCollider2D collider;
+    private new BoxCollider2D collider;
     private LineRenderer lineRenderer;
 
 	public override void Enter()

@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Player
 {
+	/// <summary>
+	/// Core da máquina de estado do jogador, inclui variáveis globais usadas por diferentes estados para evitar duplicar referências
+	/// </summary>
 	public class PlayerCore : MonoBehaviour
 	{
 
@@ -13,27 +16,30 @@ namespace Player
 		public static StateMachine stateMachine;
 		public static PlayerCore instance;
 
+		#region Global Variables
 		public static Rigidbody2D rb;
 		public static Animator animator;
 		public static BoxCollider2D boxCollider;
 		public static CircleCollider2D circleCollider;
 		public static RectangleGroundDetection rectGroundDetection;
+		#endregion
 
 		public static float startGravScale;
 		// public static CircleGroundDetection circGroundDetection;
 
 		#region Ivulnerability
-		public static bool ivulnerable = false;
-		public static void SetIvulnerable(float time)
+		public static bool invulnerable = false;
+		// Deixa o jogador invulnerável a qualquer ataque por um breve período de tempo
+		public static void SetInvulnerable(float time)
 		{
 			instance.StopAllCoroutines();
-			instance.StartCoroutine(instance.Ivulnerability(time));
+			instance.StartCoroutine(instance.Invulnerability(time));
 		}
-		private IEnumerator Ivulnerability(float time)
+		private IEnumerator Invulnerability(float time)
 		{
-			ivulnerable = true;
+			invulnerable = true;
 			yield return new WaitForSeconds(time);
-			ivulnerable = false;
+			invulnerable = false;
 		}
 		#endregion
 
@@ -73,7 +79,7 @@ namespace Player
 				return;
 			}
 
-			ivulnerable = false;
+			invulnerable = false;
 			StopAllCoroutines();
 		}
 

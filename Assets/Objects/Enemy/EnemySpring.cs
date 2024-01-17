@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Usada para desenhar uma mola (não é mais usada)
+/// </summary>
 public class EnemySpring : MonoBehaviour
 {
-
     [SerializeField] private int steps;
 	[SerializeField] private float radius;
 	[SerializeField] private float compression;

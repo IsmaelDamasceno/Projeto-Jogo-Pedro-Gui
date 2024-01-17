@@ -1,13 +1,12 @@
 using Pick;
 using Player;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Unity.VisualScripting;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
+/// <summary>
+/// Código associado ao player para pegar e jogar objetos
+/// </summary>
 public class Pickup : MonoBehaviour
 {
     public static Pickup instance;

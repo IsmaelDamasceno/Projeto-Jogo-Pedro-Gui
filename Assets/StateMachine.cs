@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe que controla estados em uma state machine
+/// </summary>
 public class StateMachine: MonoBehaviour
 {
 	[HideInInspector] public Dictionary<string, BaseState> stateList;

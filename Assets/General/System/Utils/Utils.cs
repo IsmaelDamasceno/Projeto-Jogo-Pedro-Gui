@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Funções úteis
+/// </summary>
 public static class Utils
 {
-
+	/// <summary>
+	/// Procura por um objeto filho de um transform usando seu nome
+	/// </summary>
+	/// <param name="transformSearch">Todos os filhos desse transform serão analisados, procurando o GameObject específico</param>
+	/// <param name="objectName">Nome do objeto que sera procurado nos filhos do transform</param>
+	/// <returns></returns>
 	public static GameObject SearchObjectIntransform(Transform transformSearch, string objectName)
 	{
 		foreach (Transform trs in transformSearch)
@@ -61,11 +69,21 @@ public static class Utils
 		return new T[0];
 	}
 
+	/// <summary>
+	/// Retorna o valor absoluto de um Vector2
+	/// </summary>
+	/// <param name="vector">Vector para executar o abs</param>
+	/// <returns></returns>
 	public static Vector2 Vector2Abs(Vector2 vector)
 	{
 		return new Vector2(Mathf.Abs(vector.x), Mathf.Abs(vector.y));
 	}
 
+	/// <summary>
+	/// Retorna o valor absoluto de um Vector3
+	/// </summary>
+	/// <param name="vector">Vector para executar o abs</param>
+	/// <returns></returns>
 	public static Vector3 Vector3Abs(Vector3 vector)
 	{
 		return new Vector3(Mathf.Abs(vector.x), Mathf.Abs(vector.y), Mathf.Abs(vector.z));

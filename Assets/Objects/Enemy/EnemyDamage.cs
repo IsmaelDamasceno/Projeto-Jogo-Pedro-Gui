@@ -1,6 +1,9 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Implementa a interface IAttackble para que o inimigo sofra dano
+/// </summary>
 public class EnemyDamage : MonoBehaviour, IAttackable
 {
 
@@ -8,6 +11,14 @@ public class EnemyDamage : MonoBehaviour, IAttackable
     private StateMachine machine;
     private Rigidbody2D rb;
 
+	/// <summary>
+	/// Função a ser executada para o inimigo sofre dano
+	/// </summary>
+	/// <param name="damage">Dano a ser causado ao inimigo</param>
+	/// <param name="attackTransform">Referência ao transform que causou o dano</param>
+	/// <param name="direction">Vector representando a direção para jogar o inimigo ao sofrer o dano</param>
+	/// <param name="force">Força com que o inimigo será jogado</param>
+	/// <param name="torqueIntensity">Intensidade da força a ser usada no torque</param>
     public void SufferDamage(int damage, Transform attackTransform = null, Vector2 direction = default, float force = 1, float torqueIntensity = 1)
     {
 		if (machine.currentState == "Move")

@@ -6,9 +6,9 @@ public class PlayerDamage : MonoBehaviour, IAttackable
 {
     public void SufferDamage(int damage, Transform attackTransform = null, Vector2 direction = default, float force = 1, float torqueIntensity = 1)
     {
-		if (!PlayerCore.ivulnerable)
+		if (!PlayerCore.invulnerable)
 		{
-			PlayerCore.SetIvulnerable(0.1f);
+			PlayerCore.SetInvulnerable(0.1f);
 		}
 		else
 		{
@@ -17,7 +17,7 @@ public class PlayerDamage : MonoBehaviour, IAttackable
 
 		HealthSystem.ChangeHealth(-damage);
 
-		if (PlayerCore.stateMachine.currentState == "Move")
+		if (PlayerCore.stateMachine.currentState != "Free")
 		{
 			PlayerCore.stateMachine.ChangeState("Free");
 		}
