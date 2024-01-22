@@ -11,6 +11,7 @@ public class Saw : MonoBehaviour
 
     [SerializeField] private float speed;
     [SerializeField] private AnimationCurve motionCurve;
+    [SerializeField] private float bladeRotationSpeed;
 
     private float totalDistance;
     private float currentDitance;
@@ -20,8 +21,12 @@ public class Saw : MonoBehaviour
 
     private LineRenderer lineRenderer;
     private Vector3[] positions;
+
+    private Transform blade;
+
     void Start()
     {
+        blade = transform.GetChild(0);
         lineRenderer = GetComponent<LineRenderer>();
 
         int positionCount = lineRenderer.positionCount;
@@ -38,11 +43,17 @@ public class Saw : MonoBehaviour
 
     void Update()
     {
-        if (Vector2.Distance(transform.position, positions[goIndex]) <= 0.02f)
-        {
-            transform.position = (Vector2)positions[goIndex];
-            
-            startPosition = positions[goIndex];
+        Motion();
+        blade.Rotate(new(0f, 0f, 360f * bladeRotationSpeed * Time.deltaTime / 60f), Space.Self);
+    }
+
+    private void Motion()
+    {
+		if (Vector2.Distance(transform.position, positions[goIndex]) <= 0.02f)
+		{
+			transform.position = (Vector2)positions[goIndex];
+
+			startPosition = positions[goIndex];
 			if (goIndex < positions.Length - 1)
 			{
 				goIndex++;
@@ -51,16 +62,16 @@ public class Saw : MonoBehaviour
 			{
 				goIndex = 0;
 			}
-            totalDistance = Vector2.Distance(transform.position, positions[goIndex]);
-            currentDitance = 0f;
+			totalDistance = Vector2.Distance(transform.position, positions[goIndex]);
+			currentDitance = 0f;
 		}
-        else
-        {
-            currentDitance += speed * Time.deltaTime;
-            float percent = motionCurve.Evaluate(Mathf.Clamp(currentDitance / totalDistance, 0f, 1f));
-            transform.position = Vector2.Lerp(startPosition, positions[goIndex], percent);
+		else
+		{
+			currentDitance += speed * Time.deltaTime;
+			float percent = motionCurve.Evaluate(Mathf.Clamp(currentDitance / totalDistance, 0f, 1f));
+			transform.position = Vector2.Lerp(startPosition, positions[goIndex], percent);
 		}
-    }
+	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -40,7 +40,8 @@ public class EnemyDamage : MonoBehaviour, IAttackable
 		GetComponent<DamageFlash>().Flash();
 		GetComponent<EnemyFreeState>().StartTimer();
 
-		Instantiate(damageParticles, transform.position, Quaternion.identity, transform);
+		DamageParticles particles = Instantiate(damageParticles, transform.position, Quaternion.identity, transform).GetComponent<DamageParticles>();
+		particles.SetColor(Color.red);
 	}
 
     // Start is called before the first frame update

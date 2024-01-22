@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerDamage : MonoBehaviour, IAttackable
 {
+
+	[SerializeField] private GameObject damageParticles;
+
     public void SufferDamage(int damage, Transform attackTransform = null, Vector2 direction = default, float force = 1, float torqueIntensity = 1)
     {
 		if (!PlayerCore.invulnerable)
@@ -33,6 +36,8 @@ public class PlayerDamage : MonoBehaviour, IAttackable
 		PlayerCore.rb.velocity = velocity;
 
 		GetComponent<DamageFlash>().Flash();
+		DamageParticles particles = Instantiate(damageParticles, transform.position, Quaternion.identity, transform).GetComponent<DamageParticles>();
+		particles.SetColor(Color.white);
 	}
 
     void Start()
