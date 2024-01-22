@@ -146,3 +146,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af33276b60d54df4e9045939e3713e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomAngle: 10
