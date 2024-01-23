@@ -6,7 +6,6 @@ public class ConnectionComponentOutput : ConnectionComponent
 {
     public override void SetSignal(bool signalVal)
     {
-        Debug.Log($"received signal: {signalVal}");
     }
 	public override void SetInterpolationValue(float value)
 	{

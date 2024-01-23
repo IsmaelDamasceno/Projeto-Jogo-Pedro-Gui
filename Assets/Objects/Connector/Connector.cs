@@ -23,7 +23,6 @@ public class Connector : MonoBehaviour
 		light = Utils.SearchObjectWithComponent<Light2D>(transform, "Light");
 		light.intensity = 0f;
 
-		Debug.Log(gameObject.name);
 		output.SetConnection(transform);
 
 		overlay.color = new Color(
@@ -55,7 +54,6 @@ public class Connector : MonoBehaviour
 
 	public void SetSignal(bool inputVal)
 	{
-		Debug.Log($"connector received {inputVal} signal");
 		output.SetSignal(inputVal);
 
 		signal = inputVal;

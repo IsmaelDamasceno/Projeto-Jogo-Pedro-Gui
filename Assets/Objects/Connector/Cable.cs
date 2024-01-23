@@ -22,7 +22,6 @@ public class Cable : ConnectionComponent
 
     public override void SetSignal(bool signalVal)
     {
-        Debug.Log($"Cable received {signalVal} signal");
 		output.SetSignal(signalVal);
     }
 	public override void SetInterpolationValue(float value)
@@ -41,7 +40,6 @@ public class Cable : ConnectionComponent
 	}
 	public override void SetConnection(Transform connectionTrs)
 	{
-		Debug.Log(connectionTrs.position);
 		lineRenderer.SetPosition(0, connectionTrs.position);
 	}
 }
