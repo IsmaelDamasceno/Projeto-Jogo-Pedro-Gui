@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ConnectionComponentInput : MonoBehaviour
 {
-    [SerializeField] private ConnectorInput inputConnector;
+    [SerializeField] private Connector connector;
 
     public void SendInput(bool inputVal)
     {
-        inputConnector.ReceiveInput(inputVal);
+		connector.SetSignal(inputVal);
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class ConnectorInput : MonoBehaviour
+public class Connector : MonoBehaviour
 {
-	[SerializeField] private Cable cable;
+	[SerializeField] private ConnectionComponent output;
 
 	[SerializeField] private AnimationCurve colorInterpolationCurve;
 	[SerializeField] private float interpolationTime;
@@ -22,6 +22,9 @@ public class ConnectorInput : MonoBehaviour
 		overlay = Utils.SearchObjectWithComponent<SpriteRenderer>(transform, "Overlay");
 		light = Utils.SearchObjectWithComponent<Light2D>(transform, "Light");
 		light.intensity = 0f;
+
+		Debug.Log(gameObject.name);
+		output.SetConnection(transform);
 
 		overlay.color = new Color(
 			1f, 1f, 1f,
@@ -50,15 +53,10 @@ public class ConnectorInput : MonoBehaviour
 		light.intensity = percent;
 	}
 
-	public void ConnectCable(Cable cable)
+	public void SetSignal(bool inputVal)
 	{
-		this.cable = cable;
-	}
-
-	public void ReceiveInput(bool inputVal)
-	{
-		Debug.Log($"input connector received {inputVal} signal");
-		cable.SetSignal(inputVal);
+		Debug.Log($"connector received {inputVal} signal");
+		output.SetSignal(inputVal);
 
 		signal = inputVal;
 		interpolating = true;
@@ -66,6 +64,6 @@ public class ConnectorInput : MonoBehaviour
 
 	public void SetInterpolationValue(float value)
 	{
-		cable.SetInterpolationValue(value);
+		output.SetInterpolationValue(value);
 	}
 }

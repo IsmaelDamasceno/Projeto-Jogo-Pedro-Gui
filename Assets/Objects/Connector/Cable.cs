@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cable : MonoBehaviour
+public class Cable : ConnectionComponent
 {
-    [SerializeField] private ConnectorOutput output;
+    [SerializeField] private Connector output;
     [SerializeField] private Color onColor;
     [SerializeField] private Color offColor;
     [SerializeField] private AnimationCurve colorInterpolationCurve;
@@ -12,23 +12,22 @@ public class Cable : MonoBehaviour
 
     private LineRenderer lineRenderer;
 
-
-	private void Start()
+	private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
 		lineRenderer.startColor = offColor;
 		lineRenderer.endColor = offColor;
+		lineRenderer.SetPosition(1, output.transform.position);
 	}
 
-    public void SetSignal(bool signalVal)
+    public override void SetSignal(bool signalVal)
     {
         Debug.Log($"Cable received {signalVal} signal");
-        output.ReceiveOutput(signalVal);
+		output.SetSignal(signalVal);
     }
-	public void SetInterpolationValue(float value)
+	public override void SetInterpolationValue(float value)
 	{
         output.SetInterpolationValue(value);
-
 
 		Color currentColor = new Color(
 			Mathf.Lerp(offColor.r, onColor.r, value),
@@ -39,5 +38,10 @@ public class Cable : MonoBehaviour
 
 		lineRenderer.startColor = currentColor;
 		lineRenderer.endColor = currentColor;
+	}
+	public override void SetConnection(Transform connectionTrs)
+	{
+		Debug.Log(connectionTrs.position);
+		lineRenderer.SetPosition(0, connectionTrs.position);
 	}
 }

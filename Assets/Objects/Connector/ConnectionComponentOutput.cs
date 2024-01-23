@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConnectionComponentOutput : MonoBehaviour
+public class ConnectionComponentOutput : ConnectionComponent
 {
-    public void SetSignal(bool signalVal)
+    public override void SetSignal(bool signalVal)
     {
         Debug.Log($"received signal: {signalVal}");
     }
+	public override void SetInterpolationValue(float value)
+	{
+
+	}
+	public override void SetConnection(Transform connectionTrs)
+	{
+
+	}
 }
