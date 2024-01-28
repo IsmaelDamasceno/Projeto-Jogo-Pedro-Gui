@@ -11,13 +11,15 @@ public class PlayerDamage : MonoBehaviour, IAttackable
     {
 		if (!PlayerCore.invulnerable)
 		{
-			PlayerCore.SetInvulnerable(0.1f);
+			PlayerCore.SetInvulnerable(2f);
 		}
 		else
 		{
 			return;
 		}
 
+		TimeFreeze.Freeze(0.1f);
+		CameraMovement.ShakeIt(2f, 0.1f);
 		HealthSystem.ChangeHealth(-damage);
 
 		if (PlayerCore.stateMachine.currentState != "Free")
@@ -35,7 +37,7 @@ public class PlayerDamage : MonoBehaviour, IAttackable
 		PlayerCore.rb.AddTorque(-Math.Sign(direction.x) * force * torqueIntensity, ForceMode2D.Impulse);
 		PlayerCore.rb.velocity = velocity;
 
-		GetComponent<DamageFlash>().Flash();
+		GetComponent<IFlash>().Flash();
 		DamageParticles particles = Instantiate(damageParticles, transform.position, Quaternion.identity, transform).GetComponent<DamageParticles>();
 		particles.SetColor(Color.white);
 	}

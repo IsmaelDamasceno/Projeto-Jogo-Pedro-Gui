@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 public class Connector : MonoBehaviour
 {
-	[SerializeField] private ConnectionComponent output;
+	[SerializeField] private List<ConnectionComponent> outputs;
 
 	[SerializeField] private AnimationCurve colorInterpolationCurve;
 	[SerializeField] private float interpolationTime;
@@ -23,7 +23,10 @@ public class Connector : MonoBehaviour
 		light = Utils.SearchObjectWithComponent<Light2D>(transform, "Light");
 		light.intensity = 0f;
 
-		output.SetConnection(transform);
+		foreach(ConnectionComponent output in outputs)
+		{
+			output.SetConnection(transform);
+		}
 
 		overlay.color = new Color(
 			1f, 1f, 1f,
@@ -54,7 +57,10 @@ public class Connector : MonoBehaviour
 
 	public void SetSignal(bool inputVal)
 	{
-		output.SetSignal(inputVal);
+		foreach(ConnectionComponent output in outputs)
+		{
+			output.SetSignal(inputVal);
+		}	
 
 		signal = inputVal;
 		interpolating = true;
@@ -62,6 +68,9 @@ public class Connector : MonoBehaviour
 
 	public void SetInterpolationValue(float value)
 	{
-		output.SetInterpolationValue(value);
+		foreach (ConnectionComponent output in outputs)
+		{
+			output.SetInterpolationValue(value);
+		}
 	}
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Controla e ativa o shader que pinta o objeto de uma cor só quando sofre dano
 /// </summary>
-public class DamageFlash : MonoBehaviour
+public class DamageFlash : MonoBehaviour, IFlash
 {
     /// <summary>
     /// Cor do dano
@@ -31,6 +31,8 @@ public class DamageFlash : MonoBehaviour
     /// Material que aplica o flash visualmente
     /// </summary>
     private Material material;
+
+    private float time;
 
     void Start()
     {
@@ -65,6 +67,7 @@ public class DamageFlash : MonoBehaviour
         {
             // Atualiza o tempo
             elapsedTime += Time.deltaTime;
+
             // Pega o valor na curva de animação
             currentFlashAmount = flashCurve.Evaluate(elapsedTime / flashTime);
             // Aplica o valor na textura
@@ -76,10 +79,4 @@ public class DamageFlash : MonoBehaviour
         // Reseta o flash para 0 no fim da animação
 		material.SetFloat("_Flash_Amount", 0f);
 	}
-
-
-    void Update()
-    {
-        
-    }
 }

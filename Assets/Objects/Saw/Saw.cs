@@ -23,11 +23,15 @@ public class Saw : MonoBehaviour
     private Vector3[] positions;
 
     private Transform blade;
+    private Rigidbody2D rb;
+
+    private bool freeMovement = false;
 
     void Start()
     {
         blade = transform.GetChild(0);
         lineRenderer = GetComponent<LineRenderer>();
+        rb = GetComponent<Rigidbody2D>();
 
         int positionCount = lineRenderer.positionCount;
 		positions = new Vector3[positionCount];
@@ -43,6 +47,11 @@ public class Saw : MonoBehaviour
 
     void Update()
     {
+        if (freeMovement)
+        {
+            return;
+        }
+
         Motion();
         blade.Rotate(new(0f, 0f, 360f * bladeRotationSpeed * Time.deltaTime / 60f), Space.Self);
     }
@@ -73,11 +82,11 @@ public class Saw : MonoBehaviour
 		}
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.TryGetComponent(out IAttackable attackable))
-        {
-            Vector2 direction = (collision.transform.position - transform.position).normalized;
+		if (collision.transform.TryGetComponent(out IAttackable attackable))
+		{
+			Vector2 direction = (collision.transform.position - transform.position).normalized;
 			attackable.SufferDamage(1, default, direction, 12f, .1f);
 		}
 	}

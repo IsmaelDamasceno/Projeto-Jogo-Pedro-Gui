@@ -37,7 +37,7 @@ public class EnemyDamage : MonoBehaviour, IAttackable
 		rb.AddTorque(torqueDirection * force * torqueIntensity, ForceMode2D.Impulse);
 		rb.velocity = velocity;
 
-		GetComponent<DamageFlash>().Flash();
+		GetComponent<IFlash>().Flash();
 		GetComponent<EnemyFreeState>().StartTimer();
 
 		DamageParticles particles = Instantiate(damageParticles, transform.position, Quaternion.identity, transform).GetComponent<DamageParticles>();
