@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,6 +11,7 @@ public class EnemyDamage : MonoBehaviour, IAttackable
 	[SerializeField] private GameObject damageParticles;
     private StateMachine machine;
     private Rigidbody2D rb;
+	private bool invulnerable = false;
 
 	/// <summary>
 	/// Função a ser executada para o inimigo sofre dano
@@ -21,6 +23,11 @@ public class EnemyDamage : MonoBehaviour, IAttackable
 	/// <param name="torqueIntensity">Intensidade da força a ser usada no torque</param>
     public void SufferDamage(int damage, Transform attackTransform = null, Vector2 direction = default, float force = 1, float torqueIntensity = 1)
     {
+		if (invulnerable)
+		{
+			return;
+		}
+
 		if (machine.currentState == "Move")
 		{
 			machine.ChangeState("Free");
@@ -39,6 +46,9 @@ public class EnemyDamage : MonoBehaviour, IAttackable
 
 		GetComponent<IFlash>().Flash();
 		GetComponent<EnemyFreeState>().StartTimer();
+		StopAllCoroutines();
+		StartCoroutine(InvulnerabilityCoroutine());
+		invulnerable = true;
 
 		DamageParticles particles = Instantiate(damageParticles, transform.position, Quaternion.identity, transform).GetComponent<DamageParticles>();
 		particles.SetColor(Color.red);
@@ -49,6 +59,12 @@ public class EnemyDamage : MonoBehaviour, IAttackable
     {
         machine = GetComponent<StateMachine>();
         rb = GetComponent<Rigidbody2D>();
+	}
+
+	IEnumerator InvulnerabilityCoroutine()
+	{
+		yield return new WaitForSeconds(.2f);
+		invulnerable = false;
 	}
 
     // Update is called once per frame

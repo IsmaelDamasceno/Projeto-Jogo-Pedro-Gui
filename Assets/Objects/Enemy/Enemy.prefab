@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4862875469371717029}
   - component: {fileID: 7485696146918857608}
   - component: {fileID: 9066739530209986852}
-  - component: {fileID: 7795651899701752083}
+  - component: {fileID: -6821158585145527642}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Untagged
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageParticles: {fileID: 3586196774645991968, guid: 4771d4ea7cded27498c5d8ef12bc2715, type: 3}
---- !u!114 &7795651899701752083
+--- !u!114 &-6821158585145527642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -249,35 +249,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 6923227285287279760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b990ed2b0c78d664f83a08b62983b0d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 1809ea6ed20f7e547a5b3f68a53bb15f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashColor: {r: 4, g: 0, b: 0, a: 1}
-  flashCurve:
+  flashColor: {r: 1.4142135, g: 0, b: 0, a: 1}
+  pingPongCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: -2.6640105
-      outSlope: -2.6640105
-      tangentMode: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.056145675
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -0.042033426
-      outSlope: -0.042033426
-      tangentMode: 0
+      inSlope: -2
+      outSlope: -2
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.10166919
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  flashTime: 0.1
+  totalTime: 0.2
+  pingPongTime: 0.25
 --- !u!1 &7983360860168058706
 GameObject:
   m_ObjectHideFlags: 0
