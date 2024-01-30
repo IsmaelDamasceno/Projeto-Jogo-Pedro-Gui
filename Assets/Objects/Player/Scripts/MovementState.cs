@@ -50,7 +50,6 @@ namespace Player
 		private int inputLastFrame = 0;
 		private int input;
 
-		private bool grounded = false;
 		private float initialY = 0f;
 		private bool startedJump = false;
 
@@ -77,8 +76,6 @@ namespace Player
 
 		public override void Step()
 		{
-			grounded = PlayerCore.rectGroundDetection.Check();
-
 			#region Base Movement
 			input = InputController.moveAxis.GetValRaw();
 			moving = input != 0;
@@ -116,7 +113,7 @@ namespace Player
 
 			if (InputController.GetKey("Jump"))
 			{
-				if (grounded)
+				if (PlayerCore.grounded)
 				{
 					PlayerCore.rb.velocity = new(PlayerCore.rb.velocity.x, jumpStrength);
 					initialY = transform.position.y;
@@ -126,11 +123,11 @@ namespace Player
 			else
 			{
 				float yDiff = transform.position.y - initialY;
-				if (!grounded && yDiff >= 1.4f && PlayerCore.rb.velocity.y >= 0f && startedJump)
+				if (!PlayerCore.grounded && yDiff >= 1.4f && PlayerCore.rb.velocity.y >= 0f && startedJump)
 				{
 					PlayerCore.rb.velocity = new Vector2(PlayerCore.rb.velocity.x, Mathf.Abs(PlayerCore.rb.velocity.y * 0.9f));
 				}
-				else if (grounded)
+				else if (PlayerCore.grounded)
 				{
 					startedJump = false;
 				}
@@ -167,7 +164,7 @@ namespace Player
 			#endregion
 
 			#region State Change
-			if (InputController.GetKeyDown("DownDash") && !grounded)
+			if (InputController.GetKeyDown("DownDash") && !PlayerCore.grounded)
 			{
 				machine.ChangeState("DownDash");
 			}

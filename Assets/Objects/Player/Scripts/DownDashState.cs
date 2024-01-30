@@ -32,7 +32,7 @@ public class DownDashState : BaseState
 
     public override void Step()
     {
-        if (PlayerCore.rectGroundDetection.Check())
+        if (PlayerCore.grounded)
         {
             for(int i = 0; i <= 1; i++) {
 				GameObject obj = Instantiate(shockWavePrefab, transform.position, Quaternion.identity);
@@ -42,16 +42,4 @@ public class DownDashState : BaseState
             machine.ChangeState("Move");
         }
     }
-
-#if UNITY_EDITOR 
-    private void OnDrawGizmosSelected()
-    {
-        if (PlayerCore.boxCollider == null)
-        {
-            return;
-        }
-
-        PlayerCore.rectGroundDetection.DebugDraw(Color.blue);
-    }
-#endif
 }

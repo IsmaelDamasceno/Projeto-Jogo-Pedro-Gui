@@ -8,11 +8,6 @@ namespace Player
 	/// </summary>
 	public class PlayerCore : MonoBehaviour
 	{
-
-		[SerializeField] private LayerMask groundMask;
-
-		public static LayerMask GroundMask { get => instance.groundMask; set => instance.groundMask = value; }
-
 		public static StateMachine stateMachine;
 		public static PlayerCore instance;
 
@@ -21,7 +16,6 @@ namespace Player
 		public static Animator animator;
 		public static BoxCollider2D boxCollider;
 		public static CircleCollider2D circleCollider;
-		public static RectangleGroundDetection rectGroundDetection;
 		#endregion
 
 		public static float startGravScale;
@@ -30,11 +24,27 @@ namespace Player
 		#region Ivulnerability
 		public static bool invulnerable = false;
 		// Deixa o jogador invulnerável a qualquer ataque por um breve período de tempo
+
+		/// <summary>
+		/// Deine se o jogador está no chão ou não, controlado pelo compnenete GroundDetection
+		/// </summary>
+		public static bool grounded = false;
+
+		/// <summary>
+		/// Deixa o jogador invulnerável por uma certa quantidade de tempo
+		/// </summary>
+		/// <param name="time">Quantidade de tempo em segundos, em que o jogador permanecerá invulnerável</param>
 		public static void SetInvulnerable(float time)
 		{
 			instance.StopAllCoroutines();
 			instance.StartCoroutine(instance.Invulnerability(time));
 		}
+
+		/// <summary>
+		/// Espera por um certo tempo e deixa o jogador vulnerável novamente
+		/// </summary>
+		/// <param name="time">quantidade de tempo antes esperada antes de deixar o jogador vulnerável novamente</param>
+		/// <returns></returns>
 		private IEnumerator Invulnerability(float time)
 		{
 			invulnerable = true;
@@ -55,7 +65,6 @@ namespace Player
 				animator = GetComponent<Animator>();
 				boxCollider = GetComponent<BoxCollider2D>();
 				circleCollider = GetComponent<CircleCollider2D>();
-				rectGroundDetection = new(transform, 0.08f, groundMask, boxCollider);
 				startGravScale = rb.gravityScale;
 
 				#region State Machine
