@@ -30,6 +30,6 @@ public class Chain : MonoBehaviour
         // pixels por frame
         // 3 / 16 = unidades por frame
         // 2.0625 = unidades por segundo
-		animator.SetFloat("Speed Scale", (invert? -1f: 1f) * 2f / 2.0625f);
+		animator.SetFloat("Speed Scale", (invert? -1f: 1f) * speed / 2.0625f);
 	}
 }

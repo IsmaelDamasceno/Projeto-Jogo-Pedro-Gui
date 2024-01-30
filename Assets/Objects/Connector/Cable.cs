@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cable : ConnectionComponent
 {
-    [SerializeField] private Connector output;
+    [SerializeField] private BaseConnector output;
     [SerializeField] private Color onColor;
     [SerializeField] private Color offColor;
     [SerializeField] private AnimationCurve colorInterpolationCurve;

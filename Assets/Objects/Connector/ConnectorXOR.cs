@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using static UnityEditor.Rendering.CameraUI;
 
-public class Connector : BaseConnector
+public class ConnectorXOR : BaseConnector
 {
-	[SerializeField] private List<ConnectionComponent> outputs;
+	[SerializeField] private ConnectionComponent offOutput;
+	[SerializeField] private ConnectionComponent onOutput;
 
 	[SerializeField] private AnimationCurve colorInterpolationCurve;
 	[SerializeField] private float interpolationTime;
@@ -23,10 +25,8 @@ public class Connector : BaseConnector
 		light = Utils.SearchObjectWithComponent<Light2D>(transform, "Light");
 		light.intensity = 0f;
 
-		foreach(ConnectionComponent output in outputs)
-		{
-			output.SetConnection(transform);
-		}
+		offOutput.SetConnection(transform);
+		onOutput.SetConnection(transform);
 
 		overlay.color = new Color(
 			1f, 1f, 1f,
@@ -57,10 +57,8 @@ public class Connector : BaseConnector
 
 	public override void SetSignal(bool inputVal)
 	{
-		foreach(ConnectionComponent output in outputs)
-		{
-			output.SetSignal(inputVal);
-		}	
+		offOutput.SetSignal(!inputVal);
+		onOutput.SetSignal(inputVal);
 
 		signal = inputVal;
 		interpolating = true;
@@ -68,9 +66,7 @@ public class Connector : BaseConnector
 
 	public override void SetInterpolationValue(float value)
 	{
-		foreach (ConnectionComponent output in outputs)
-		{
-			output.SetInterpolationValue(value);
-		}
+		offOutput.SetInterpolationValue(1f-value);
+		onOutput.SetInterpolationValue(value);
 	}
 }

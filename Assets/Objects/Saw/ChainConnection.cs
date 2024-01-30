@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class Connector : BaseConnector
+public class ChainConnection : ConnectionComponent
 {
 	[SerializeField] private List<ConnectionComponent> outputs;
 
@@ -23,7 +23,7 @@ public class Connector : BaseConnector
 		light = Utils.SearchObjectWithComponent<Light2D>(transform, "Light");
 		light.intensity = 0f;
 
-		foreach(ConnectionComponent output in outputs)
+		foreach (ConnectionComponent output in outputs)
 		{
 			output.SetConnection(transform);
 		}
@@ -57,20 +57,16 @@ public class Connector : BaseConnector
 
 	public override void SetSignal(bool inputVal)
 	{
-		foreach(ConnectionComponent output in outputs)
-		{
-			output.SetSignal(inputVal);
-		}	
-
-		signal = inputVal;
-		interpolating = true;
+		
 	}
 
 	public override void SetInterpolationValue(float value)
 	{
-		foreach (ConnectionComponent output in outputs)
-		{
-			output.SetInterpolationValue(value);
-		}
+		 
+	}
+
+	public override void SetConnection(Transform connectionTrs)
+	{
+
 	}
 }
