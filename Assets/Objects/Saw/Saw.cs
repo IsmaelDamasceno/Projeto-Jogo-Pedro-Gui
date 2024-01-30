@@ -13,6 +13,8 @@ public class Saw : MonoBehaviour
     [SerializeField] private AnimationCurve motionCurve;
     [SerializeField] private float bladeRotationSpeed;
 
+    [SerializeField] private List<Chain> chains;
+
     private float totalDistance;
     private float currentDitance;
     private int goIndex = 0;
@@ -23,15 +25,16 @@ public class Saw : MonoBehaviour
     private Vector3[] positions;
 
     private Transform blade;
-    private Rigidbody2D rb;
-
-    private bool freeMovement = false;
 
     void Start()
     {
         blade = transform.GetChild(0);
         lineRenderer = GetComponent<LineRenderer>();
-        rb = GetComponent<Rigidbody2D>();
+
+        foreach(Chain chain in chains)
+        {
+			chain.SetSpeed(speed);
+		}
 
         int positionCount = lineRenderer.positionCount;
 		positions = new Vector3[positionCount];
@@ -47,12 +50,7 @@ public class Saw : MonoBehaviour
 
     void Update()
     {
-        if (freeMovement)
-        {
-            return;
-        }
-
-        Motion();
+		Motion();
         blade.Rotate(new(0f, 0f, 360f * bladeRotationSpeed * Time.deltaTime / 60f), Space.Self);
     }
 
