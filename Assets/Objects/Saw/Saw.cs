@@ -10,31 +10,27 @@ public class Saw : MonoBehaviour
 {
 
     [SerializeField] private float speed;
-    [SerializeField] private AnimationCurve motionCurve;
     [SerializeField] private float bladeRotationSpeed;
 
-    [SerializeField] private List<Chain> chains;
-
     private float totalDistance;
-    private float currentDitance;
+    private float currentDitance = 0;
     private int goIndex = 0;
-
-    private Vector2 startPosition;
+    public int direction = 1;
 
     private LineRenderer lineRenderer;
     private Vector3[] positions;
 
     private Transform blade;
 
-    void Start()
+	public void SetSpeed(float speed)
+	{
+		this.speed = speed;
+	}
+
+	void Start()
     {
         blade = transform.GetChild(0);
         lineRenderer = GetComponent<LineRenderer>();
-
-        foreach(Chain chain in chains)
-        {
-			chain.SetSpeed(speed);
-		}
 
         int positionCount = lineRenderer.positionCount;
 		positions = new Vector3[positionCount];
@@ -45,6 +41,7 @@ public class Saw : MonoBehaviour
                 positions[i].x * transform.localScale.x, positions[i].y * transform.localScale.y);
             positions[i] += transform.position;
         }
+        totalDistance = Vector2.Distance(positions[0], positions[1]);
         Destroy(lineRenderer);
     }
 
@@ -56,28 +53,12 @@ public class Saw : MonoBehaviour
 
     private void Motion()
     {
-		if (Vector2.Distance(transform.position, positions[goIndex]) <= 0.02f)
-		{
-			transform.position = (Vector2)positions[goIndex];
-
-			startPosition = positions[goIndex];
-			if (goIndex < positions.Length - 1)
-			{
-				goIndex++;
-			}
-			else
-			{
-				goIndex = 0;
-			}
-			totalDistance = Vector2.Distance(transform.position, positions[goIndex]);
-			currentDitance = 0f;
+		if ((currentDitance > 0f && direction == -1) || (currentDitance < totalDistance && direction == 1))
+        {
+			currentDitance += speed * Time.deltaTime * direction;
 		}
-		else
-		{
-			currentDitance += speed * Time.deltaTime;
-			float percent = motionCurve.Evaluate(Mathf.Clamp(currentDitance / totalDistance, 0f, 1f));
-			transform.position = Vector2.Lerp(startPosition, positions[goIndex], percent);
-		}
+		float percent = Mathf.Clamp(currentDitance / totalDistance, 0f, 1f);
+		transform.position = Vector2.Lerp(positions[0], positions[1], percent);
 	}
 
     private void OnCollisionEnter2D(Collision2D collision)
