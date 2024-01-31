@@ -47,6 +47,9 @@ public class InputController : MonoBehaviour
 			    { "Right", KeyCode.D },
                 { "Up", KeyCode.W },
                 { "Down", KeyCode.S },
+                { "Menu Up", KeyCode.UpArrow },
+                { "Menu Down", KeyCode.DownArrow },
+                { "Menu Confirm", KeyCode.Space },
                 { "Jump", KeyCode.Space },
                 { "Attack", KeyCode.J },
                 { "DownDash", KeyCode.S }
@@ -55,6 +58,8 @@ public class InputController : MonoBehaviour
             verticalAxis = new("Up", "Down");
 
 			DontDestroyOnLoad(gameObject);
+
+            CursorController.SetCursor(CursorSprite.Default);
 		}
         else
         {

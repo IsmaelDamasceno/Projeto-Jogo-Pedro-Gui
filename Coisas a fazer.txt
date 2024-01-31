@@ -1,0 +1,8 @@
+Coisas a fazer no jogo ainda
+[X] Terminar de planejar a UI
+[ ] Montar a UI inteira do jogo
+[ ] Atualizar as animações
+[ ] Atualizar tileset das pistas
+[ ] Sistema de checkpoint
+[ ] Terminar a fase
+[ ] Fazer a morte do inimigo
