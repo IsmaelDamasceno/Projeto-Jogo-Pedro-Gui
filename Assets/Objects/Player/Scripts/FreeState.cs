@@ -14,6 +14,11 @@ namespace Player
 		[SerializeField] private PhysicsMaterial2D freeMaterial;
 		[SerializeField] private float waitTime;
 
+		public override void Init()
+		{
+
+		}
+
 		public override void Enter()
 		{
 			PlayerCore.circleCollider.enabled = true;

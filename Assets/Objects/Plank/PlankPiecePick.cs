@@ -15,7 +15,12 @@ public class PlankPiecePick : Pickable
     private BoxCollider2D collider;
     private Rigidbody2D rb;
 
-    public override void Enter()
+	public override void Init()
+	{
+
+	}
+
+	public override void Enter()
     {
         base.Enter();
         rb = GetComponent<Rigidbody2D>();

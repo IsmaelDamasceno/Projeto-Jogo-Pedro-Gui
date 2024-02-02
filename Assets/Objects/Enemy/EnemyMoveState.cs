@@ -30,7 +30,12 @@ public class EnemyMoveState : BaseState
 
     [SerializeField] private int direction = 1;
 
-    public override void Enter()
+	public override void Init()
+	{
+
+	}
+
+	public override void Enter()
     {
         if (rb == null)
         {

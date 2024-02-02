@@ -10,6 +10,7 @@ public abstract class BaseState: MonoBehaviour
 	public StateMachine machine;
 	public bool active = true;
 
+	public abstract void Init();
 	public abstract void Enter();
 	public abstract void Step();
 	public abstract void FixedStep();

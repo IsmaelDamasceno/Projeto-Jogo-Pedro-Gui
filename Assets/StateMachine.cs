@@ -33,6 +33,7 @@ public class StateMachine: MonoBehaviour
 	{
 		stateList[stateName] = newState;
 		stateList[stateName].machine = this;
+		stateList[stateName].Init();
 	}
 
 	public void Update()

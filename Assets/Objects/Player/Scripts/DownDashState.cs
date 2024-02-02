@@ -12,9 +12,14 @@ public class DownDashState : BaseState
 {
     [SerializeField] private float gravityForce;
     [SerializeField] private float initialForce;
-    [SerializeField] private GameObject shockWavePrefab; 
+    [SerializeField] private GameObject shockWavePrefab;
 
-    public override void Enter()
+	public override void Init()
+	{
+
+	}
+
+	public override void Enter()
     {
         PlayerCore.rb.gravityScale = 0f;
         PlayerCore.rb.velocity = Vector2.down * initialForce;

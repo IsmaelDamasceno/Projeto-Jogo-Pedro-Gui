@@ -19,6 +19,11 @@ public class EnemyFreeState : BaseState
 
 	private CircleGroundDetection groundDetect;
 
+	public override void Init()
+	{
+
+	}
+
 	public override void Enter()
     {
         if (rb == null)
@@ -82,5 +87,7 @@ public class EnemyFreeState : BaseState
 
 		groundDetect.DebugDraw(Color.white);
 	}
+
+	
 #endif
 }

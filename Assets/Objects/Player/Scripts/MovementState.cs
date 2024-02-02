@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace Player
 {
@@ -47,11 +49,12 @@ namespace Player
 		// Camadas que representam ch�o onde o jogador pode pular
 		[SerializeField] private LayerMask groundMask;
 
-		private int inputLastFrame = 0;
-		private int input;
+		private float inputLastFrame = 0;
+		private float input;
 
 		private float initialY = 0f;
 		private bool startedJump = false;
+		private bool jumpInput = false;
 
 		public void ApplyBoost(int direction, float boostValue)
 		{
@@ -66,25 +69,49 @@ namespace Player
 			return moveSpeed + accelerationScale;
 		}
 
+		public override void Init()
+		{
+			InputListener.moveEvent.AddListener(MoveListener);
+			InputListener.jumpEvent.AddListener(JumpListener);
+			InputListener.downdashEvent.AddListener(DownDashListener);
+		}
 		public override void Enter()
 		{
+
 		}
 		public override void Exit()
 		{
 
 		}
 
+		private void MoveListener(float value)
+		{
+			input = value;
+		}
+
+		private void JumpListener(bool jumping)
+		{
+			jumpInput = jumping;
+		}
+
+		private void DownDashListener()
+		{
+			if (!PlayerCore.grounded)
+			{
+				machine.ChangeState("DownDash");
+			}
+		}
+
 		public override void Step()
 		{
 			#region Base Movement
-			input = InputController.moveAxis.GetValRaw();
 			moving = input != 0;
-			if (input != 0f)
+			if (moving)
 			{
 				if (!boosting)
 				{
 					direction = input;
-					transform.localScale = new(direction, 1f, 1f);
+					transform.localScale = new(Math.Sign(direction), 1f, 1f);
 				}
 
 				if (input == inputLastFrame)
@@ -110,28 +137,6 @@ namespace Player
 				curAcceleration = accelerationCurve.Evaluate(curAccelarationTime) * accelerationScale;
 			}
 			inputLastFrame = input;
-
-			if (InputController.GetKey("Jump"))
-			{
-				if (PlayerCore.grounded)
-				{
-					PlayerCore.rb.velocity = new(PlayerCore.rb.velocity.x, jumpStrength);
-					initialY = transform.position.y;
-					startedJump = true;
-				}
-			}
-			else
-			{
-				float yDiff = transform.position.y - initialY;
-				if (!PlayerCore.grounded && yDiff >= 1.4f && PlayerCore.rb.velocity.y >= 0f && startedJump)
-				{
-					PlayerCore.rb.velocity = new Vector2(PlayerCore.rb.velocity.x, Mathf.Abs(PlayerCore.rb.velocity.y * 0.9f));
-				}
-				else if (PlayerCore.grounded)
-				{
-					startedJump = false;
-				}
-			}
 			#endregion
 
 			#region Boost Movement
@@ -163,10 +168,27 @@ namespace Player
 			}
 			#endregion
 
-			#region State Change
-			if (InputController.GetKeyDown("DownDash") && !PlayerCore.grounded)
+			#region Jump
+			if (jumpInput)
 			{
-				machine.ChangeState("DownDash");
+				if (PlayerCore.grounded)
+				{
+					PlayerCore.rb.velocity = new(PlayerCore.rb.velocity.x, jumpStrength);
+					initialY = transform.position.y;
+					startedJump = true;
+				}
+			}
+			else
+			{
+				float yDiff = transform.position.y - initialY;
+				if (!PlayerCore.grounded && yDiff >= 1.4f && PlayerCore.rb.velocity.y >= 0f && startedJump)
+				{
+					PlayerCore.rb.velocity = new Vector2(PlayerCore.rb.velocity.x, Mathf.Abs(PlayerCore.rb.velocity.y * 0.9f));
+				}
+				else if (PlayerCore.grounded)
+				{
+					startedJump = false;
+				}
 			}
 			#endregion
 		}

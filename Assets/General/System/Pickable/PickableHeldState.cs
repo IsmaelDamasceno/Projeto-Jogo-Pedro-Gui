@@ -8,7 +8,11 @@ using UnityEngine;
 public class PickableHeldState : BaseState
 {
 
-    public override void Enter()
+	public override void Init()
+	{
+	}
+
+	public override void Enter()
     {
 		
 	}
@@ -20,6 +24,8 @@ public class PickableHeldState : BaseState
     public override void FixedStep()
     {
     }
+
+    
 
     public override void Step()
     {

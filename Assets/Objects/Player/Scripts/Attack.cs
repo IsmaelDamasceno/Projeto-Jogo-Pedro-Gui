@@ -21,14 +21,16 @@ public class Attack : MonoBehaviour
         attackCollision.SetActive(false);
 
         animator = GetComponent<Animator>();
+
+        InputListener.attackEvent.AddListener(AttackListener);
     }
 
-    void Update()
+    public void AttackListener()
     {
-        if (canAttack && InputController.GetKeyDown("Attack"))
+        if (canAttack && enabled)
         {
 			PerformAttack();
-        }
+		}
     }
 
     private void PerformAttack()
