@@ -15,18 +15,8 @@ public class HealthSystem : MonoBehaviour
 
     private static int health;
     private static int healthMax;
-    private static GridLayoutGroup layoutGroup;
 
     public static HealthSystem instance;
-
-    /// <summary>
-    /// Quantidade máxima de corações por linha
-    /// </summary>
-    /// <param name="newValue">Nova quantidade máxima</param>
-    public static void SetHeartPerRow(int newValue)
-    {
-        layoutGroup.constraintCount = newValue;
-    }
 
     private void Awake()
     {
@@ -42,9 +32,9 @@ public class HealthSystem : MonoBehaviour
 
     private void Start()
     {
-		layoutGroup = GetComponent<GridLayoutGroup>();
-		SetMaxHealth(transform.childCount);
-		SetHealth(transform.childCount);
+        int health = Utils.SearchObjectWithComponent<Transform>(transform, "Full Set").childCount;
+		SetMaxHealth(health);
+		SetHealth(health);
 	}
 
 	/// <summary>
@@ -92,9 +82,12 @@ public class HealthSystem : MonoBehaviour
 			// instance.StartCoroutine(instance.RestartCoroutine());
 		}
 
+        Transform fullSetTransform =
+            Utils.SearchObjectWithComponent<Transform>(instance.transform, "Full Set");
         for(int i = 0; i < healthMax; i++)
         {
-            HealthController controller = instance.transform.GetChild(i).GetComponent<HealthController>();
+            HealthController controller =
+                fullSetTransform.GetChild(i).GetComponent<HealthController>();
             controller.ChangeHeart(i < health);
         }
     }
@@ -123,7 +116,7 @@ public class HealthSystem : MonoBehaviour
         int oldMaxHealth = healthMax;
         healthMax = value;
 
-        if (healthMax == instance.transform.childCount)
+        if (healthMax == Utils.SearchObjectWithComponent<Transform>(instance.transform, "Full Set").childCount)
         {
             return;
         }
@@ -132,15 +125,15 @@ public class HealthSystem : MonoBehaviour
         {
 			for (int i = oldMaxHealth; i < value; i++)
             {
-                Instantiate(instance.heartPrefab, instance.transform);
+                Instantiate(instance.heartPrefab, Utils.SearchObjectWithComponent<Transform>(instance.transform, "Full Set"));
             }
 			SetHealth(value);
 		}
 		else if (oldMaxHealth > value)
         {
-			for (int i = value; i < instance.transform.childCount; i++)
+			for (int i = value; i < Utils.SearchObjectWithComponent<Transform>(instance.transform, "Full Set").childCount; i++)
 			{
-                Destroy(instance.transform.GetChild(i).gameObject);
+                Destroy(Utils.SearchObjectWithComponent<Transform>(instance.transform, "Full Set").GetChild(i).gameObject);
 			}
 			SetHealth(value);
 		}

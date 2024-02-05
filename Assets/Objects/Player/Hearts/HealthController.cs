@@ -11,16 +11,13 @@ public class HealthController : MonoBehaviour
     /// <summary>
     /// Se o Heart está preenchido
     /// </summary>
-    public bool Full = true;
+    public bool full = true;
 
-    [SerializeField] private Sprite _emptySprite;
-    [SerializeField] private Sprite _fullSprite;
-
-    private Image _image;
+    private Animator animator;
 
     void Awake()
     {
-        _image = GetComponent<Image>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -34,7 +31,10 @@ public class HealthController : MonoBehaviour
     /// <param name="value">Novo estado: false (vazio), ou true (preenchido)</param>
     public void ChangeHeart(bool value)
     {
-        Full = value;
-        _image.sprite = (Full == true) ? _fullSprite : _emptySprite;
+        full = value;
+        if (value == false)
+        {
+			animator.SetTrigger("Trigger");
+		}
     }
 }
