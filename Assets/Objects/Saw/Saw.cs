@@ -14,8 +14,8 @@ public class Saw : MonoBehaviour
 
     private float totalDistance;
     private float currentDitance = 0;
-    private int goIndex = 0;
     public int direction = 1;
+    public float percent = 0f;
 
     private LineRenderer lineRenderer;
     private Vector3[] positions;
@@ -43,7 +43,11 @@ public class Saw : MonoBehaviour
         }
         totalDistance = Vector2.Distance(positions[0], positions[1]);
         Destroy(lineRenderer);
-    }
+
+        int index = direction == 1 ? 1 : 0;
+        currentDitance = Vector2.Distance(transform.position, positions[index]);
+		percent = Mathf.Clamp(currentDitance / totalDistance, 0f, 1f);
+	}
 
     void Update()
     {
@@ -57,7 +61,7 @@ public class Saw : MonoBehaviour
         {
 			currentDitance += speed * Time.deltaTime * direction;
 		}
-		float percent = Mathf.Clamp(currentDitance / totalDistance, 0f, 1f);
+		percent = Mathf.Clamp(currentDitance / totalDistance, 0f, 1f);
 		transform.position = Vector2.Lerp(positions[0], positions[1], percent);
 	}
 

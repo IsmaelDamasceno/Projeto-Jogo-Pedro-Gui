@@ -40,11 +40,12 @@ public class InputListener : MonoBehaviour
         }
     }
 
+	
+
     public static void SetInputMode(string mode)
     {
         playerInput.SwitchCurrentActionMap(mode);
     }
-
 
 	#region Player
 	public void OnMove(InputValue value)
@@ -55,7 +56,18 @@ public class InputListener : MonoBehaviour
 	{
 		attackEvent.Invoke();
 	}
-
+	public void OnControlsChanged(PlayerInput input)
+	{
+		foreach(InputDevice device in input.devices)
+		{
+			/*
+			Debug.Log(input.currentControlScheme);
+			Debug.Log(input.actions["Confirm"].GetBindingDisplayString());
+			Debug.Log(InputSystem.IsFirstLayoutBasedOnSecond(device.name, "DualShockGamepad"));
+			Debug.Log(InputSystem.IsFirstLayoutBasedOnSecond(device.name, "Gamepad")); 
+			*/
+		}
+	}
 	public void OnJump(InputValue value)
 	{
 		jumpEvent.Invoke(value.isPressed);

@@ -6,6 +6,8 @@ using UnityEngine.Rendering.Universal;
 public class SpikeConnection : ConnectionComponent
 {
 
+    [SerializeField] private float delay = 0f;
+
     private Animator animator;
     private Material material;
     private Light2D light;
@@ -25,6 +27,12 @@ public class SpikeConnection : ConnectionComponent
 
     }
 
+    private IEnumerator WaitForDelay(bool signalVal)
+    {
+        yield return new WaitForSeconds(delay);
+		animator.SetBool("Active", signalVal);
+	}
+
     public override void SetInterpolationValue(float value)
     {
 		light.intensity = value * maxIntensity;
@@ -32,6 +40,7 @@ public class SpikeConnection : ConnectionComponent
 
     public override void SetSignal(bool signalVal)
     {
-		animator.SetBool("Active", signalVal);
+        StopAllCoroutines();
+        StartCoroutine(WaitForDelay(signalVal));
 	}
 }

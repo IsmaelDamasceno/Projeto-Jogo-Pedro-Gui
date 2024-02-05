@@ -61,7 +61,13 @@ public static class Utils
 				returnArray = new T[trs.childCount];
 				for(int i = 0; i < returnArray.Length; i++)
 				{
-					returnArray[i] = trs.GetChild(i).GetComponent<T>();
+					if (trs.GetChild(i).TryGetComponent(out T component)) { 
+						returnArray[i] = component;
+					}
+					else
+					{
+						returnArray[i] = default;
+					}
 				}
 				return returnArray;
 			}

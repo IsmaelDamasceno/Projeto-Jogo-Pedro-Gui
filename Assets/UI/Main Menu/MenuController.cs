@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,7 @@ public class MenuController : MonoBehaviour
 
 	private List<ToggleButton> options = new();
     private int selectedOption = 0;
+	private int lastDirection = 0;
 
     void Start()
     {
@@ -41,8 +43,8 @@ public class MenuController : MonoBehaviour
 			return;
 		}
 
-		int menuDirection = -(int)Mathf.Round(value.y);
-		if (menuDirection != 0)
+		int menuDirection = -Math.Sign(value.y);
+		if (menuDirection != 0 && menuDirection != lastDirection)
 		{
 			CursorController.SetCursor(CursorSprite.Hidden);
 			if (selectedOption != -1)
@@ -62,6 +64,7 @@ public class MenuController : MonoBehaviour
 
 			options[selectedOption].SetSelected(true);
 		}
+		lastDirection = menuDirection;
 	}
 	private void ConfirmListener()
 	{
