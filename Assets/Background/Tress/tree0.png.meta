@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: e1b35a204b0cf4945821f05be31510a2
+guid: f39863c50c9148f4aa459b6b7ff26a45
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8558759507286567988
-    second: background5_0
-  - first:
-      213: 4119626725687694948
-    second: background5_1
+      213: 1149190418031304704
+    second: tree0_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +48,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -103,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: background5_0
+      name: tree0_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 29
-        width: 184
-        height: 217
+        x: 1
+        y: 0
+        width: 210
+        height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,29 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cc3df2a039d293980800000000000000
-      internalID: -8558759507286567988
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: background5_1
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 29
-        width: 157
-        height: 171
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 46612d72eaadb2930800000000000000
-      internalID: 4119626725687694948
+      spriteID: 000e906b89eb2ff00800000000000000
+      internalID: 1149190418031304704
       vertices: []
       indices: 
       edges: []
@@ -155,8 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      background5_0: -8558759507286567988
-      background5_1: 4119626725687694948
+      tree0_0: 1149190418031304704
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
