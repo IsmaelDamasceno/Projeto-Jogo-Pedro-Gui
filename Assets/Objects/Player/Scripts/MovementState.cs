@@ -16,7 +16,15 @@ namespace Player
 		[SerializeField] private float moveSpeed;
 		[SerializeField] private float jumpStrength;
 		[SerializeField] private float jumpTime;
+		/// <summary>
+		/// Porcentagem de velocidade requerida do jogador para iniciar animação de corrida
+		/// </summary>
 		[SerializeField] private float runAnimationTriggerPercent;
+
+		/// <summary>
+		/// Porcentagem de velocidade requerida do jogador para iniciar animações de corrida no ar
+		/// </summary>
+		[SerializeField] private float airAnimationTriggerPercent;
 		public float direction = 0f;
 		public bool moving = false;
 		#endregion
@@ -197,12 +205,15 @@ namespace Player
 			PlayerCore.animator.SetBool("Grounded", PlayerCore.grounded);
 			PlayerCore.animator.SetBool("Moving", moving);
 
-			Debug.Log(Mathf.Clamp(Mathf.Abs(PlayerCore.rb.velocity.x) / GetMaxRegularSpeed(), 0f, 1f));
+			float speedPercent =
+				Mathf.Clamp(Mathf.Abs(PlayerCore.rb.velocity.x) / GetMaxRegularSpeed(), 0f, 1f);
 			bool running =
-				Mathf.Clamp(Mathf.Abs(PlayerCore.rb.velocity.x) / GetMaxRegularSpeed(), 0f, 1f) >= runAnimationTriggerPercent;
+				speedPercent >= runAnimationTriggerPercent;
 			PlayerCore.animator.SetBool("Running", running);
 
 			PlayerCore.animator.SetFloat("Air Speed", PlayerCore.rb.velocity.y);
+			PlayerCore.animator.SetFloat(
+				"Move Percent", speedPercent >= airAnimationTriggerPercent? 1f: 0f);
 			#endregion
 		}
 

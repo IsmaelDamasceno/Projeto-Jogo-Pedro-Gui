@@ -1,19 +1,13 @@
 fileFormatVersion: 2
-guid: 1913ba48922011643b24f6f9776f4e6e
+guid: 57ae6bbf7914f4e4ca1c2d6eaf9f00b9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1467503134938122286
-    second: idle sheet_0
+      213: -5332796621667591049
+    second: jump run sheet_0
   - first:
-      213: 4784045080693380342
-    second: idle sheet_1
-  - first:
-      213: 9199514067465076494
-    second: idle sheet_2
-  - first:
-      213: 6479724262929648466
-    second: idle sheet_3
+      213: 6834270354375918146
+    second: jump run sheet_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle sheet_0
+      name: jump run sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -123,14 +117,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2d7bd378ca162abe0800000000000000
-      internalID: -1467503134938122286
+      spriteID: 77c991a1ab91ef5b0800000000000000
+      internalID: -5332796621667591049
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle sheet_1
+      name: jump run sheet_1
       rect:
         serializedVersion: 2
         x: 80
@@ -144,14 +138,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6f41f2867a7546240800000000000000
-      internalID: 4784045080693380342
+      spriteID: 2424f838da438de50800000000000000
+      internalID: 6834270354375918146
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle sheet_2
+      name: jump run sheet_2
       rect:
         serializedVersion: 2
         x: 160
@@ -163,31 +157,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e0ff671ad4d3baf70800000000000000
-      internalID: 9199514067465076494
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle sheet_3
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 0
-        width: 80
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 25bc666d2ea9ce950800000000000000
-      internalID: 6479724262929648466
+      spriteID: 4b767884d40c43e469022434d72f6178
+      internalID: 324194714
       vertices: []
       indices: 
       edges: []
@@ -195,7 +168,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4d381414287407c4b80448884b9d7b56
+    spriteID: 4fd75d6b3b3683247b6f4483cc5adc80
     internalID: 0
     vertices: []
     indices: 
@@ -203,10 +176,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      idle sheet_0: -1467503134938122286
-      idle sheet_1: 4784045080693380342
-      idle sheet_2: 9199514067465076494
-      idle sheet_3: 6479724262929648466
+      jump run sheet_0: -5332796621667591049
+      jump run sheet_1: 6834270354375918146
+      jump run sheet_2: 324194714
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

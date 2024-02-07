@@ -99,7 +99,7 @@ namespace Player
 			{
 				slow = !slow;
 			}
-			Time.timeScale = slow ? .1f : 1f;
+			Time.timeScale = slow ? .01f : 1f;
 		}
 #endif
 	}

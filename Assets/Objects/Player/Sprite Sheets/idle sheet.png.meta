@@ -1,7 +1,19 @@
 fileFormatVersion: 2
-guid: 493d99141922b4f478c55aaa43fb8ccd
+guid: 1913ba48922011643b24f6f9776f4e6e
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -1467503134938122286
+    second: idle sheet_0
+  - first:
+      213: 4784045080693380342
+    second: idle sheet_1
+  - first:
+      213: 9199514067465076494
+    second: idle sheet_2
+  - first:
+      213: 6479724262929648466
+    second: idle sheet_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -93,32 +105,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -135,10 +121,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: ebba7fd0a1b2ede44bc868837168c1f9
-      internalID: -1987735089
+      spriteID: 2d7bd378ca162abe0800000000000000
+      internalID: -1467503134938122286
       vertices: []
       indices: 
       edges: []
@@ -156,10 +142,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: a1632a745a46ee941af91a2a4bd06dff
-      internalID: 57792534
+      spriteID: 6f41f2867a7546240800000000000000
+      internalID: 4784045080693380342
       vertices: []
       indices: 
       edges: []
@@ -177,10 +163,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: b0d7a83130ec4a74aaecd228c5ce7c60
-      internalID: 668383202
+      spriteID: e0ff671ad4d3baf70800000000000000
+      internalID: 9199514067465076494
       vertices: []
       indices: 
       edges: []
@@ -198,10 +184,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 0c1ac4b90cd1d4c4d942ae4b2813ac00
-      internalID: 1292784635
+      spriteID: 25bc666d2ea9ce950800000000000000
+      internalID: 6479724262929648466
       vertices: []
       indices: 
       edges: []
@@ -209,7 +195,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 4d381414287407c4b80448884b9d7b56
     internalID: 0
     vertices: []
     indices: 
@@ -217,10 +203,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      idle sheet_0: -1987735089
-      idle sheet_1: 57792534
-      idle sheet_2: 668383202
-      idle sheet_3: 1292784635
+      idle sheet_0: -1467503134938122286
+      idle sheet_1: 4784045080693380342
+      idle sheet_2: 9199514067465076494
+      idle sheet_3: 6479724262929648466
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -31,6 +31,6 @@ public class PlayerSpeed : MonoBehaviour
 
     void Update()
     {
-        text.text = $"{Math.Round(Math.Abs(playerRb.velocity.x) * 3.6f, 2)} km/h";
+        text.text = $"{Math.Abs(playerRb.velocity.x):00.00} km/h";
     }
 }
