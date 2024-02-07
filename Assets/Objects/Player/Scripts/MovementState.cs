@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI;
 
 namespace Player
@@ -65,6 +66,8 @@ namespace Player
 		private bool startedJump = false;
 		private bool jumpInput = false;
 
+		private ParticleSystem partSystem;
+
 		public void ApplyBoost(int direction, float boostValue)
 		{
 			currentBoostScale += boostValue;
@@ -83,6 +86,8 @@ namespace Player
 			InputListener.moveEvent.AddListener(MoveListener);
 			InputListener.jumpEvent.AddListener(JumpListener);
 			InputListener.downdashEvent.AddListener(DownDashListener);
+
+			partSystem = Utils.SearchObjectWithComponent<ParticleSystem>(transform, "Move Particles");
 		}
 		public override void Enter()
 		{
@@ -90,7 +95,7 @@ namespace Player
 		}
 		public override void Exit()
 		{
-
+			partSystem.Stop();
 		}
 
 		private void MoveListener(float value)
@@ -109,12 +114,18 @@ namespace Player
 			{
 				machine.ChangeState("DownDash");
 			}
+			else if (moving)
+			{
+				machine.ChangeState("Sliding");
+			}
 		}
 
 		public override void Step()
 		{
 			#region Base Movement
 			moving = input != 0;
+			
+			
 			if (moving)
 			{
 				if (!boosting)
@@ -214,6 +225,23 @@ namespace Player
 			PlayerCore.animator.SetFloat("Air Speed", PlayerCore.rb.velocity.y);
 			PlayerCore.animator.SetFloat(
 				"Move Percent", speedPercent >= airAnimationTriggerPercent? 1f: 0f);
+			#endregion
+
+			#region Particles
+			if (!partSystem.isEmitting)
+			{
+				if (running && PlayerCore.grounded)
+				{
+					partSystem.Play();
+				}
+			}
+			else
+			{
+				if (!running || !PlayerCore.grounded)
+				{
+					partSystem.Stop();
+				}
+			}
 			#endregion
 		}
 

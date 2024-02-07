@@ -11,6 +11,7 @@ public class Saw : MonoBehaviour
 
     [SerializeField] private float speed;
     [SerializeField] private float bladeRotationSpeed;
+    [SerializeField] private float force = 25f;
 
     private float totalDistance;
     private float currentDitance = 0;
@@ -65,12 +66,12 @@ public class Saw : MonoBehaviour
 		transform.position = Vector2.Lerp(positions[0], positions[1], percent);
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
 		if (collision.transform.TryGetComponent(out IAttackable attackable))
 		{
 			Vector2 direction = (collision.transform.position - transform.position).normalized;
-			attackable.SufferDamage(1, default, direction, 12f, .1f);
+			attackable.SufferDamage(1, default, direction, force, .1f);
 		}
 	}
 }

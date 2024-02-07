@@ -25,10 +25,11 @@ public class ShockWave : MonoBehaviour
         collider = GetComponent<BoxCollider2D>();
         partSystem = GetComponent<ParticleSystem>();
 
-        RaycastHit2D hitinfo = Physics2D.Raycast(transform.position, Vector2.down, 3f, groundMask);
+        RaycastHit2D hitinfo = Physics2D.Raycast(
+            (Vector2)transform.position + collider.offset, Vector2.down, 3f, groundMask);
 	    if (hitinfo)
         {
-            transform.position += Vector3.down * hitinfo.distance;
+            transform.position += Vector3.down * hitinfo.distance + Vector3.up * 0.5f;
         }
     }
 
@@ -36,6 +37,7 @@ public class ShockWave : MonoBehaviour
     {
         if (WallDetection())
         {
+            Debug.Log("Parede");
             Deactivate();
 		}
 

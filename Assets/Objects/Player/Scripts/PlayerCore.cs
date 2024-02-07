@@ -73,9 +73,11 @@ namespace Player
 				BaseState moveState = GetComponent<MovementState>();
 				FreeState freeState = GetComponent<FreeState>();
 				DownDashState downDashState = GetComponent<DownDashState>();
+				SlidingState slidingState = GetComponent<SlidingState>();
 				stateMachine.RegisterState("Move", moveState);
 				stateMachine.RegisterState("Free", freeState);
 				stateMachine.RegisterState("DownDash", downDashState);
+				stateMachine.RegisterState("Sliding", slidingState);
 				stateMachine.ChangeState("Move");
 				#endregion
 
