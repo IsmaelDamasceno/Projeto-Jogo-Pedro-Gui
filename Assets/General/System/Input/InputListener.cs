@@ -30,7 +30,7 @@ public class InputListener : MonoBehaviour
 			jumpEvent = new();
 			downdashEvent = new();
 
-			controlChangeEvent = new();
+			controlChangeEvent ??= new();
 
 			playerInput = GetComponent<PlayerInput>();
 
@@ -56,7 +56,7 @@ public class InputListener : MonoBehaviour
 	{
 		moveEvent.Invoke(value.Get<float>());
 	}
-	public void OnAttack(InputValue value)
+	public void OnAttack()
 	{
 		attackEvent.Invoke();
 	}
@@ -64,6 +64,8 @@ public class InputListener : MonoBehaviour
 	{
 		foreach(InputDevice device in input.devices)
 		{
+			controlChangeEvent ??= new();
+
 			string newControl;
 			if (InputSystem.IsFirstLayoutBasedOnSecond(device.name, "DualShockGamepad"))
 			{
