@@ -22,12 +22,13 @@ public class DownDashState : BaseState
 	public override void Enter()
     {
         PlayerCore.rb.gravityScale = 0f;
-        PlayerCore.rb.velocity = Vector2.down * initialForce;
+        
 	}
 
     public override void Exit()
     {
         PlayerCore.rb.gravityScale = PlayerCore.startGravScale;
+        Debug.Log($"Exit: gravscale: {PlayerCore.rb.gravityScale}");
 	}
 
     public override void FixedStep()
@@ -37,6 +38,7 @@ public class DownDashState : BaseState
 
     public override void Step()
     {
+		PlayerCore.rb.velocity = Vector2.down * initialForce;
         if (PlayerCore.grounded)
         {
             for(int i = 0; i <= 1; i++) {
@@ -44,6 +46,7 @@ public class DownDashState : BaseState
                 obj.GetComponent<ShockWave>().direction = (int)(Mathf.Sign(i - 1f));
             }
             CameraMovement.ShakeIt(3f, 0.05f);
+            Debug.Log("Grounded");
             machine.ChangeState("Move");
         }
     }

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Player
@@ -100,8 +101,12 @@ namespace Player
 			if (Input.GetKeyDown(KeyCode.F1))
 			{
 				slow = !slow;
+				Time.timeScale = slow ? .01f : 1f;
 			}
-			Time.timeScale = slow ? .01f : 1f;
+			else if (Input.GetKeyDown(KeyCode.F2))
+			{
+				Application.targetFrameRate = slow ? 1 : -1;
+			}
 		}
 #endif
 	}

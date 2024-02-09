@@ -37,7 +37,6 @@ public class ShockWave : MonoBehaviour
     {
         if (WallDetection())
         {
-            Debug.Log("Parede");
             Deactivate();
 		}
 
