@@ -45,7 +45,10 @@ public class ToggleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 		image = GetComponent<Image>();
 		text = Utils.SearchObjectWithComponent<TextMeshProUGUI>(transform, "Text");
 
-		text.color = unselectedColor;
+		if (text != null)
+        {
+			text.color = unselectedColor;
+		}
 		image.color = unselectedBackgroundColor;
 	}
 

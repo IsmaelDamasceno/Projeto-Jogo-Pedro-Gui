@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.PlayerInput;
 
 public class InputListener : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class InputListener : MonoBehaviour
 	public static UnityEvent attackEvent;
 	public static UnityEvent<bool> jumpEvent;
 	public static UnityEvent downdashEvent;
+	public static UnityEvent<string> controlChangeEvent;
 
-    private static PlayerInput playerInput;
+    public static PlayerInput playerInput;
 
     void Awake()
     {
@@ -27,6 +29,8 @@ public class InputListener : MonoBehaviour
 			attackEvent = new();
 			jumpEvent = new();
 			downdashEvent = new();
+
+			controlChangeEvent = new();
 
 			playerInput = GetComponent<PlayerInput>();
 
@@ -60,6 +64,20 @@ public class InputListener : MonoBehaviour
 	{
 		foreach(InputDevice device in input.devices)
 		{
+			string newControl;
+			if (InputSystem.IsFirstLayoutBasedOnSecond(device.name, "DualShockGamepad"))
+			{
+				newControl = "DualShock";
+			}
+			else if (InputSystem.IsFirstLayoutBasedOnSecond(device.name, "Gamepad"))
+			{
+				newControl = "Gamepad";
+			}
+			else
+			{
+				newControl = "Keyboard";
+			}
+			controlChangeEvent.Invoke(newControl);
 			/*
 			Debug.Log(input.currentControlScheme);
 			Debug.Log(input.actions["Confirm"].GetBindingDisplayString());

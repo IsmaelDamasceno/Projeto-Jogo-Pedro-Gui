@@ -24,19 +24,8 @@ public class MenuOption : ToggleButton
 
 	protected override void ApplyAnimations(float value)
 	{
-		text.color = new(
-			Mathf.Lerp(unselectedColor.r, selectedColor.r, value),
-			Mathf.Lerp(unselectedColor.g, selectedColor.g, value),
-			Mathf.Lerp(unselectedColor.b, selectedColor.b, value),
-			1f
-		);
+		base.ApplyAnimations(value);
 
-		image.color = new(
-			Mathf.Lerp(unselectedBackgroundColor.r, selectedBackgroundColor.r, value),
-			Mathf.Lerp(unselectedBackgroundColor.g, selectedBackgroundColor.g, value),
-			Mathf.Lerp(unselectedBackgroundColor.b, selectedBackgroundColor.b, value),
-			Mathf.Lerp(unselectedBackgroundColor.a, selectedBackgroundColor.a, value)
-		);
 		arrowImage.color = image.color;
 
 		textTransform.anchoredPosition = new(
