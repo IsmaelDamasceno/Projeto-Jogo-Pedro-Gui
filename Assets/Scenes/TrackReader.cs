@@ -10,26 +10,45 @@ public class TrackReader : MonoBehaviour
 {
     [SerializeField] private float columnPlaceDelay;
 	[SerializeField] private TileBase solidTile;
-	
-    private Tilemap tilemap;
 
-    private int minX;
-    private int maxX;
+	private static Tilemap tilemap;
 
-    void Start()
-    {
-        tilemap = GetComponent<Tilemap>();
+    private static int minX;
+    private static int maxX;
 
-		minX = (int)Mathf.Floor(
-            Utils.SearchObjectWithComponent<Transform>(transform, "Min X").position.x);
-		maxX = (int)Mathf.Floor(
-			Utils.SearchObjectWithComponent<Transform>(transform, "Max X").position.x);
+	private static TrackReader instance;
 
-		StartCoroutine(PlaceColumns());
+	private void Start()
+	{
+		tilemap = GameObject.FindGameObjectWithTag("Track Tilemap").GetComponent<Tilemap>();
 	}
 
-	 private IEnumerator PlaceColumns()
-	 {
+	void Awake()
+    {
+		if (instance == null)
+		{
+			instance = this;
+			DontDestroyOnLoad(gameObject);
+		}
+		else
+		{
+			// Debug.LogError($"Duplicated TrackReader, deleting {gameObject.name}");
+			Destroy(gameObject);
+		}
+        tilemap = GetComponent<Tilemap>();
+	}
+
+	public static void LoadPoints(int minPoint, int maxPoint)
+	{
+		minX = minPoint;
+		maxX = maxPoint;
+
+		instance.StopAllCoroutines();
+		instance.StartCoroutine(instance.PlaceColumns());
+	}
+
+	private IEnumerator PlaceColumns()
+	{
 		int tilemapHeight = tilemap.cellBounds.max.y - tilemap.cellBounds.min.y;
 		#region Start Byte
 		float startByte = 0f;
@@ -43,13 +62,15 @@ public class TrackReader : MonoBehaviour
 		GetEndByte(tilemapHeight, ref endByte, ref endByteCutOff);
 		#endregion
 
-		Debug.Log($"tilemap height: {tilemapHeight}");
-		Debug.Log($"minx: {minX}, maxX: {maxX}");
+		// Debug.Log($"tilemap height: {tilemapHeight}");
+		// Debug.Log($"minx: {minX}, maxX: {maxX}");
 	
 		// Total read size in bytes
 		int totalBytes = (int)(endByte - startByte);
 
-		// Buffer with all tada to be written in the level
+		// Buffer with all data to be written in the level
+		Debug.Log($"startByte: {startByte}, endByte: {endByte}, minx: {minX}, maxX: {maxX}");
+		Debug.Log($"loading array of size {totalBytes}");
 		byte[] buffer = new byte[totalBytes];
 
 		// Path to the binary file
@@ -66,16 +87,16 @@ public class TrackReader : MonoBehaviour
 			int bytesRead = fileStream.Read(buffer, 0, totalBytes);
 			#endregion
 
-			Debug.Log($"Start Logging");
+			// Debug.Log($"Start Logging");
 			foreach(byte itrByte in buffer)
 			{
-				Debug.Log($"{Convert.ToString(itrByte, 2)} ({itrByte})");
+				// Debug.Log($"{Convert.ToString(itrByte, 2)} ({itrByte})");
 			}
 
 			int bitItr = startByteOffset;
 			int byteItr = 0;
 			byte currentByte = buffer[byteItr];
-			Debug.Log($"Starting loop, initial bit offset: {bitItr}");
+			// Debug.Log($"Starting loop, initial bit offset: {bitItr}");
 			for (int x = minX; x <= maxX; x++)
 			{
 				IterateColumn(x, tilemapHeight, buffer, ref currentByte, ref byteItr, ref bitItr);
@@ -87,7 +108,7 @@ public class TrackReader : MonoBehaviour
 
 	private void IterateColumn(int x, int tilemapHeight, byte[] buffer, ref byte currentByte, ref int byteItr, ref int bitItr)
 	{
-		Debug.Log($"Writing to column {x}");
+		// Debug.Log($"Writing to column {x}");
 
 		BoundsInt bounds = new(
 			new(x, tilemap.cellBounds.min.y, 0),
@@ -95,13 +116,13 @@ public class TrackReader : MonoBehaviour
 		);
 		TileBase[] columnTiles = new TileBase[tilemapHeight];
 
-		Debug.Log("starting buffer iteration for column");
+		// Debug.Log("starting buffer iteration for column");
 		for (int i = 0; i < columnTiles.Length; i++)
 		{
 			int mask = (int)Mathf.Pow(2, 7 - bitItr);
 
 			columnTiles[i] = (currentByte & mask) > 0 ? solidTile : null;
-			Debug.Log($"id: {i}, tile: {(currentByte & mask) > 0}, byte: {Convert.ToString(currentByte, 2)}");
+			// Debug.Log($"id: {i}, tile: {(currentByte & mask) > 0}, byte: {Convert.ToString(currentByte, 2)}");
 
 			bitItr++;
 			if (bitItr == 8)
@@ -114,7 +135,7 @@ public class TrackReader : MonoBehaviour
 				}
 				else
 				{
-					Debug.LogWarning($"cannot get next, byte: {byteItr}, size: {buffer.Length}");
+					// Debug.LogWarning($"cannot get next, byte: {byteItr}, size: {buffer.Length}");
 					break;
 				}
 			}
@@ -127,7 +148,7 @@ public class TrackReader : MonoBehaviour
 		int minDistance = minX - tilemap.cellBounds.min.x;
 		if (minDistance < 0)
 		{
-			Debug.LogError($"minY não pode ser menor que a borda esquerda do tilemap");
+			// Debug.LogError($"minY não pode ser menor que a borda esquerda do tilemap");
 		}
 		int startBit = minDistance * tilemapHeight + 1;
 
@@ -135,25 +156,25 @@ public class TrackReader : MonoBehaviour
 		startByteOffset = 0;
 		if (startByte != Mathf.Floor(startByte))
 		{
-			Debug.Log("Not exact integer start bit position");
+			// Debug.Log("Not exact integer start bit position");
 			startByte = Mathf.Floor((startBit - 1) / 8f);
 			startByteOffset = (startBit - 1) % 8;
-			Debug.Log($"start byte: {startByte}, offset: {startByteOffset}");
+			// Debug.Log($"start byte: {startByte}, offset: {startByteOffset}");
 		}
 		else
 		{
-			Debug.Log("Exact start bit position");
+			// Debug.Log("Exact start bit position");
 			startByte = Mathf.Floor((startBit - 1) / 8f);
-			Debug.Log($"start byte: {startByte}");
+			// Debug.Log($"start byte: {startByte}");
 		}
 	}
 
 	private void GetEndByte(int tilemapHeight, ref float endByte, ref int endByteCutOff)
 	{
 		int maxDistance = maxX - tilemap.cellBounds.min.x;
-		if (maxDistance > tilemap.cellBounds.max.x)
+		if (maxDistance > tilemap.cellBounds.min.x)
 		{
-			Debug.LogError($"maxX não pode ser maior que a borda direita do tilemap");
+			// Debug.LogError($"maxX não pode ser maior que a borda direita do tilemap");
 		}
 		int endBit = (maxDistance + 1) * tilemapHeight + 1;
 
@@ -161,10 +182,10 @@ public class TrackReader : MonoBehaviour
 		endByteCutOff = 7;
 		if (endByte != Mathf.Floor(endByte))
 		{
-			Debug.Log("Not exact integer end bit position");
-			endByte = Mathf.Floor((endByte - 1) / 8f);
-			endByteCutOff = (int)((endByte - 1) % 8);
-			Debug.Log($"end byte byte: {endByte}, cut off: {endByteCutOff}");
+			// Debug.Log("Not exact integer end bit position");
+			endByte = Mathf.Floor((endBit - 1) / 8f);
+			endByteCutOff = (int)((endBit - 1) % 8);
+			// Debug.Log($"end byte byte: {endByte}, cut off: {endByteCutOff}");
 		}
 	}
 

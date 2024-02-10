@@ -24,7 +24,8 @@ public class FlagCheckpoint : MonoBehaviour
         if (collision.CompareTag("Player") && PlayerCore.stateMachine.currentState == "Move" && !flag.activeInHierarchy)
         {
             flag.SetActive(true);
-            StopAllCoroutines();
+            CheckpointManager.StartTrackPlacement();
+			StopAllCoroutines();
             StartCoroutine(FlagAnimation());
         }
     }

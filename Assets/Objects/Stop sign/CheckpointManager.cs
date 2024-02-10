@@ -7,8 +7,10 @@ public class CheckpointManager : MonoBehaviour
 
     private static List<float> points = new();
 
-    private static float minPoint;
-    private static float maxPoint;
+    private static int curIndPoint = 0;
+
+    private static float minPoint = 0;
+    private static float maxPoint = 1;
 
     void Start()
     {
@@ -30,19 +32,21 @@ public class CheckpointManager : MonoBehaviour
         if (point > points.Count - 2)
         {
             Debug.LogError($"Cannot get point {point}, out of bounds");
+            return;
         }
-        minPoint = points[point];
+		minPoint = points[point];
         maxPoint = points[point + 1];
     }
     private static void GotoNextPoint()
     {
-        SetPoint((int)minPoint+1);
+        curIndPoint++;
+        SetPoint(curIndPoint);
     }
 
-    public static void StartTrackPlacmenet()
+    public static void StartTrackPlacement()
     {
-        // TrackReader.LoadPoins((int)Mathf.Floor(minPoint), (int)Mathf.Floor(maxPoint));
-        GotoNextPoint();
+		TrackReader.LoadPoints((int)Mathf.Floor(minPoint), (int)Mathf.Floor(maxPoint));
+		GotoNextPoint();
     }
 
 #if UNITY_EDITOR
@@ -54,11 +58,11 @@ public class CheckpointManager : MonoBehaviour
 
 			if (point == minPoint || point == maxPoint)
             {
-                Gizmos.color = Color.yellow;
+                Gizmos.color = Color.blue;
             }
 
             Vector3 pos = new(point, 0f, 0f);
-            Gizmos.DrawSphere(pos, .4f);
+            Gizmos.DrawSphere(pos, 1f);
         }
     }
 #endif
