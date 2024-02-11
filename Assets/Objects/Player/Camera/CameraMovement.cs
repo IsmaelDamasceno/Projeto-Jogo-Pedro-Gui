@@ -19,7 +19,7 @@ public class CameraMovement : MonoBehaviour
 	/// </summary>
 	private Bounds camBounds;
 
-	private Transform playerTrs;
+	private static Transform targetTrs;
 	private static CameraMovement instance;
 
 	/// <summary>
@@ -36,16 +36,27 @@ public class CameraMovement : MonoBehaviour
 
 	private static Vector2 offset;
 
+	public static void SetTarget(Transform newTarget)
+	{
+		if (newTarget == null)
+		{
+			targetTrs = Camera.main.transform;
+		}
+		else
+		{
+			targetTrs = newTarget;
+		}
+	}
+
 	void Start()
 	{
 		shakeScale = 0f;
 		shaking = false;
 
-		GameObject player = GameObject.FindGameObjectWithTag("Player");
-		playerTrs = player.transform;
-
 		camBounds =
 			GameObject.FindGameObjectWithTag("Cam Bounds").GetComponent<BoxCollider2D>().bounds;
+
+		SetTarget(PlayerCore.rb.transform);
 
 		Camera cam = Camera.main;
 		camHeight = 2f * cam.orthographicSize;
@@ -74,24 +85,23 @@ public class CameraMovement : MonoBehaviour
 				offset = Vector2.zero;
 				return;
 			}
-
 			offset = shakePercent * shakeScale * Random.insideUnitCircle;
-
-			Vector3 destiny = playerTrs.position;
-
-			destiny.x = Mathf.Clamp(
-				destiny.x, camBounds.min.x + camWidth * 0.5f, camBounds.max.x - camWidth * 0.5f);
-			destiny.y = Mathf.Clamp(
-				destiny.y, camBounds.min.y + camHeight * 0.5f, camBounds.max.y - camHeight * 0.5f);
-
-			destiny += (Vector3)offset;
-
-			destiny = Vector3.Lerp(transform.position, destiny, lerpT);
-			destiny.z = zDepth;
-
-			transform.position = destiny;
 		}
 		#endregion
+
+		Vector3 destiny = targetTrs.position;
+
+		destiny.x = Mathf.Clamp(
+			destiny.x, camBounds.min.x + camWidth * 0.5f, camBounds.max.x - camWidth * 0.5f);
+		destiny.y = Mathf.Clamp(
+			destiny.y, camBounds.min.y + camHeight * 0.5f, camBounds.max.y - camHeight * 0.5f);
+		
+		destiny += (Vector3)offset;
+
+		destiny = Vector3.Lerp(transform.position, destiny, lerpT);
+		destiny.z = zDepth;
+
+		transform.position = destiny;
 	}
 
 	public static void ShakeIt(float scale, float time)
@@ -104,19 +114,7 @@ public class CameraMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		Vector3 destiny = playerTrs.position;
 
-		destiny += (Vector3)offset;
-
-		destiny.x = Mathf.Clamp(
-			destiny.x, camBounds.min.x + camWidth * 0.5f, camBounds.max.x - camWidth * 0.5f);
-		destiny.y = Mathf.Clamp(
-			destiny.y, camBounds.min.y + camHeight * 0.5f, camBounds.max.y - camHeight * 0.5f);
-
-		destiny = Vector3.Lerp(transform.position, destiny, lerpT);
-		destiny.z = zDepth;
-
-		transform.position = destiny;
 	}
 
 }

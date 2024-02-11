@@ -7,6 +7,7 @@ TagManager:
   - Cam Bounds
   - ShockWave
   - Track Tilemap
+  - Barrier Tilemap
   layers:
   - Default
   - TransparentFX

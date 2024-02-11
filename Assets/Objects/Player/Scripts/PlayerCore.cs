@@ -58,7 +58,7 @@ namespace Player
 		private bool slow;
 #endif
 
-		void Start()
+		void Awake()
 		{
 			if (instance == null)
 			{

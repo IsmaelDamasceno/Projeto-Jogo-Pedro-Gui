@@ -1,39 +1,56 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class TrackWriter : MonoBehaviour
 {
 	private Tilemap tilemap;
+	private static bool trackLoaded = false;
 	void Awake()
 	{
 		tilemap = GetComponent<Tilemap>();
 
 		string path = GetFilePath("example.tck");
-		Debug.Log($"data path: {path}");
 
-		using (FileStream fileStream = new FileStream(path, FileMode.Create))
+		if (!trackLoaded)
 		{
-			using (BinaryWriter writer = new BinaryWriter(fileStream))
+			using (FileStream fileStream = new FileStream(path, FileMode.Create))
 			{
-				byte allocationByte = 0;
-				byte byteItr = 0;
-
-				Debug.Log($"size: {tilemap.cellBounds}");
-				for (int x = tilemap.cellBounds.min.x; x < tilemap.cellBounds.max.x; x++)
+				using (BinaryWriter writer = new BinaryWriter(fileStream))
 				{
-					ReadColumn(x, writer, ref allocationByte, ref byteItr);
+					byte allocationByte = 0;
+					byte byteItr = 0;
+
+					int columnHeight = tilemap.cellBounds.max.y - tilemap.cellBounds.min.y;
+					for (int x = tilemap.cellBounds.min.x; x < tilemap.cellBounds.max.x; x++)
+					{
+						ReadColumn(x, columnHeight, writer, ref allocationByte, ref byteItr);
+					}
 				}
 			}
 		}
+		TileBase[] airTiles = new TileBase[tilemap.size.x * tilemap.size.y];
+		BoundsInt totalBounds = new(
+			new(tilemap.cellBounds.min.x, tilemap.cellBounds.min.y, 0),
+			new(tilemap.size.x, tilemap.size.y, 1)
+		);
+		tilemap.SetTilesBlock(totalBounds, airTiles);
+
+		if (trackLoaded)
+		{
+			CheckpointManager.TrackInstaPlacement();
+		}
+		trackLoaded = true;
 	}
 
-	private void ReadColumn(int column, BinaryWriter writer, ref byte allocationByte, ref byte byteItr)
+	private void ReadColumn(int column, int columnHeight, BinaryWriter writer, ref byte allocationByte, ref byte byteItr)
 	{
 		// Bounds of the column to be read
-		int columnHeight = tilemap.cellBounds.max.y - tilemap.cellBounds.min.y;
+		
 		BoundsInt bounds = new(
 			new(column, tilemap.cellBounds.min.y, 0),
 			new(1, columnHeight, 1)
@@ -59,9 +76,6 @@ public class TrackWriter : MonoBehaviour
 				writer.Write(allocationByte);
 				allocationByte = 0;
 				byteItr = 0;
-
-				TileBase[] nullTiles = new TileBase[columnHeight];
-				tilemap.SetTilesBlock(bounds, nullTiles);
 			}
 		}
 	}

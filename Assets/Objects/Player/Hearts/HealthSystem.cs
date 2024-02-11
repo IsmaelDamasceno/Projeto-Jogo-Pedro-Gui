@@ -13,7 +13,7 @@ public class HealthSystem : MonoBehaviour
 {
     [SerializeField] private GameObject heartPrefab;
 
-    private static int health;
+    public static int health;
     private static int healthMax;
 
     public static HealthSystem instance;

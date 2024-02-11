@@ -11,6 +11,7 @@ public class FlagCheckpoint : MonoBehaviour
     [SerializeField] private AnimationCurve animationCurve;
 
     private GameObject flag;
+    public int index;
 
     void Start()
     {
@@ -24,7 +25,7 @@ public class FlagCheckpoint : MonoBehaviour
         if (collision.CompareTag("Player") && PlayerCore.stateMachine.currentState == "Move" && !flag.activeInHierarchy)
         {
             flag.SetActive(true);
-            CheckpointManager.StartTrackPlacement();
+            CheckpointManager.StartTrackPlacement(index);
 			StopAllCoroutines();
             StartCoroutine(FlagAnimation());
         }

@@ -14,12 +14,16 @@ public class CheckpointManager : MonoBehaviour
 
     void Start()
     {
+        int i = 0;
         foreach(Transform childTrs in transform)
         {
             points.Add(childTrs.position.x);
-        }
-
-        SetPoint(0);
+			if (childTrs.TryGetComponent(out FlagCheckpoint checkpoint))
+            {
+                checkpoint.index = i;
+            }
+            i++;
+		}
 	}
 
     void Update()
@@ -27,27 +31,33 @@ public class CheckpointManager : MonoBehaviour
         
     }
 
-    private static void SetPoint(int point)
+    private static void GoToPoint(int point)
     {
-        if (point > points.Count - 2)
+        if (point >= points.Count)
         {
             Debug.LogError($"Cannot get point {point}, out of bounds");
             return;
         }
-		minPoint = points[point];
-        maxPoint = points[point + 1];
-    }
-    private static void GotoNextPoint()
-    {
-        curIndPoint++;
-        SetPoint(curIndPoint);
+        if (point <= curIndPoint)
+        {
+			Debug.LogError($"curIndPoint ({curIndPoint}) must be less than point ({point})");
+			return;
+        }
+		minPoint = points[curIndPoint];
+        maxPoint = points[point];
+        curIndPoint = point;
     }
 
-    public static void StartTrackPlacement()
+    public static void StartTrackPlacement(int rightBoundIndex)
     {
+        CheckpointSave.activeCheckpoint = (byte)rightBoundIndex;
+		GoToPoint(rightBoundIndex);
 		TrackReader.LoadPoints((int)Mathf.Floor(minPoint), (int)Mathf.Floor(maxPoint));
-		GotoNextPoint();
     }
+    public static void TrackInstaPlacement()
+    {
+		TrackReader.LoadInstaPoints((int)Mathf.Floor(points[0]), (int)Mathf.Floor(maxPoint));
+	}
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
