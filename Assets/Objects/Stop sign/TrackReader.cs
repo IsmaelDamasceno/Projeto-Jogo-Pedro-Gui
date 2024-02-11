@@ -48,7 +48,7 @@ public class TrackReader : MonoBehaviour
 		}
 	}
 
-	public static void LoadPoints(int minPoint, int maxPoint)
+	public static void LoadPoints(int minPoint, int maxPoint, FlagCheckpoint flag)
 	{
 		minX = minPoint;
 		maxX = maxPoint;
@@ -61,7 +61,7 @@ public class TrackReader : MonoBehaviour
 		columnDelay = instance.animationTime / (Mathf.Abs(maxPoint - minPoint) + 1);
 
 		instance.StopAllCoroutines();
-		instance.StartCoroutine(instance.MoveFocusPoint());
+		instance.StartCoroutine(instance.MoveFocusPoint(flag));
 	}
 	public static void LoadInstaPoints(int minPoint, int maxPoint)
 	{
@@ -111,9 +111,10 @@ public class TrackReader : MonoBehaviour
 				instance.IterateColumn(x, tilemapHeight, buffer, ref currentByte, ref byteItr, ref bitItr);
 			}
 		}
+
 	}
 
-	private IEnumerator MoveFocusPoint()
+	private IEnumerator MoveFocusPoint(FlagCheckpoint flag)
 	{
 		focusPoint.gameObject.SetActive(true);
 		int tilemapHeight = tilemap.cellBounds.max.y - tilemap.cellBounds.min.y;
@@ -180,6 +181,7 @@ public class TrackReader : MonoBehaviour
 				yield return null;
 			}
 		}
+		flag.Play();
 		focusPoint.gameObject.SetActive(false);
 		CameraMovement.SetTarget(PlayerCore.rb.transform);
 	}
@@ -214,11 +216,9 @@ public class TrackReader : MonoBehaviour
 				{
 					break;
 				}
-				Debug.Log($"byte ind: {byteItr}");
 			}
 			#endregion
 		}
-		Debug.Log($"column tiles: {tiles}");
 		tilemap.SetTilesBlock(bounds, columnTiles);
 	}
 
