@@ -9,6 +9,7 @@ TagManager:
   - Track Tilemap
   - Barrier Tilemap
   - Pause Menu
+  - Canvas
   layers:
   - Default
   - TransparentFX

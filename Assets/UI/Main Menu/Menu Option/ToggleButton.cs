@@ -33,6 +33,8 @@ public class ToggleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
 	[HideInInspector] public int id;
 
+    public bool hovered = false;
+
     private void Start()
     {
         Init();
@@ -102,12 +104,14 @@ public class ToggleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         transform.parent.parent.GetComponent<MenuController>().ForceSelect(id);
         CursorController.SetCursor(CursorSprite.Grab);
-    }
+        hovered = true;
+	}
 
     public void OnPointerExit(PointerEventData eventData)
     {
 		transform.parent.parent.GetComponent<MenuController>().ForceSelect(-1);
 		CursorController.SetCursor(CursorSprite.Default);
+        hovered = false;
 	}
 
     public virtual void Interact()
