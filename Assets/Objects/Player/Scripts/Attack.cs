@@ -1,3 +1,4 @@
+using Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,7 @@ public class Attack : MonoBehaviour
         attacking = true;
 		attackCollision.SetActive(true);
         animator.SetTrigger("Attack");
+        PlayerCore.slashSound.Play();
 	}
 
     public void EndAttack()

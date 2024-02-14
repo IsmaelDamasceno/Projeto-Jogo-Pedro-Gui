@@ -12,7 +12,7 @@ public class CheckpointManager : MonoBehaviour
     private static float minPoint = 0;
     private static float maxPoint = 1;
 
-    void Start()
+    void Awake()
     {
         int i = 0;
         foreach(Transform childTrs in transform)

@@ -66,7 +66,7 @@ public class Pressbutton : MonoBehaviour
 		}
 		while (time < animationTime)
 		{
-			time += Time.deltaTime;
+			time += Time.unscaledDeltaTime;
 			float percent = time / animationTime;
 			percent = Mathf.Clamp(percent, 0f, 1f);
 			float value = pressCurve.Evaluate(percent);

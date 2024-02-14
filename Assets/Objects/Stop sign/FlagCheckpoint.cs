@@ -29,19 +29,29 @@ public class FlagCheckpoint : MonoBehaviour
 
         sprRenderer = GetComponent<SpriteRenderer>();
         startColor = sprRenderer.color;
+
+		if (CheckpointSave.activeCheckpoint >= index)
+		{
+			Play();
+		}
+		if (CheckpointSave.activeCheckpoint == index)
+		{
+			PlayerCore.rb.transform.position = transform.position;
+		}
 	}
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && PlayerCore.stateMachine.currentState == "Move" && !flag.activeInHierarchy)
         {
-            flag.SetActive(true);
             CheckpointManager.StartTrackPlacement(index, this);
 		}
     }
 
     public void Play()
     {
+		flag.SetActive(true);
 		StopAllCoroutines();
 		StartCoroutine(FlagAnimation());
 	}

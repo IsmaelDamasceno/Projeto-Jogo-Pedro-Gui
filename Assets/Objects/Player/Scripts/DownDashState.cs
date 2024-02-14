@@ -22,12 +22,12 @@ public class DownDashState : BaseState
 	public override void Enter()
     {
         PlayerCore.rb.gravityScale = 0f;
-        
 	}
 
     public override void Exit()
     {
         PlayerCore.rb.gravityScale = PlayerCore.startGravScale;
+        PlayerCore.downdashHitSound.Play();
 	}
 
     public override void FixedStep()

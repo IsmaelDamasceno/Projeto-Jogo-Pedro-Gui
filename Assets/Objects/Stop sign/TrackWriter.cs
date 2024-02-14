@@ -40,7 +40,7 @@ public class TrackWriter : MonoBehaviour
 		);
 		tilemap.SetTilesBlock(totalBounds, airTiles);
 
-		if (trackLoaded)
+		if (trackLoaded && CheckpointSave.activeCheckpoint > 0)
 		{
 			CheckpointManager.TrackInstaPlacement();
 		}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b8eb03081be0f4d9364193fb445821, type: 3}
+  m_Name: Grass Steps Multi Sound
+  m_EditorClassIdentifier: 
+  source: {fileID: 0}
+  clips:
+  - {fileID: 8300000, guid: 0739515cb0c98fd4a875e1a3573df873, type: 3}
+  - {fileID: 8300000, guid: a23ff7021ff593a48acfb9d03522206e, type: 3}
+  - {fileID: 8300000, guid: 178940bea1efd8c419ef875bbeb1e1fd, type: 3}
+  - {fileID: 8300000, guid: 0b7bb60d21d3e56489f8c67b82c6ffed, type: 3}
+  random: 1
+  delayScale: 1

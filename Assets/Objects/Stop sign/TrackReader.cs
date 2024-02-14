@@ -34,7 +34,6 @@ public class TrackReader : MonoBehaviour
 
 	void Start()
     {
-		Debug.Log($"start {gameObject.GetInstanceID()}");
 		if (instance == null)
 		{
 			instance = this;
@@ -107,7 +106,6 @@ public class TrackReader : MonoBehaviour
 
 			for(int x = minX; x <= maxX; x++)
 			{
-				Debug.Log($"iterating: {x}");
 				instance.IterateColumn(x, tilemapHeight, buffer, ref currentByte, ref byteItr, ref bitItr);
 			}
 		}

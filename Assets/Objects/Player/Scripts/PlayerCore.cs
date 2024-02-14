@@ -17,6 +17,10 @@ namespace Player
 		public static Animator animator;
 		public static BoxCollider2D boxCollider;
 		public static CircleCollider2D circleCollider;
+
+		public static MultiSoundAsset slashSound;
+		public static MultiSoundAsset grassSteps;
+		public static SingleSoundAsset downdashHitSound;
 		#endregion
 
 		public static float startGravScale;
@@ -67,6 +71,17 @@ namespace Player
 				boxCollider = GetComponent<BoxCollider2D>();
 				circleCollider = GetComponent<CircleCollider2D>();
 				startGravScale = rb.gravityScale;
+
+				downdashHitSound = Resources.Load<SingleSoundAsset>("Sound Assets/Downdash Hit Single Sound");
+				downdashHitSound.Setup(GetComponent<AudioSource>());
+
+				slashSound = Resources.Load<MultiSoundAsset>("Sound Assets/Slash Multi Sound");
+				slashSound.Setup(GetComponent<AudioSource>(), this);
+				slashSound.SetRepeating(false);
+
+				grassSteps = Resources.Load<MultiSoundAsset>("Sound Assets/Grass Steps Multi Sound");
+				grassSteps.Setup(GetComponent<AudioSource>(), this);
+				grassSteps.SetDelay(new Vector2(0.4f, 0.6f));
 
 				#region State Machine
 				stateMachine = GetComponent<StateMachine>();

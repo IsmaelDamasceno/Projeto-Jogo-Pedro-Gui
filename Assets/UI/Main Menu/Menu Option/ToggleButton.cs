@@ -26,6 +26,7 @@ public class ToggleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
 	protected float currentTime = 0f;
 	protected int direction = 0;
+    public bool selected = false;
 
 	protected Image image;
 	protected TextMeshProUGUI text;
@@ -40,7 +41,7 @@ public class ToggleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     /// <summary>
     /// Método redirecionada do Start para que possa ser chamado nas classes derivadas
     /// </summary>
-    protected void Init()
+    protected virtual void Init()
     {
 		image = GetComponent<Image>();
 		text = Utils.SearchObjectWithComponent<TextMeshProUGUI>(transform, "Text");
@@ -59,13 +60,15 @@ public class ToggleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void SetSelected(bool isSelected)
     {
         direction = isSelected ? 1 : -1;
+        selected = isSelected;
 	}
 
     public void Update()
     {
         if (direction != 0)
         {
-            currentTime += Time.deltaTime * direction;
+            currentTime += Time.unscaledDeltaTime * direction;
+            currentTime = Mathf.Clamp(currentTime, 0f, animationTime);
             float percent = currentTime / animationTime;
             if ((percent > 1f && direction == 1) || (percent < 0f && direction == -1))
             {

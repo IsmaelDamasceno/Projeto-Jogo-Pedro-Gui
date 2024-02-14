@@ -15,6 +15,8 @@ public class InputListener : MonoBehaviour
 	public static UnityEvent<bool> jumpEvent;
 	public static UnityEvent downdashEvent;
 	public static UnityEvent<string> controlChangeEvent;
+	public static UnityEvent<float> switchEvent;
+	public static UnityEvent pauseEvent;
 
     public static PlayerInput playerInput;
 
@@ -31,6 +33,8 @@ public class InputListener : MonoBehaviour
 			downdashEvent = new();
 
 			controlChangeEvent ??= new();
+			switchEvent = new();
+			pauseEvent = new();
 
 			playerInput = GetComponent<PlayerInput>();
 
@@ -80,12 +84,6 @@ public class InputListener : MonoBehaviour
 				newControl = "Keyboard";
 			}
 			controlChangeEvent.Invoke(newControl);
-			/*
-			Debug.Log(input.currentControlScheme);
-			Debug.Log(input.actions["Confirm"].GetBindingDisplayString());
-			Debug.Log(InputSystem.IsFirstLayoutBasedOnSecond(device.name, "DualShockGamepad"));
-			Debug.Log(InputSystem.IsFirstLayoutBasedOnSecond(device.name, "Gamepad")); 
-			*/
 		}
 	}
 	public void OnJump(InputValue value)
@@ -104,10 +102,19 @@ public class InputListener : MonoBehaviour
 	{
 		navigateEvent.Invoke(value.Get<Vector2>());
 	}
+	public void OnSwitch(InputValue value)
+	{
+		switchEvent.Invoke(value.Get<float>());
+	}
 
 	public void OnConfirm()
 	{
 		confirmEvent.Invoke();
 	}
 	#endregion
+
+	public void OnPause()
+	{
+		pauseEvent.Invoke();
+	}
 }

@@ -8,6 +8,7 @@ TagManager:
   - ShockWave
   - Track Tilemap
   - Barrier Tilemap
+  - Pause Menu
   layers:
   - Default
   - TransparentFX

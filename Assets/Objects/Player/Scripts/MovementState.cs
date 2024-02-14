@@ -125,7 +125,6 @@ namespace Player
 			#region Base Movement
 			moving = input != 0;
 			
-			
 			if (moving)
 			{
 				if (!boosting)
@@ -225,6 +224,8 @@ namespace Player
 			PlayerCore.animator.SetFloat("Air Speed", PlayerCore.rb.velocity.y);
 			PlayerCore.animator.SetFloat(
 				"Move Percent", speedPercent >= airAnimationTriggerPercent? 1f: 0f);
+
+			
 			#endregion
 
 			#region Particles
@@ -241,6 +242,18 @@ namespace Player
 				{
 					partSystem.Stop();
 				}
+			}
+			#endregion
+
+			#region Audio
+			if (moving && PlayerCore.grounded)
+			{
+				PlayerCore.grassSteps.Play();
+				PlayerCore.grassSteps.SetDelayScale(running? 0.5f: 1f);
+			}
+			else
+			{
+				PlayerCore.grassSteps.Stop();
 			}
 			#endregion
 		}
