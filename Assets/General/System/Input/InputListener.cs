@@ -17,9 +17,10 @@ public class InputListener : MonoBehaviour
 	public static UnityEvent<string> controlChangeEvent;
 	public static UnityEvent<float> switchEvent;
 	public static UnityEvent pauseEvent;
+	public static UnityEvent cancelEvent;
 
     public static PlayerInput playerInput;
-
+	public static string activeDevice = "Keyboard";
     void Awake()
     {
         if (instance == null)
@@ -35,6 +36,7 @@ public class InputListener : MonoBehaviour
 			controlChangeEvent ??= new();
 			switchEvent = new();
 			pauseEvent = new();
+			cancelEvent = new();
 
 			playerInput = GetComponent<PlayerInput>();
 
@@ -66,24 +68,22 @@ public class InputListener : MonoBehaviour
 	}
 	public void OnControlsChanged(PlayerInput input)
 	{
+		controlChangeEvent ??= new();
 		foreach(InputDevice device in input.devices)
 		{
-			controlChangeEvent ??= new();
-
-			string newControl;
 			if (InputSystem.IsFirstLayoutBasedOnSecond(device.name, "DualShockGamepad"))
 			{
-				newControl = "DualShock";
+				activeDevice = "DualShock";
 			}
 			else if (InputSystem.IsFirstLayoutBasedOnSecond(device.name, "Gamepad"))
 			{
-				newControl = "Gamepad";
+				activeDevice = "Gamepad";
 			}
 			else
 			{
-				newControl = "Keyboard";
+				activeDevice = "Keyboard";
 			}
-			controlChangeEvent.Invoke(newControl);
+			controlChangeEvent.Invoke(activeDevice);
 		}
 	}
 	public void OnJump(InputValue value)
@@ -116,5 +116,9 @@ public class InputListener : MonoBehaviour
 	public void OnPause()
 	{
 		pauseEvent.Invoke();
+	}
+	public void OnCancel()
+	{
+		cancelEvent.Invoke();
 	}
 }

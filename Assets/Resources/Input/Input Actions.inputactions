@@ -547,17 +547,6 @@
                 },
                 {
                     "name": "",
-                    "id": "70b5942f-a631-4ed0-b7fc-159c192909e8",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "6c5eeaf9-26e9-44b0-8d16-bc4b9f5f1ea4",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
@@ -573,7 +562,18 @@
                     "path": "<Keyboard>/backspace",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a1311ae-97c7-4e06-b0c8-557a0d692d8a",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
