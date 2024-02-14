@@ -124,6 +124,17 @@ public class MenuController : MonoBehaviour
 			}
         }
 	}
+	public GameObject GetACtivePanel()
+	{
+		foreach (GameObject panel in panels)
+		{
+			if (panel.activeInHierarchy)
+			{
+				return panel;
+			}
+		}
+		return null;
+	}
     public void CloseActivePanel()
     {
 		foreach (GameObject panel in panels)

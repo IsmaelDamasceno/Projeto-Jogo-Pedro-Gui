@@ -23,7 +23,10 @@ public class PauseController : MonoBehaviour
     public void Pause()
     {
         paused = !paused;
-        if (paused)
+		bool goingToPause = paused;
+		MenuController menuController =
+			Utils.SearchObjectWithComponent<MenuController>(pauseObject.transform, "Menu Controller");
+		if (goingToPause)
         {
 			pauseObject.SetActive(true);
 			Time.timeScale = 0f;
@@ -32,12 +35,19 @@ public class PauseController : MonoBehaviour
 		}
         else
         {
-			Utils.SearchObjectWithComponent<MenuController>(pauseObject.transform, "Menu Controller")
-			.CloseActivePanel();
-			pauseObject.SetActive(false);
-			Time.timeScale = 1f;
-			VolumeController.SetProfile("Level Volume Profile");
-			InputListener.SetInputMode("Player");
+			if (menuController.GetACtivePanel() != null)
+			{
+				paused = !paused;
+				menuController.CloseActivePanel();
+			}
+			else
+			{
+				menuController.CloseActivePanel();
+				pauseObject.SetActive(false);
+				Time.timeScale = 1f;
+				VolumeController.SetProfile("Level Volume Profile");
+				InputListener.SetInputMode("Player");
+			}
 		}
 	}
 }
