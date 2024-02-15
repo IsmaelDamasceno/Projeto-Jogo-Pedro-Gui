@@ -21,11 +21,13 @@ public class SceneMusic
 public class MusicSystem : MonoBehaviour
 {
 
-    public static List<SceneMusic> musicList;
+    [SerializeField] private List<SceneMusicAsset> musicList;
     public static MusicSystem instance;
     public static AudioSource source;
 
     public static string lastScene = "";
+
+    private static SceneMusicAsset activeAsset = null;
 
     void Awake()
     {
@@ -36,11 +38,6 @@ public class MusicSystem : MonoBehaviour
             source.loop = true;
 			instance = this;
             lastScene = SceneManager.GetActiveScene().name;
-
-            musicList = new List<SceneMusic> {
-                new SceneMusic("Menu", "Main Menu", false),
-                new SceneMusic("Level", "Level", false)
-            };
 
             DontDestroyOnLoad(gameObject);
 		}
@@ -53,18 +50,21 @@ public class MusicSystem : MonoBehaviour
 
     void Update()
     {
-        source.volume = SoundVolumeController.generalVolume * SoundVolumeController.musicVolume;
+        source.volume = 
+            SoundVolumeController.generalVolume * SoundVolumeController.musicVolume *
+            (activeAsset == null? 1f: activeAsset.individualVolume);
     }
 
     public void SceneEnter(Scene scene, LoadSceneMode mode)
     {
 		if (!source.isPlaying)
 		{
-			AudioClip clip = GetMusicFromSceneName(scene.name).clip;
-			if (clip != null)
+			SceneMusicAsset musicAsset = GetMusicFromSceneName(scene.name);
+			if (musicAsset.clip != null)
 			{
-				source.clip = clip;
+                source.clip = musicAsset.clip;
 				source.Play();
+				activeAsset = musicAsset;
 			}
 			else
 			{
@@ -73,30 +73,31 @@ public class MusicSystem : MonoBehaviour
 		}
         else
         {
-			SceneMusic activeSceneMusic = GetMusicFromSceneName(scene.name);
-			if (scene.name == lastScene)
+			SceneMusicAsset musicAsset = GetMusicFromSceneName(scene.name);
+			if (musicAsset.name == lastScene)
 			{
-                if (activeSceneMusic.replayOnSameScene)
+                if (musicAsset.replayOnSameScene)
                 {
-                    source.Stop();
-					source.clip = activeSceneMusic.clip;
+					source.clip = musicAsset.clip;
 					source.Play();
+					activeAsset = musicAsset;
 				}
 			}
 			else
 			{
 				source.Stop();
-				source.clip = activeSceneMusic.clip;
+				source.clip = musicAsset.clip;
 				source.Play();
+				activeAsset = musicAsset;
 			}
 		}
 
         lastScene = scene.name;
     }
 
-    public SceneMusic GetMusicFromSceneName(string sceneName)
+    public SceneMusicAsset GetMusicFromSceneName(string sceneName)
     {
-        foreach(SceneMusic music in musicList)
+        foreach(SceneMusicAsset music in musicList)
         {
             if (music.sceneName == sceneName)
             {

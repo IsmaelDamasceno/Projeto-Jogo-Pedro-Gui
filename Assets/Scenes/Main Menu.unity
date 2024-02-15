@@ -7388,6 +7388,7 @@ MonoBehaviour:
       m_Calls: []
   selected: 0
   id: 0
+  hovered: 0
   slideSpeed: 1
   currentSliderValue: 1
   volumeType: 1
@@ -7809,6 +7810,7 @@ MonoBehaviour:
         m_CallState: 2
   selected: 0
   id: 0
+  hovered: 0
   selectedOffset: 76
 --- !u!1 &1021203297
 GameObject:
@@ -8575,6 +8577,7 @@ MonoBehaviour:
         m_CallState: 2
   selected: 0
   id: 0
+  hovered: 0
   selectedOffset: 76
 --- !u!1 &1083808888
 GameObject:
@@ -9320,6 +9323,7 @@ MonoBehaviour:
       m_Calls: []
   selected: 0
   id: 0
+  hovered: 0
   slideSpeed: 1
   currentSliderValue: 1
   volumeType: 2
@@ -12205,6 +12209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb8b101aaa3e984c9c5eee76090d28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicList:
+  - {fileID: 11400000, guid: 832ca3667abe2e444bb05e939b4f8dd5, type: 2}
+  - {fileID: 11400000, guid: 3f8183db2ca9ba54a9d4f3bf3e302655, type: 2}
 --- !u!4 &1772792587
 Transform:
   m_ObjectHideFlags: 0
@@ -12380,6 +12387,7 @@ MonoBehaviour:
         m_CallState: 2
   selected: 0
   id: 0
+  hovered: 0
   selectedOffset: 76
 --- !u!1 &1806404513
 GameObject:
@@ -12391,6 +12399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1806404514}
   - component: {fileID: 1806404515}
+  - component: {fileID: 1806404516}
   m_Layer: 5
   m_Name: Menu Controller
   m_TagString: Untagged
@@ -12436,6 +12445,18 @@ MonoBehaviour:
   isCursorBounded: 0
   useKeyboard: 1
   useMouse: 1
+--- !u!114 &1806404516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806404513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7369e4cf1ea155c4e87d4f57ddd14087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1846834917
 GameObject:
   m_ObjectHideFlags: 0
@@ -13003,6 +13024,7 @@ MonoBehaviour:
       m_Calls: []
   selected: 0
   id: 0
+  hovered: 0
   slideSpeed: 1
   currentSliderValue: 1
   volumeType: 0
@@ -13797,6 +13819,7 @@ MonoBehaviour:
         m_CallState: 2
   selected: 0
   id: 0
+  hovered: 0
   selectedOffset: 76
 --- !u!1 &2068724157
 GameObject:
