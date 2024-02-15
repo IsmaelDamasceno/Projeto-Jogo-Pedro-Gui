@@ -52,6 +52,28 @@ public class SoundVolumeController: MonoBehaviour
 				break;
 		}
     }
+	public static float GetVolume(VolumeType type)
+	{
+		switch (type)
+		{
+			case VolumeType.General:
+				{
+					return generalVolume;
+				}
+			case VolumeType.Music:
+				{
+					return musicVolume;
+				}
+			case VolumeType.Effects:
+				{
+					return effectsVolume;
+				}
+			default:
+				{
+					return -1f;
+				}
+		}
+	}
 
 	public static void SetGeneralVolume(float value)
     {

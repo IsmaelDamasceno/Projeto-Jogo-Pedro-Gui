@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class SliderOption : ToggleButton
 {
-
 	[SerializeField] private float slideSpeed;
 	[SerializeField] float currentSliderValue;
 	[SerializeField] private VolumeType volumeType;
@@ -30,6 +25,8 @@ public class SliderOption : ToggleButton
 		{
 			blockMouse = true;
 		}
+
+		SetSliderValue(SoundVolumeController.GetVolume(volumeType));
 	}
 
 	protected override void Init()
