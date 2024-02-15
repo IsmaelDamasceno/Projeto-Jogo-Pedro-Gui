@@ -17,7 +17,6 @@ public class SceneMusic
     }
 }
 
-
 public class MusicSystem : MonoBehaviour
 {
 
@@ -25,6 +24,9 @@ public class MusicSystem : MonoBehaviour
     public static MusicSystem instance;
     public static AudioSource source;
 
+    /// <summary>
+    /// The name of the last scene
+    /// </summary>
     public static string lastScene = "";
 
     private static SceneMusicAsset activeAsset = null;
@@ -74,7 +76,7 @@ public class MusicSystem : MonoBehaviour
         else
         {
 			SceneMusicAsset musicAsset = GetMusicFromSceneName(scene.name);
-			if (musicAsset.name == lastScene)
+			if (musicAsset.sceneName == lastScene)
 			{
                 if (musicAsset.replayOnSameScene)
                 {
