@@ -66,7 +66,7 @@ public class Saw : MonoBehaviour
 		transform.position = Vector2.Lerp(positions[0], positions[1], percent);
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
 		if (collision.transform.TryGetComponent(out IAttackable attackable))
 		{

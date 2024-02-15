@@ -111,23 +111,22 @@ public class EnemyMoveState : BaseState
         return Physics2D.OverlapCircle(pos, edgeCheckRadius, collisionMask);
 	}
 
-
     private void CauseDamage(Transform hitTransform)
     {
 		Vector2 direction = new Vector2(Math.Sign(hitTransform.position.x - transform.position.x) * 2f, 1f).normalized;
 		hitTransform.GetComponent<IAttackable>().SufferDamage(1, default, direction, 8f, .1f);
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerStay2D(Collider2D collision)
     {
-        if (!active)
-        {
-            return;
-        }
+		if (!active)
+		{
+			return;
+		}
 
 		if (collision.CompareTag("Player"))
 		{
-            CauseDamage(collision.transform);
+			CauseDamage(collision.transform);
 		}
 	}
 

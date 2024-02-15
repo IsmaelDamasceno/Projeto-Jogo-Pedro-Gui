@@ -11,7 +11,8 @@ public class SpikeCauseDamage : MonoBehaviour
 {
 
 	[SerializeField] private float randomAngle;
-	private void OnTriggerEnter2D(Collider2D collision)
+
+	private void OnTriggerStay2D(Collider2D collision)
 	{
 		if (collision.TryGetComponent(out IAttackable attackable))
 		{
