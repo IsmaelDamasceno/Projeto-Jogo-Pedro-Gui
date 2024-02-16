@@ -15,4 +15,4 @@ MonoBehaviour:
   clip: {fileID: 8300000, guid: 4d7801651348a8d47990a60c3c3540d4, type: 3}
   replayOnSameScene: 0
   sceneName: Level
-  individualVolume: 0.2
+  individualVolume: 0.7

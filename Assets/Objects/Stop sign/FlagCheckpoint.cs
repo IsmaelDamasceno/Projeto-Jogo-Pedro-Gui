@@ -16,6 +16,7 @@ public class FlagCheckpoint : MonoBehaviour
     public int index;
     private float startScale;
     private Color startColor;
+    private bool active;
 
     private SpriteRenderer sprRenderer;
 
@@ -32,20 +33,24 @@ public class FlagCheckpoint : MonoBehaviour
 
 		if (CheckpointSave.activeCheckpoint >= index)
 		{
+            active = true;
 			Play();
 		}
 		if (CheckpointSave.activeCheckpoint == index)
 		{
 			PlayerCore.rb.transform.position = transform.position;
+            TimerController.time = CheckpointSave.activeCheckpointtime;
 		}
 	}
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && PlayerCore.stateMachine.currentState == "Move" && !flag.activeInHierarchy)
+        if (collision.CompareTag("Player") && PlayerCore.stateMachine.currentState == "Move" && !flag.activeInHierarchy && !active)
         {
-            CheckpointManager.StartTrackPlacement(index, this);
+            active = true;
+			CheckpointManager.StartTrackPlacement(index, this);
+            CheckpointSave.activeCheckpointtime = TimerController.time;
 		}
     }
 
