@@ -15,6 +15,7 @@ public class HealthSystem : MonoBehaviour
 
     public static int health;
     private static int healthMax;
+    public static bool hasDiedOnce = false;
 
     public static HealthSystem instance;
 
@@ -68,6 +69,7 @@ public class HealthSystem : MonoBehaviour
 		if (health <= 0)
 		{
 			SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+            hasDiedOnce = true;
 		}
         return health <= 0;
 	}

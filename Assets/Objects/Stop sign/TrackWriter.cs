@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 public class TrackWriter : MonoBehaviour
 {
 	private Tilemap tilemap;
-	private static bool trackLoaded = false;
+	public static bool trackLoaded = false;
 	void Awake()
 	{
 		tilemap = GetComponent<Tilemap>();

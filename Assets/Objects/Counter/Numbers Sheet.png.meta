@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 13be7629a594d5a428dd5908e3aa24fa
+guid: 8e913065a8a079a4d9a667b2d6466838
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6861365922197683907
-    second: tree2_0
+      213: 2469149856514500996
+    second: Numbers Sheet_0
+  - first:
+      213: -4310469288467098746
+    second: Numbers Sheet_1
+  - first:
+      213: 4068731406684379326
+    second: Numbers Sheet_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,22 +106,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tree2_0
+      name: Numbers Sheet_0
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 0
-        width: 54
-        height: 22
+        width: 256
+        height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d31cf6dfb0887c0a0800000000000000
-      internalID: -6861365922197683907
+      spriteID: 489e0ce56be244220800000000000000
+      internalID: 2469149856514500996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Numbers Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68310bd15032e24c0800000000000000
+      internalID: -4310469288467098746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Numbers Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb8d5e548a9077830800000000000000
+      internalID: 4068731406684379326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Numbers Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75b548f280169ca41a59cb329ed151c2
+      internalID: -837266553
       vertices: []
       indices: 
       edges: []
@@ -123,7 +192,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: ed0f273928b3c6f41887423d9c8cb039
     internalID: 0
     vertices: []
     indices: 
@@ -131,7 +200,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tree2_0: -6861365922197683907
+      Numbers Sheet_0: 2469149856514500996
+      Numbers Sheet_1: -4310469288467098746
+      Numbers Sheet_2: 4068731406684379326
+      Numbers Sheet_3: -837266553
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

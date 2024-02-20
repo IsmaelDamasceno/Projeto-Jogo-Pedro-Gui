@@ -7,7 +7,7 @@ public class PauseController : MonoBehaviour
 {
     public static bool paused = false;
     public static GameObject pauseObject;
-
+	public static bool allowPause = true;
     void Start()
     {
         InputListener.pauseEvent.AddListener(PauseUsed);
@@ -24,6 +24,11 @@ public class PauseController : MonoBehaviour
 
 	public void PauseUsed()
 	{
+		if (!allowPause)
+		{
+			return;
+		}
+
 		paused = !paused;
 		bool goingToPause = paused;
 		MenuController menuController =
@@ -76,6 +81,11 @@ public class PauseController : MonoBehaviour
 	}
 	public void CancelUsed()
 	{
+		if (!allowPause)
+		{
+			return;
+		}
+
 		MenuController menuController =
 			Utils.SearchObjectWithComponent<MenuController>(pauseObject.transform, "Menu Controller");
 

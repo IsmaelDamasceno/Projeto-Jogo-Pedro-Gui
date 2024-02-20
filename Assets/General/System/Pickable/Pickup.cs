@@ -123,6 +123,8 @@ public class Pickup : MonoBehaviour
 		armBase.transform.localScale = new(moveState.direction, 1f, 1f);
 		handsTrs.localScale = new(moveState.direction, 1f, 1f);
 	}
+	/*
+	 
 	private void Throw()
 	{
 		float x = InputController.moveAxis.GetValRaw();
@@ -142,6 +144,7 @@ public class Pickup : MonoBehaviour
 		holding.SetParent(null);
 		holding = null;
 	}
+	 */
 	private void HandAnimation()
     {
 		if (Mathf.Abs(rb.velocity.x) >= 2f)
