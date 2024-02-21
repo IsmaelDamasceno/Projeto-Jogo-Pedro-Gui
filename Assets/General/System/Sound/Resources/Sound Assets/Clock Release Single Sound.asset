@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Clock Release Single Sound
   m_EditorClassIdentifier: 
   source: {fileID: 0}
-  individualVolume: 0.2
+  individualVolume: 1
   clip: {fileID: 8300000, guid: 85acf7524a9e0594f9fa973d70383114, type: 3}
   caller: {fileID: 0}
