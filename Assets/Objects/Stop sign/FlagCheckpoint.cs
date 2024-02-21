@@ -50,15 +50,21 @@ public class FlagCheckpoint : MonoBehaviour
         {
             active = true;
 			CheckpointManager.StartTrackPlacement(index, this);
-            CheckpointSave.activeCheckpointtime = TimerController.time;
 		}
     }
 
     public void Play()
     {
+        if (CheckpointSave.activeCheckpoint < (byte)index)
+        {
+		    CheckpointSave.activeCheckpointtime = TimerController.time;
+		    CheckpointSave.activeCheckpoint = (byte)index;
+        }
+
 		flag.SetActive(true);
 		StopAllCoroutines();
 		StartCoroutine(FlagAnimation());
+
 	}
 
     private IEnumerator FlagAnimation()

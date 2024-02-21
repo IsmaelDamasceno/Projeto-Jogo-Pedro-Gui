@@ -15,16 +15,10 @@ public class Counter : MonoBehaviour
 
     private SingleSoundAsset countSound;
     private SingleSoundAsset releaseSound;
+
     private void OnEnable()
     {
-        if (triggeredOnce)
-        {
-			StopAllCoroutines();
-			StartCoroutine(Count());
-			TimerController.isRunning = false;
-			TimerController.SetEnabled(true);
-            PauseController.allowPause = false;
-		}
+
 	}
     private void OnDisable()
     {
@@ -42,7 +36,7 @@ public class Counter : MonoBehaviour
 
     void Start()
     {
-        if (instance == null)
+		if (instance == null)
         {
 			animator = GetComponent<Animator>();
 			imageRenderer = GetComponent<Image>();
@@ -54,14 +48,22 @@ public class Counter : MonoBehaviour
 			releaseSound.Setup(GetComponent<AudioSource>());
 
 			instance = this;
-            transform.parent.gameObject.SetActive(false);
 		}
         else
         {
             Debug.LogError($"duas instâncias de Counter encontradas, deletando {gameObject.name}");
             Destroy(gameObject);
         }
-    }
+
+		if (ClockCollision.clockColected && HealthSystem.hasDiedOnce)
+		{
+			StartCounting();
+		}
+		else
+		{
+			transform.parent.gameObject.SetActive(false);
+		}
+	}
 
     void Update()
     {
@@ -70,7 +72,12 @@ public class Counter : MonoBehaviour
 
     IEnumerator Count()
     {
-        for(int i = 0; i < numbers.Count; i++)
+		Debug.Log($"imageRenderer: {imageRenderer != null}");
+		Debug.Log($"animator: {animator != null}");
+		Debug.Log($"releaseSound: {releaseSound != null}");
+		Debug.Log($"countSound: {countSound != null}");
+
+		for (int i = 0; i < numbers.Count; i++)
         {
             if (i == numbers.Count -1)
             {
@@ -80,7 +87,7 @@ public class Counter : MonoBehaviour
                 countSound.Play();
             }
 
-            imageRenderer.sprite = numbers[i];
+			imageRenderer.sprite = numbers[i];
             animator.SetTrigger("Animation");
             yield return new WaitForSecondsRealtime(1f);
         }
@@ -92,5 +99,11 @@ public class Counter : MonoBehaviour
         instance.transform.parent.gameObject.SetActive(true);
 		Time.timeScale = 0f;
 		VolumeController.SetProfile("Menu Volume Profile");
+
+		instance.StopAllCoroutines();
+		instance.StartCoroutine(instance.Count());
+		TimerController.isRunning = false;
+		TimerController.SetEnabled(true);
+		PauseController.allowPause = false;
 	}
 }

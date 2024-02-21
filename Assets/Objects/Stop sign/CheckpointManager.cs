@@ -50,7 +50,6 @@ public class CheckpointManager : MonoBehaviour
 
     public static void StartTrackPlacement(int rightBoundIndex, FlagCheckpoint flag)
     {
-        CheckpointSave.activeCheckpoint = (byte)rightBoundIndex;
 		GoToPoint(rightBoundIndex);
 		TrackReader.LoadPoints((int)Mathf.Floor(minPoint), (int)Mathf.Floor(maxPoint), flag);
     }
