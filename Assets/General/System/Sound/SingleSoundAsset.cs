@@ -22,7 +22,8 @@ public class SingleSoundAsset : SoundAsset
             Debug.LogError("Audio source not properly setup for sound asset");
         }
 
-        source.PlayOneShot(clip);
+		source.volume = individualVolume * SoundVolumeController.generalVolume * SoundVolumeController.effectsVolume;
+		source.PlayOneShot(clip);
     }
 
     public void PlayRepeat()

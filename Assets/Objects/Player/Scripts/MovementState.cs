@@ -110,13 +110,19 @@ namespace Player
 
 		private void DownDashListener()
 		{
-			if (!PlayerCore.grounded)
+			if (!PlayerCore.grounded )
 			{
-				machine.ChangeState("DownDash");
+				if (Glove.UseAbility())
+				{
+					machine.ChangeState("DownDash");
+				}
 			}
 			else if (moving)
 			{
-				machine.ChangeState("Sliding");
+				if (Glove.UseAbility())
+				{
+					machine.ChangeState("Sliding");
+				}
 			}
 		}
 
