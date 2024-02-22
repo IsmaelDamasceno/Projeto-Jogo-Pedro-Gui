@@ -8,7 +8,6 @@ using UnityEngine;
 public class TimeFreeze : MonoBehaviour
 {
     private static TimeFreeze instance;
-    private static float freezeStop;
     private static bool frozen;
 
     void Start()
@@ -33,20 +32,17 @@ public class TimeFreeze : MonoBehaviour
     /// <param name="time">Duração</param>
     public static void Freeze(float time)
     {
-        freezeStop = Time.unscaledTime + time;
+        instance.StartCoroutine(instance.FreezeCoroutine(time));
+	}
+    private IEnumerator FreezeCoroutine(float time)
+    {
         Time.timeScale = 0f;
         frozen = true;
-    }
-
-    void Update()
-    {
-        if (frozen)
+        yield return new WaitForSecondsRealtime(time);
+        frozen = false;
+        if (!PauseController.paused)
         {
-            if (Time.unscaledTime > freezeStop)
-            {
-                Time.timeScale = 1f;
-                frozen = false;
-            }
-        }
+			Time.timeScale = 1f;
+		}
     }
 }

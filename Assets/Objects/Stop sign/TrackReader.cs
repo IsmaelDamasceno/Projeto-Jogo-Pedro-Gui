@@ -114,6 +114,10 @@ public class TrackReader : MonoBehaviour
 
 	private IEnumerator MoveFocusPoint(FlagCheckpoint flag)
 	{
+		#region Camera
+		CameraMovement.SetCameraHeight(CameraMovement.camBounds.size.y, 0.5f);
+		#endregion
+
 		focusPoint.gameObject.SetActive(true);
 		int tilemapHeight = tilemap.cellBounds.max.y - tilemap.cellBounds.min.y;
 		#region Start Byte
@@ -182,6 +186,10 @@ public class TrackReader : MonoBehaviour
 		flag.Play();
 		focusPoint.gameObject.SetActive(false);
 		CameraMovement.SetTarget(PlayerCore.rb.transform);
+
+		#region Camera
+		CameraMovement.SetCameraHeight(CameraMovement.startHeight, 0.5f);
+		#endregion
 	}
 
 	private void IterateColumn(int x, int tilemapHeight, byte[] buffer, ref byte currentByte, ref int byteItr, ref int bitItr)

@@ -13,11 +13,12 @@ public class CameraMovement : MonoBehaviour
 {
 	[SerializeField] private float lerpT;
 	[SerializeField] private float zDepth;
+	[SerializeField] private AnimationCurve cameraHeightBlendCurve;
 
 	/// <summary>
 	/// Struct que repreenta as bordas da fase, as quais a câmera não pode passar
 	/// </summary>
-	private Bounds camBounds;
+	public static Bounds camBounds;
 
 	private static Transform targetTrs;
 	private static CameraMovement instance;
@@ -36,6 +37,7 @@ public class CameraMovement : MonoBehaviour
 
 	private static Vector2 offset;
 
+	public static float startHeight;
 	public static void SetTarget(Transform newTarget)
 	{
 		if (newTarget == null)
@@ -61,6 +63,7 @@ public class CameraMovement : MonoBehaviour
 		Camera cam = Camera.main;
 		camHeight = 2f * cam.orthographicSize;
 		camWidth = camHeight * cam.aspect;
+		startHeight = camHeight;
 
 		if (instance == null)
 		{
@@ -112,9 +115,27 @@ public class CameraMovement : MonoBehaviour
 		shakeStop = shakeStart + time;
 	}
 
-	void FixedUpdate()
+	public static void SetCameraHeight(float newHeight, float time)
 	{
-
+		instance.StartCoroutine(instance.CameraHeightCoroutine(newHeight, time));
 	}
 
+	IEnumerator CameraHeightCoroutine(float newHeight, float animationTime)
+	{
+		Camera cam = Camera.main;
+		float currentTime = 0f;
+		float initialHeight = camHeight;
+		while(currentTime < animationTime)
+		{
+			currentTime += Time.deltaTime;
+			currentTime = Mathf.Clamp(currentTime, 0f, animationTime);
+
+			float percent = currentTime / animationTime;
+			float point = cameraHeightBlendCurve.Evaluate(percent);
+			camHeight = Mathf.Lerp(initialHeight, newHeight, point);
+			cam.orthographicSize = camHeight / 2f;
+
+			yield return null;
+		}
+	}
 }
