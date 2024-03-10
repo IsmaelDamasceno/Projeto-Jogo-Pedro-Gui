@@ -26,6 +26,7 @@ public class TimerController : MonoBehaviour
 			textComponent = GetComponent<TextMeshProUGUI>();
             backgroundImage = transform.parent.GetComponent<Image>();
             backgroundImage.color = isRunning? enabledColor: disabledColor;
+			textComponent.text = ConvertSecondsToMMSSHH(time);
 
 			instance = this;
 		}
@@ -78,7 +79,7 @@ public class TimerController : MonoBehaviour
 
     }
 
-	static string ConvertSecondsToMMSSHH(float seconds)
+	public static string ConvertSecondsToMMSSHH(float seconds)
 	{
 		int minutes = (int)(seconds / 60);
 		int remainingSeconds = (int)(seconds % 60);

@@ -5,8 +5,8 @@ using UnityEngine.Rendering.Universal;
 
 public class SpikeConnection : ConnectionComponent
 {
-
     [SerializeField] private float delay = 0f;
+    [SerializeField] private bool invert = false;
 
     private Animator animator;
     private Material material;
@@ -21,26 +21,31 @@ public class SpikeConnection : ConnectionComponent
         maxIntensity = light.intensity;
         light.intensity = 0f;
 	}
-
-    public override void SetConnection(Transform connectionTrs)
-    {
-
-    }
-
+    
     private IEnumerator WaitForDelay(bool signalVal)
     {
         yield return new WaitForSeconds(delay);
 		animator.SetBool("Active", signalVal);
 	}
 
-    public override void SetInterpolationValue(float value)
+	public override void SetConnection(Transform connectionTrs)
+	{
+
+	}
+
+	public override void SetInterpolationValue(float value)
     {
+        if (invert)
+        {
+            value = 1f - value;
+        }
 		light.intensity = value * maxIntensity;
 	}
 
     public override void SetSignal(bool signalVal)
     {
         StopAllCoroutines();
+        signalVal = invert ? !signalVal : signalVal;
         StartCoroutine(WaitForDelay(signalVal));
 	}
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.VisualScripting.Member;
 
 public class Counter : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Counter : MonoBehaviour
 
     private SingleSoundAsset countSound;
     private SingleSoundAsset releaseSound;
+    private AudioSource source;
 
     private void OnEnable()
     {
@@ -42,10 +44,9 @@ public class Counter : MonoBehaviour
 			imageRenderer = GetComponent<Image>();
 
 			countSound = Resources.Load<SingleSoundAsset>("Sound Assets/Clock Count Single Sound");
-			countSound.Setup(GetComponent<AudioSource>());
-
 			releaseSound = Resources.Load<SingleSoundAsset>("Sound Assets/Clock Release Single Sound");
-			releaseSound.Setup(GetComponent<AudioSource>());
+
+            source = GetComponent<AudioSource>();
 
 			instance = this;
 		}
@@ -57,7 +58,7 @@ public class Counter : MonoBehaviour
 
 		if (ClockCollision.clockColected && HealthSystem.hasDiedOnce)
 		{
-			StartCounting();
+			StartCounting(true);
 		}
 		else
 		{
@@ -70,38 +71,39 @@ public class Counter : MonoBehaviour
         
     }
 
-    IEnumerator Count()
+    IEnumerator Count(bool wait)
     {
-		Debug.Log($"imageRenderer: {imageRenderer != null}");
-		Debug.Log($"animator: {animator != null}");
-		Debug.Log($"releaseSound: {releaseSound != null}");
-		Debug.Log($"countSound: {countSound != null}");
+        if (wait)
+        {
+            yield return new WaitForSecondsRealtime(.1f);
+        }
 
 		for (int i = 0; i < numbers.Count; i++)
         {
             if (i == numbers.Count -1)
             {
-                releaseSound.Play();
+                releaseSound.Play(source);
             }
             else {
-                countSound.Play();
+                countSound.Play(source);
             }
 
 			imageRenderer.sprite = numbers[i];
             animator.SetTrigger("Animation");
+
             yield return new WaitForSecondsRealtime(1f);
         }
         transform.parent.gameObject.SetActive(false);
     }
 
-    public static void StartCounting()
+    public static void StartCounting(bool wait = false)
     {
         instance.transform.parent.gameObject.SetActive(true);
 		Time.timeScale = 0f;
 		VolumeController.SetProfile("Menu Volume Profile");
 
 		instance.StopAllCoroutines();
-		instance.StartCoroutine(instance.Count());
+		instance.StartCoroutine(instance.Count(wait));
 		TimerController.isRunning = false;
 		TimerController.SetEnabled(true);
 		PauseController.allowPause = false;

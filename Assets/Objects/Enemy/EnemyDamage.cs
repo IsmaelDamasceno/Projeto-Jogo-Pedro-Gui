@@ -13,6 +13,9 @@ public class EnemyDamage : MonoBehaviour, IAttackable
     private Rigidbody2D rb;
 	private bool invulnerable = false;
 
+	private AudioSource source;
+	private SingleSoundAsset damageSoundAsset;
+
 	/// <summary>
 	/// Função a ser executada para o inimigo sofre dano
 	/// </summary>
@@ -32,6 +35,8 @@ public class EnemyDamage : MonoBehaviour, IAttackable
 		{
 			machine.ChangeState("Free");
 		}
+
+		damageSoundAsset.Play(source);
 
 		Vector2 useDirection = direction;
 		if (useDirection == Vector2.zero && attackTransform != default)
@@ -59,6 +64,8 @@ public class EnemyDamage : MonoBehaviour, IAttackable
     {
         machine = GetComponent<StateMachine>();
         rb = GetComponent<Rigidbody2D>();
+		damageSoundAsset = Resources.Load<SingleSoundAsset>("Sound Assets/Damage Single Sound");
+		source = GetComponent<AudioSource>();
 	}
 
 	IEnumerator InvulnerabilityCoroutine()

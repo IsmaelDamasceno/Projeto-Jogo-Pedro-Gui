@@ -18,6 +18,8 @@ public class PlayerDamage : MonoBehaviour, IAttackable
 			return;
 		}
 
+		PlayerCore.damageSoundEffect.Play(PlayerCore.source);
+
 		TimeFreeze.Freeze(0.1f);
 		CameraMovement.ShakeIt(2f, 0.1f);
 		HealthSystem.ChangeHealth(-damage);

@@ -10,31 +10,27 @@ public class SingleSoundAsset : SoundAsset
     private Coroutine coroutine;
     public MonoBehaviour caller;
 
-	public void Setup(AudioSource source)
-	{
-		this.source = source;
-	}
-
-	public override void Play()
+	public override void Play(AudioSource playSource)
     {
-        if (source == null)
+        Transform cameraTrs = Camera.main.transform;
+        if (distanceDependent && Mathf.Abs(cameraTrs.position.x - playSource.transform.position.x) >= 8f)
         {
-            Debug.LogError("Audio source not properly setup for sound asset");
+            return;
         }
 
-		source.volume = individualVolume * SoundVolumeController.generalVolume * SoundVolumeController.effectsVolume;
-		source.PlayOneShot(clip);
+		playSource.volume = individualVolume * SoundVolumeController.generalVolume * SoundVolumeController.effectsVolume;
+		playSource.PlayOneShot(clip);
     }
 
-    public void PlayRepeat()
+    public void PlayRepeat(AudioSource source)
     {
         if (coroutine != null)
         {
             return;
         }
-        coroutine = caller.StartCoroutine(PlayRepeatCoroutine());
+        coroutine = caller.StartCoroutine(PlayRepeatCoroutine(source));
     }
-    public void Stop()
+    public void Stop(AudioSource source)
     {
         if (coroutine == null)
         {
@@ -45,7 +41,7 @@ public class SingleSoundAsset : SoundAsset
         source.Stop();
 	}
 
-    IEnumerator PlayRepeatCoroutine()
+    IEnumerator PlayRepeatCoroutine(AudioSource source)
     {
         while(true)
         {

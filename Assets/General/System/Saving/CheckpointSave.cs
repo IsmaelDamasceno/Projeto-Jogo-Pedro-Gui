@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [Serializable]
 public class PlayerScore
@@ -27,24 +28,42 @@ public class CheckpointSave : MonoBehaviour
         
     }
 
-    public static void Save(byte checkpointIndex)
+	public static void Restart()
+	{
+		activePlayerName = "";
+		activeCheckpoint = 0;
+		activeCheckpointtime = 0f;
+		TimerController.time = 0f;
+		ClockCollision.clockColected = false;
+		HealthSystem.hasDiedOnce = false;
+		TrackWriter.trackLoaded = false;
+
+		CheckpointManager.curIndPoint = 0;
+		CheckpointManager.minPoint = 0;
+		CheckpointManager.maxPoint = 1;
+	}
+
+    public static void Save()
     {
 		byte[] name = Encoding.ASCII.GetBytes(activePlayerName);
 		byte health = (byte)HealthSystem.health;
-		byte nameLength = (byte)name.Length;
-		// float time = TimerController.time;
+		float time = TimerController.time;
 
-		string saveFile = $"save# {activePlayerName}";
-		string filePath = Path.Combine(Application.persistentDataPath, saveFile);
+		string folderPath = Path.Combine(Application.persistentDataPath, "Saves");
+		if (!Directory.Exists(folderPath))
+		{
+			Directory.CreateDirectory(folderPath);
+		}
+
+		string saveFile = $"save #{activePlayerName} ${Random.Range(0, 50000)}.sav";
+		string filePath = Path.Combine(folderPath, saveFile);
 
 		using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
 		{
 			using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
 			{
-				// binaryWriter.Write(time);
+				binaryWriter.Write(time);
 				binaryWriter.Write(health);
-				binaryWriter.Write(nameLength);
-				binaryWriter.Write(name);
 			}
 		}
 	}

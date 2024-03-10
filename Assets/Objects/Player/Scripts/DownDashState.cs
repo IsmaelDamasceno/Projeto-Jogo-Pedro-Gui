@@ -27,7 +27,7 @@ public class DownDashState : BaseState
     public override void Exit()
     {
         PlayerCore.rb.gravityScale = PlayerCore.startGravScale;
-        PlayerCore.downdashHitSound.Play();
+        PlayerCore.downdashHitSound.Play(PlayerCore.source);
 	}
 
     public override void FixedStep()

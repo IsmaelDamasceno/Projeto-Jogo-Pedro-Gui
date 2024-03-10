@@ -21,6 +21,9 @@ namespace Player
 		public static MultiSoundAsset slashSound;
 		public static MultiSoundAsset grassSteps;
 		public static SingleSoundAsset downdashHitSound;
+		public static SingleSoundAsset damageSoundEffect;
+
+		public static AudioSource source;
 		#endregion
 
 		public static float startGravScale;
@@ -71,16 +74,17 @@ namespace Player
 				boxCollider = GetComponent<BoxCollider2D>();
 				circleCollider = GetComponent<CircleCollider2D>();
 				startGravScale = rb.gravityScale;
+				source = GetComponent<AudioSource>();
 
+				damageSoundEffect = Resources.Load<SingleSoundAsset>("Sound Assets/Damage Single Sound");
 				downdashHitSound = Resources.Load<SingleSoundAsset>("Sound Assets/Downdash Hit Single Sound");
-				downdashHitSound.Setup(GetComponent<AudioSource>());
-
+				
 				slashSound = Resources.Load<MultiSoundAsset>("Sound Assets/Slash Multi Sound");
-				slashSound.Setup(GetComponent<AudioSource>(), this);
+				slashSound.Setup(this);
 				slashSound.SetRepeating(false);
 
 				grassSteps = Resources.Load<MultiSoundAsset>("Sound Assets/Grass Steps Multi Sound");
-				grassSteps.Setup(GetComponent<AudioSource>(), this);
+				grassSteps.Setup(this);
 				grassSteps.SetDelay(new Vector2(0.4f, 0.6f));
 
 				#region State Machine
@@ -90,10 +94,12 @@ namespace Player
 				FreeState freeState = GetComponent<FreeState>();
 				DownDashState downDashState = GetComponent<DownDashState>();
 				SlidingState slidingState = GetComponent<SlidingState>();
+				NoMoveState noMoveState = GetComponent<NoMoveState>();
 				stateMachine.RegisterState("Move", moveState);
 				stateMachine.RegisterState("Free", freeState);
 				stateMachine.RegisterState("DownDash", downDashState);
 				stateMachine.RegisterState("Sliding", slidingState);
+				stateMachine.RegisterState("NoMove", noMoveState);
 				stateMachine.ChangeState("Move");
 				#endregion
 

@@ -95,8 +95,29 @@ public class Bomb : MonoBehaviour
 		}
 	}
 
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.gameObject.CompareTag("Player"))
+		{
+			StopAllCoroutines();
+
+			// Faz checagem de colisão para causar dano a objetos em volta
+			CheckCollisions();
+
+			// Cria as particulas de efeito
+			foreach (GameObject particlePrefab in explosionParticleObjects)
+			{
+				Transform particleTrs = Instantiate(particlePrefab, transform.position, Quaternion.identity).transform;
+				particleTrs.localScale = new Vector3(1f, 1f, 1f) * explosionEffectScale;
+			}
+
+			// Deleta a bomba
+			Destroy(gameObject);
+		}
+	}
+
 #if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
+	private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);

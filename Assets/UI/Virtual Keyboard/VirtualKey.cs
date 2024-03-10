@@ -5,6 +5,7 @@ using UnityEngine;
 public class VirtualKey : MonoBehaviour
 {
     public char value;
+    public KeyCode keycodeValue;
 
     void Start()
     {

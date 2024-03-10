@@ -40,7 +40,7 @@ public class Attack : MonoBehaviour
         attacking = true;
 		attackCollision.SetActive(true);
         animator.SetTrigger("Attack");
-        PlayerCore.slashSound.Play();
+        PlayerCore.slashSound.Play(PlayerCore.source);
 	}
 
     public void EndAttack()

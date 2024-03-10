@@ -254,7 +254,7 @@ namespace Player
 			#region Audio
 			if (moving && PlayerCore.grounded)
 			{
-				PlayerCore.grassSteps.Play();
+				PlayerCore.grassSteps.Play(PlayerCore.source);
 				PlayerCore.grassSteps.SetDelayScale(running? 0.5f: 1f);
 			}
 			else

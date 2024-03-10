@@ -25,11 +25,12 @@ public class ShockWave : MonoBehaviour
         collider = GetComponent<BoxCollider2D>();
         partSystem = GetComponent<ParticleSystem>();
 
-        RaycastHit2D hitinfo = Physics2D.Raycast(
-            (Vector2)transform.position + collider.offset, Vector2.down, 3f, groundMask);
+
+        RaycastHit2D hitinfo = Physics2D.BoxCast(
+            (Vector2)transform.position + collider.offset, collider.size * Utils.Vector2Abs(transform.localScale), 0f, Vector2.down, Mathf.Infinity, groundMask);
 	    if (hitinfo)
         {
-            transform.position += Vector3.down * hitinfo.distance + Vector3.up * 0.5f;
+            transform.position = hitinfo.point + Vector2.up * .15f;
         }
     }
 

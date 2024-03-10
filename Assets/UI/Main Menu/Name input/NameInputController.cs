@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class NameInputController : MonoBehaviour
 {
@@ -15,8 +16,18 @@ public class NameInputController : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SaveName();
+		}
     }
+
+    public void SaveName()
+    {
+		CheckpointSave.activePlayerName = inputField.text;
+		CheckpointSave.Save();
+		SceneManager.LoadScene("The End");
+	}
 
     public void OnTextChange()
     {

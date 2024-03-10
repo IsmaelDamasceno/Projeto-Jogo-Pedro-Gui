@@ -114,6 +114,8 @@ public class TrackReader : MonoBehaviour
 
 	private IEnumerator MoveFocusPoint(FlagCheckpoint flag)
 	{
+		PlayerCore.stateMachine.ChangeState("NoMove");
+
 		#region Camera
 		CameraMovement.SetCameraHeight(CameraMovement.camBounds.size.y, 0.5f);
 		#endregion
@@ -190,6 +192,8 @@ public class TrackReader : MonoBehaviour
 		#region Camera
 		CameraMovement.SetCameraHeight(CameraMovement.startHeight, 0.5f);
 		#endregion
+
+		PlayerCore.stateMachine.ChangeState("Move");
 	}
 
 	private void IterateColumn(int x, int tilemapHeight, byte[] buffer, ref byte currentByte, ref int byteItr, ref int bitItr)

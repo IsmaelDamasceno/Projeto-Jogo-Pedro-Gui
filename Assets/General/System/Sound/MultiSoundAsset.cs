@@ -28,7 +28,6 @@ public class MultiSoundAsset : SoundAsset
     public void SetRepeating(bool repeating)
     {
         this.repeating = repeating;
-        source.Stop();
     }
     public void SetDelayScale(float scale)
     {
@@ -39,20 +38,18 @@ public class MultiSoundAsset : SoundAsset
 
         delayScale = scale;
         Stop();
-        Play();
     }
 
-	public void Setup(AudioSource source, MonoBehaviour caller)
+	public void Setup(MonoBehaviour caller)
 	{
-		this.source = source;
 		this.caller = caller;
 	}
 
-	public override void Play()
+	public override void Play(AudioSource playSource)
     {
 		if (soundCoroutine == null)
         {
-			soundCoroutine = caller.StartCoroutine(StartPlaying());
+			soundCoroutine = caller.StartCoroutine(StartPlaying(playSource));
 		}
     }
     public void Stop()
@@ -66,7 +63,7 @@ public class MultiSoundAsset : SoundAsset
         soundCoroutine = null;
 	}
 
-    IEnumerator StartPlaying()
+    IEnumerator StartPlaying(AudioSource playSource)
     {
         bool playOnce = !repeating;
         bool played = false;
@@ -90,8 +87,8 @@ public class MultiSoundAsset : SoundAsset
                 currentIndex++;
                 currentIndex %= clips.Count;
             }
-            source.volume = individualVolume * SoundVolumeController.generalVolume * SoundVolumeController.effectsVolume;
-			source.PlayOneShot(clip);
+			playSource.volume = individualVolume * SoundVolumeController.generalVolume * SoundVolumeController.effectsVolume;
+			playSource.PlayOneShot(clip);
 
 			played = true;
             yield return new WaitForSeconds(Random.Range(delay.x, delay.y) * delayScale);

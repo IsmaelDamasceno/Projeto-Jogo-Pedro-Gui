@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcaba856a41ee9f409c2735c00f85256, type: 3}
   m_Name: Clock Release Single Sound
   m_EditorClassIdentifier: 
-  source: {fileID: 0}
   individualVolume: 1
+  distanceDependent: 0
   clip: {fileID: 8300000, guid: 85acf7524a9e0594f9fa973d70383114, type: 3}
   caller: {fileID: 0}

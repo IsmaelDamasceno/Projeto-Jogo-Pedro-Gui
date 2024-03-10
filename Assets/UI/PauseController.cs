@@ -33,7 +33,6 @@ public class PauseController : MonoBehaviour
 		bool goingToPause = paused;
 		MenuController menuController =
 			Utils.SearchObjectWithComponent<MenuController>(pauseObject.transform, "Menu Controller");
-
 		if (InputListener.activeDevice == "Keyboard")
 		{
 			if (goingToPause)

@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 using static UnityEngine.InputSystem.PlayerInput;
 
 public class InputListener : MonoBehaviour
@@ -21,6 +23,9 @@ public class InputListener : MonoBehaviour
 
     public static PlayerInput playerInput;
 	public static string activeDevice = "Keyboard";
+
+	public static string activeMode = "UI";
+
     void Awake()
     {
         if (instance == null)
@@ -41,6 +46,9 @@ public class InputListener : MonoBehaviour
 			playerInput = GetComponent<PlayerInput>();
 
 			instance = this;
+
+			TestDevice(GetComponent<PlayerInput>());
+			SceneManager.sceneLoaded += SceneLoaded;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -49,8 +57,12 @@ public class InputListener : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 	
+	private void SceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		TestDevice(GetComponent<PlayerInput>());
+	}
+
 
     public static void SetInputMode(string mode)
     {
@@ -68,8 +80,12 @@ public class InputListener : MonoBehaviour
 	}
 	public void OnControlsChanged(PlayerInput input)
 	{
+		TestDevice(input);
+	}
+	private void TestDevice(PlayerInput input)
+	{
 		controlChangeEvent ??= new();
-		foreach(InputDevice device in input.devices)
+		foreach (InputDevice device in input.devices)
 		{
 			if (InputSystem.IsFirstLayoutBasedOnSecond(device.name, "DualShockGamepad"))
 			{
@@ -86,6 +102,7 @@ public class InputListener : MonoBehaviour
 			controlChangeEvent.Invoke(activeDevice);
 		}
 	}
+
 	public void OnJump(InputValue value)
 	{
 		jumpEvent.Invoke(value.isPressed);

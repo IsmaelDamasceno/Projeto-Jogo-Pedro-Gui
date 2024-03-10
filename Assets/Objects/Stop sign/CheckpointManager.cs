@@ -7,10 +7,10 @@ public class CheckpointManager : MonoBehaviour
 
     private static List<float> points = new();
 
-    private static int curIndPoint = 0;
+    public static int curIndPoint = 0;
 
-    private static float minPoint = 0;
-    private static float maxPoint = 1;
+    public static float minPoint = 0;
+    public static float maxPoint = 1;
 
     void Awake()
     {
@@ -21,6 +21,10 @@ public class CheckpointManager : MonoBehaviour
 			if (childTrs.TryGetComponent(out FlagCheckpoint checkpoint))
             {
                 checkpoint.index = i;
+                if (i == transform.childCount-1)
+                {
+                    checkpoint.finalFlag = true;
+                }
             }
             i++;
 		}

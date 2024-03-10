@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Color = UnityEngine.Color;
 
 public class FlagCheckpoint : MonoBehaviour
@@ -14,6 +15,8 @@ public class FlagCheckpoint : MonoBehaviour
 
 	private GameObject flag;
     public int index;
+    public bool finalFlag = false;
+
     private float startScale;
     private Color startColor;
     private bool active;
@@ -85,5 +88,10 @@ public class FlagCheckpoint : MonoBehaviour
             yield return null;
         }
 		flag.transform.localScale = new(1f, 1f, 1f);
+        if (finalFlag)
+        {
+            InputListener.SetInputMode("UI");
+			SceneManager.LoadScene("Name");
+		}
 	}
 }

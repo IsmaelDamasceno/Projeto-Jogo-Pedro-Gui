@@ -106,6 +106,7 @@ public class MenuController : MonoBehaviour
 
     public void OpenPanel(string panelName)
     {
+		CloseActivePanel();
 		foreach(GameObject panel in panels)
         {
             if (panel.name == panelName)
@@ -113,15 +114,6 @@ public class MenuController : MonoBehaviour
                 panel.SetActive(true);
 				enabled = false;
             }
-            else
-            {
-                panel.SetActive(false);
-				if (panel.TryGetComponent(out MenuController panelMC))
-				{
-					panelMC.ForceSelect(-1);
-				}
-				enabled = true;
-			}
         }
 	}
 	public GameObject GetACtivePanel()
@@ -172,11 +164,18 @@ public class MenuController : MonoBehaviour
 
     public void HighScores()
     {
-
+		OpenPanel("Scores Panel");
     }
 
     public void Quit()
     {
-
+		CheckpointSave.Restart();
+		VolumeController.SetProfile("Menu Volume Profile");
+		SceneManager.LoadScene("Main Menu");
     }
+
+	public void ExitGame()
+	{
+		Application.Quit();
+	}
 }
