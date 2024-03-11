@@ -25,18 +25,19 @@ public class CarMovement : MonoBehaviour
 
     void Start()
     {
-        CameraMovement.SetCameraHeight(cameraHeight, .5f);
-
 		carPosition = transform.position;
         leftCorner = carPosition - leftCornerDistance * Vector2.right;
         rightCorner = carPosition + rightCornerDistance * Vector2.right;
 
         currentDirection = Vector2.right;
 
-#if UNITY_EDITOR
-        Debug.Break();
-#endif
     }
+
+    private void OnEnable()
+    {
+		CameraMovement.SetCameraHeight(cameraHeight, .5f);
+		CameraMovement.SetTarget(transform);
+	}
 
     void Update()
     {
