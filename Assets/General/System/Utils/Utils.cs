@@ -94,4 +94,36 @@ public static class Utils
 	{
 		return new Vector3(Mathf.Abs(vector.x), Mathf.Abs(vector.y), Mathf.Abs(vector.z));
 	}
+
+	public static float LineGetYBasedOnX(LineRenderer line, float xPosition)
+	{
+		for(int i = 0; i < line.positionCount; i++)
+		{
+			Vector3 point = line.GetPosition(i);
+			Vector3 nextPoint = point;
+			if (i < line.positionCount - 1)
+			{
+				nextPoint = line.GetPosition(i + 1);
+			}
+
+			if (point.x <= xPosition && nextPoint.x >= xPosition)
+			{
+				if (point.y == nextPoint.y)
+				{
+					return point.y;
+				}
+				else
+				{
+					float totalDistance = nextPoint.x - point.x;
+					float distance = xPosition - point.x;
+					float percent = Mathf.Clamp(distance / totalDistance, 0f, 1f);
+					float y = Mathf.Lerp(point.y, nextPoint.y, percent);
+
+					return y;
+				}
+			}
+		}
+
+		return -100f;
+	}
 }

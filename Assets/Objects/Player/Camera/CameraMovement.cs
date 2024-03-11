@@ -50,7 +50,7 @@ public class CameraMovement : MonoBehaviour
 		}
 	}
 
-	void Start()
+	void Awake()
 	{
 		shakeScale = 0f;
 		shaking = false;
