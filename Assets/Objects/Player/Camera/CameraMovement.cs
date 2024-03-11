@@ -58,8 +58,6 @@ public class CameraMovement : MonoBehaviour
 		camBounds =
 			GameObject.FindGameObjectWithTag("Cam Bounds").GetComponent<BoxCollider2D>().bounds;
 
-		SetTarget(PlayerCore.rb.transform);
-
 		Camera cam = Camera.main;
 		camHeight = 2f * cam.orthographicSize;
 		camWidth = camHeight * cam.aspect;
